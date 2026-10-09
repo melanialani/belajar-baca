@@ -10,6 +10,7 @@ Reading-practice web app for Indonesian kindergarten kids. Background, deploy no
 
 ## Branch & deploy
 - Work on branch `claude`; merge into `main` only when the user approves. For later changes switch back to `claude` (bring it up to date with `main` first).
+- Cache busting: CSS/JS links in `index.html` carry `?v=YYYY-MM-DD`. Bump it on every release that changes CSS/JS (GitHub Pages caches ~10 min; this keeps a new `index.html` from mixing with old JS). Emoji SVGs need no version.
 - Public URL: https://melanialani.github.io/belajar-baca/ (GitHub Pages, repo `melanialani/belajar-baca`). Only what is pushed to `main` goes live.
 
 ## Rules
