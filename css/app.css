@@ -214,3 +214,16 @@ button:active{transform:translateY(3px)}
 .toast{position:fixed;left:50%;bottom:max(18px,env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:14px;font-size:18px;z-index:95;max-width:90vw;text-align:center}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 @media (orientation:portrait){.logo span{width:clamp(56px,17vw,110px);font-size:clamp(40px,12vw,84px)}.logo .bow{font-size:clamp(40px,12vw,84px);margin-right:calc(-1 * clamp(44px,13vw,90px))}}
+/* game feedback: big praise / X, hearts */
+.hearts{display:flex;gap:2px;font-size:clamp(20px,4.4vmin,30px);line-height:1}
+.hearts span{transition:opacity .2s,filter .2s}
+.hearts span.lost{opacity:.35;filter:grayscale(1)}
+.hearts span.pop{animation:pop .4s}
+.gfb{position:fixed;inset:0;z-index:55;display:none;flex-direction:column;align-items:center;justify-content:center;gap:4px;pointer-events:auto;text-align:center;padding:16px}
+.gfb.on{display:flex}
+.gfb .fbt{font-family:var(--ui);font-weight:700;text-transform:uppercase;font-size:clamp(44px,13vmin,110px);line-height:1.05;color:#fff;-webkit-text-stroke:3px var(--fbc);paint-order:stroke fill;text-shadow:0 6px 0 var(--fbc);animation:fbin .35s ease-out}
+.gfb .fbx{display:none;width:clamp(150px,42vmin,300px);height:clamp(150px,42vmin,300px);animation:fbin .3s ease-out}
+.gfb.ok{--fbc:#1A9F86}
+.gfb.no,.gfb.out{--fbc:#E2513F;background:rgba(74,43,92,.25)}
+.gfb.no .fbx,.gfb.out .fbx{display:block}
+@keyframes fbin{0%{transform:scale(.3);opacity:0}70%{transform:scale(1.1);opacity:1}100%{transform:scale(1)}}

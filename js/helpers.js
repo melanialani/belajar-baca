@@ -26,12 +26,17 @@ const PAL={pink:['#FF5FA2','#E0407F'],lilac:['#A47CFF','#8257E6'],mint:['#2EC4A6
   peach:['#FF9A62','#EC7436'],sky:['#4FB3FF','#2B90DE'],rose:['#FF7EB6','#E85A98'],berry:['#E0457B','#BC2C5E'],grape:['#8E6CF0','#6B4AD0'],coral:['#FF7A6B','#E2513F']};
 const BANDPAL=[PAL.mint,PAL.sky,PAL.lilac,PAL.pink,PAL.coral];
 const IC={
+  bigx:'<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="#fff" stroke="#E2513F" stroke-width="8"/><path d="M31 31l38 38M69 31L31 69" stroke="#E2513F" stroke-width="14" stroke-linecap="round"/></svg>',
   back:'<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>',
   next:'<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>',
   spk:'<svg viewBox="0 0 24 24"><path d="M3.5 9h4l5-4v14l-5-4h-4z" fill="#fff"/><path d="M16 8.5a5 5 0 010 7M18.6 6a8.6 8.6 0 010 12" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round"/></svg>',
   grid:'<svg viewBox="0 0 24 24" fill="#fff"><rect x="3" y="3" width="8" height="8" rx="2.5"/><rect x="13" y="3" width="8" height="8" rx="2.5"/><rect x="3" y="13" width="8" height="8" rx="2.5"/><rect x="13" y="13" width="8" height="8" rx="2.5"/></svg>'};
 function toast(msg,ms=3000){const t=h('div','toast',msg);document.body.append(t);setTimeout(()=>t.remove(),ms);}
-const SET=Object.assign({extra:false,slow:false,brk:15,case:'lower'},store.get('set',{}));
+const SET0=store.get('set',{});
+// one-time move of the old default break (15 min) to the new default (30 min); brkMig marks it as done
+if(!SET0.brkMig&&SET0.brk===15)SET0.brk=30;
+const SET=Object.assign({extra:false,slow:false,brk:30,case:'lower'},SET0,{brkMig:true});
+if(!SET0.brkMig)store.set('set',SET);
 // letter case setting: 'lower' (default) | 'cap' (first letter of a word) | 'upper'
 const cap=s=>s?s[0].toUpperCase()+s.slice(1):s;
 const caseWord=s=>SET.case==='upper'?s.toUpperCase():SET.case==='cap'?cap(s):s;

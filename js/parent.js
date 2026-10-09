@@ -22,14 +22,19 @@ $('#tExtra').onclick=()=>{SET.extra=!SET.extra;store.set('set',SET);$('#tExtra')
 $('#tSlow').onclick=()=>{SET.slow=!SET.slow;store.set('set',SET);$('#tSlow').classList.toggle('on',SET.slow);TTS.say(['Halo, ayo membaca']);};
 $('#tReset').onclick=()=>{const b=$('#tReset');if(b.textContent==='Hapus'){b.textContent='Yakin? Ketuk lagi';return;}
   store.clear();store.set('set',SET);Object.keys(MISS).forEach(k=>delete MISS[k]);b.textContent='Terhapus ✓';updateStars();buildReport();};
-let usedMs=0,lastTick=Date.now(),brkTimer=null;
-setInterval(()=>{const now=Date.now();if(document.visibilityState==='visible'&&!$('#breakov').classList.contains('on'))usedMs+=now-lastTick;lastTick=now;
+let usedMs=0,lastTick=Date.now(),brkTimer=null,brkEnd=0;
+// screen time: only count while visible; cap each step so a frozen/sleeping page never adds its off time
+setInterval(()=>{const now=Date.now();if(document.visibilityState==='visible'&&!$('#breakov').classList.contains('on'))usedMs+=Math.min(now-lastTick,10000);lastTick=now;
   if(SET.brk&&usedMs>=SET.brk*60000&&!$('#breakov').classList.contains('on'))showBreak();},5000);
 function showBreak(){TTS.stop();if(L){L.auto=false;L.tok++;$('#lauto').classList.remove('on');}
-  $('#breakov').classList.add('on');$('#brkgo').hidden=true;let left=120;
-  const upd=()=>{$('#brkcount').textContent=left>0?`⏳ ${Math.floor(left/60)}:${String(left%60).padStart(2,'0')}`:'';};upd();
-  clearInterval(brkTimer);brkTimer=setInterval(()=>{left--;upd();if(left<=0){clearInterval(brkTimer);$('#brkgo').hidden=false;}},1000);
+  $('#breakov').classList.add('on');$('#brkgo').hidden=true;brkEnd=Date.now()+120000;
+  clearInterval(brkTimer);brkTimer=setInterval(updBreak,1000);updBreak();
   TTS.say(['Waktunya istirahat! Istirahatkan mata, minum, dan bergerak sebentar ya.']);}
+// break countdown uses the real clock, so time with the screen off still counts
+function updBreak(){const left=Math.max(0,Math.ceil((brkEnd-Date.now())/1000));
+  $('#brkcount').textContent=left>0?`⏳ ${Math.floor(left/60)}:${String(left%60).padStart(2,'0')}`:'';
+  if(!left){clearInterval(brkTimer);$('#brkgo').hidden=false;}}
+document.addEventListener('visibilitychange',()=>{lastTick=Date.now();if($('#breakov').classList.contains('on'))updBreak();});
 function endBreak(){clearInterval(brkTimer);usedMs=0;$('#breakov').classList.remove('on');sfx.tap();}
 $('#brkgo').onclick=endBreak;
 longPress($('#brklock'),3000,endBreak,()=>toast('Orang tua: tekan tahan 3 detik'));

@@ -16,4 +16,11 @@ Reading-practice web app for Indonesian kindergarten kids. Background, deploy no
 - UI text shown to kids/parents is Indonesian (app language); code, comments, identifiers, commits stay English.
 - Displayed words/syllables/letters must go through the case helpers (`caseWord`, `casePart`, `caseUnit`) so the parent "Bentuk huruf" setting applies. TTS always gets the raw lowercase data.
 - New parent settings: add a `.setrow` in `#parentov`, default in `SET`, persist with `store.set('set',SET)`; reuse the `.seg`/`.tog` patterns.
+- Game feedback (all games, via the shared `api.ok()`/`api.bad()` in `nextQ`; new games must use them, no own timers/feedback):
+  - Correct: confetti + big random `PRAISE` text + its voice, then go to the next question right after (≈1 s), no long pause.
+  - Wrong: big X + random `OOPS` text + its voice, taps blocked ≈0.9 s, one heart lost.
+  - `HEARTS` = 5 per level; 0 hearts → `GAMEOVER` text + voice, back to that game's level list, no stars. Stars: 0 wrong 3⭐, 1–2 2⭐, 3–4 1⭐.
+  - Every word question must let the child hear the word (🔊 button and/or auto-say), except games where the sound is the answer (Tebak Nama Benda, Puzzle Bacaan Benda).
+  - Feedback phrases are written in normal case (TTS-friendly) and shown uppercase via CSS.
+- Timers that must survive screen-off (break countdown) use real clock time (`Date.now()` end time), never tick counting.
 - Verify: `node --check js/*.js`; test in the browser via the local static server on port **4006** (`.claude/launch.json`, `python -m http.server 4006`).

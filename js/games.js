@@ -1,5 +1,5 @@
 /* ============ mesin level ============ */
-const QN=5,OPT=[2,3,3,4,4];
+const QN=5,OPT=[2,3,3,4,4],HEARTS=5;
 function makeD(L){const t=3+(L-1)*10/24;const hi=Math.round(t);return {L,b:(L-1)/5|0,hi,lo:Math.max(3,hi-1),used:new Set(),q:0,cur:[],review:false,revTried:false};}
 const LET=x=>/^[a-z]+$/.test(x.w);
 const HASE=x=>!!x.e;
@@ -35,22 +35,29 @@ function buildLevelGrid(){const g=G.g,st=levelStars(g.id),box=$('#lvgrid');box.i
   for(let L=1;L<=25;L++){const [c,d]=BANDPAL[(L-1)/5|0];const s=st[L-1]||0;
     const b=h('button','lv'+(s?' done':''),`${L}<small>${s?'⭐'.repeat(s):''}</small>`);b.style.setProperty('--c',c);b.style.setProperty('--d',d);
     b.setAttribute('aria-label','Level '+L);b.onclick=()=>{sfx.tap();startLevel(L);};box.append(b);}}
-function startLevel(L){rnd=mulberry32(hashStr(G.g.id)+L*7919);Object.assign(G,{L,q:0,err:0,D:makeD(L),stars0:totalStars()});
-  onScreen('game');$('#endov').classList.remove('on');$('#gtitle').textContent='Level '+L;nextQ();}
+function startLevel(L){rnd=mulberry32(hashStr(G.g.id)+L*7919);Object.assign(G,{L,q:0,err:0,hearts:HEARTS,D:makeD(L),stars0:totalStars()});
+  onScreen('game');$('#endov').classList.remove('on');$('#gtitle').textContent='Level '+L;drawHearts();nextQ();}
+function drawHearts(lost){$('#ghearts').innerHTML=Array.from({length:HEARTS},(_,i)=>`<span class="${i<G.hearts?'':'lost'}${i===lost?' pop':''}">${ico('❤️')}</span>`).join('');}
+// big feedback layer over the game; it also blocks taps while shown
+function showFb(kind,text){const f=$('#gfb');f.className='gfb on '+kind;f.querySelector('.fbx').innerHTML=kind==='ok'?'':IC.bigx;f.querySelector('.fbt').textContent=text;}
+const hideFb=()=>{$('#gfb').className='gfb';};
 function dots(){const d=$('#gdots');d.innerHTML='';for(let i=0;i<QN;i++)d.append(h('i',i<G.q?'done':i===G.q?'now':''));}
 function nextQ(){
-  const tok=++G.tok;G.done=false;G.qerr=0;TTS.stop();
+  const tok=++G.tok;G.done=false;G.qerr=0;TTS.stop();hideFb();
   if(G.q>=QN)return endLevel();
   Object.assign(G.D,{q:G.q,cur:[],review:false,revTried:false});
   dots();const st=$('#stage');st.innerHTML='';
   const api={
-    ok(parts=[]){if(G.done||tok!==G.tok)return;G.done=true;
+    ok(){if(G.done||tok!==G.tok)return;G.done=true;
       if(!G.qerr){let ch=false;G.D.cur.forEach(w=>{if(MISS[w]){MISS[w]--;if(MISS[w]<=0)delete MISS[w];ch=true;}});if(ch)saveMiss();}
-      sfx.ok();confetti();const t0=Date.now();
-      TTS.say([...parts,pickM(PRAISE)],{keep:true,onEnd:()=>setTimeout(()=>{if(tok===G.tok){G.q++;nextQ();}},Math.max(300,1300-(Date.now()-t0)))});},
-    bad(el,word){if(G.done)return;G.err++;G.qerr++;sfx.no();
+      sfx.ok();confetti();const t0=Date.now(),txt=pickM(PRAISE);showFb('ok',txt);
+      TTS.say([txt],{keep:true,onEnd:()=>setTimeout(()=>{if(tok===G.tok){G.q++;nextQ();}},Math.max(150,1000-(Date.now()-t0)))});},
+    bad(el,word){if(G.done||tok!==G.tok)return;G.err++;G.qerr++;sfx.no();
       const w=word||G.D.cur[0];if(w&&BYW[w]){MISS[w]=Math.min(5,(MISS[w]||0)+1);saveMiss();}
-      if(el){el.classList.remove('shake');void el.offsetWidth;el.classList.add('shake');}}};
+      if(el){el.classList.remove('shake');void el.offsetWidth;el.classList.add('shake');}
+      G.hearts--;drawHearts(G.hearts);
+      if(G.hearts<=0){G.done=true;const txt=pickM(GAMEOVER);showFb('out',txt);TTS.say([txt],{onEnd:()=>setTimeout(()=>{if(tok===G.tok)leaveGame();},400)});return;}
+      const txt=pickM(OOPS);showFb('no',txt);TTS.say([txt]);setTimeout(()=>{if(tok===G.tok&&!G.done)hideFb();},900);}};
   const auto=G.g.fn(st,api,G.D)||[];
   $('#grev').hidden=!G.D.review;
   const intro=G.q===0?[G.g.ins]:G.D.review?['Ayo ulang kata ini']:[];
@@ -68,7 +75,8 @@ function endLevel(){
 $('#eAgain').onclick=()=>{sfx.tap();startLevel(G.L);};
 $('#eNext').onclick=()=>{sfx.tap();startLevel(Math.min(25,G.L+1));};
 $('#eMap').onclick=()=>{sfx.tap();$('#endov').classList.remove('on');onScreen('levels');$('#lvtitle').textContent=G.g.title;buildLevelGrid();};
-$('#gback').onclick=()=>{sfx.tap();TTS.stop();G.tok++;rnd=Math.random;onScreen('levels');$('#lvtitle').textContent=G.g.title;buildLevelGrid();};
+function leaveGame(){TTS.stop();G.tok++;hideFb();rnd=Math.random;onScreen('levels');$('#lvtitle').textContent=G.g.title;buildLevelGrid();}
+$('#gback').onclick=()=>{sfx.tap();leaveGame();};
 
 /* --- pola game --- */
 function arrange(st,api,{word,target,pieces,prefill=0,pic=true,unit='l',upper=false}){
@@ -79,7 +87,7 @@ function arrange(st,api,{word,target,pieces,prefill=0,pic=true,unit='l',upper=fa
   const a=h('div','a'),tiles=h('div','tiles');let pos=prefill;
   pl.forEach(p=>{const b=h('button','tile',f(p));
     b.onclick=()=>{if(pos>=target.length||G.done)return;const spoken=unit==='l'?LN[p]:p;
-      if(p===target[pos]){b.classList.add('gone');b.disabled=true;const sl=slots.children[pos];sl.textContent=f(p,pos);sl.classList.add('fill','pop');pos++;TTS.say([spoken]);if(pos===target.length)api.ok([word.w]);}
+      if(p===target[pos]){b.classList.add('gone');b.disabled=true;const sl=slots.children[pos];sl.textContent=f(p,pos);sl.classList.add('fill','pop');pos++;TTS.say([spoken]);if(pos===target.length)api.ok();}
       else{TTS.say([spoken]);api.bad(b);}};tiles.append(b);});
   a.append(tiles);st.append(q,a);}
 function matchGame(st,api,words,leftRender,onLeft,leftCls=''){
@@ -90,7 +98,7 @@ function matchGame(st,api,words,leftRender,onLeft,leftCls=''){
     b.onclick=()=>{if(b.classList.contains('ok')||G.done)return;
       if(!sel){b.classList.remove('shake');void b.offsetWidth;b.classList.add('shake');TTS.say(['Pilih yang kiri dulu']);return;}
       if(sel.w===w){const c=pal[done%4];[sel.b,b].forEach(x=>{x.classList.add('ok');x.classList.remove('sel');x.style.setProperty('--m',c);});
-        sel=null;done++;if(done===words.length)api.ok([w.w]);else{sfx.tap();TTS.say([w.w]);}}
+        sel=null;done++;if(done===words.length)api.ok();else{sfx.tap();TTS.say([w.w]);}}
       else api.bad(b,sel.w.w);};Rc.append(b);});
   const wrap=h('div','match');wrap.append(Lc,Rc);st.append(wrap);}
 const LGROUP=[['b','d','p'],['m','n'],['s','z','c'],['k','g','h'],['t','d'],['f','v','p'],['j','l','i'],['u','o'],['a','e'],['r','l'],['w','y']];
@@ -106,9 +114,9 @@ const GAMES=[
    arrange(st,api,{word:w,target:[...w.w],pieces:shuffle([...w.w,...ex])});}},
  {id:'lengkapi',title:'Lengkapi Kata',c:'mint',ins:'Pilih suku kata yang hilang.',art:ems(['🍅'])+'<span class="br"></span>'+chips(['to','?']),
   fn(st,api,D){const w=takeWord(D,x=>x.s.length>=2&&x.s.length<=4&&(D.b>=3||HASE(x)));const k=rnd()*w.s.length|0,ans=w.s[k];
-   const q=h('div','q');if(w.e)q.append(P(w.e));const row=h('div','slots');w.s.forEach((s,i)=>row.append(h('div','slot'+(i===k?'':' fill'),i===k?'?':casePart(s,i))));q.append(row);
+   const q=h('div','q');if(w.e)q.append(P(w.e));const row=h('div','slots');w.s.forEach((s,i)=>row.append(h('div','slot'+(i===k?'':' fill'),i===k?'?':casePart(s,i))));q.append(row,spkBtn(()=>TTS.say([w.w])));
    const a=h('div','a');a.append(optsEl(shuffle([ans,...sylDistract(ans,OPT[D.b]-1,ALLSYL,D.b>=2)]),s=>casePart(s,k),(s,b)=>{TTS.say([s]);
-     if(s===ans){const sl=row.children[k];sl.textContent=casePart(s,k);sl.classList.add('fill','pop');b.classList.add('right');api.ok([w.w]);}else api.bad(b);}));st.append(q,a);}},
+     if(s===ans){const sl=row.children[k];sl.textContent=casePart(s,k);sl.classList.add('fill','pop');b.classList.add('right');api.ok();}else api.bad(b);}));st.append(q,a);return [w.w];}},
  {id:'pzsuku',title:'Puzzle Suku Kata',c:'sky',ins:'Susun suku katanya jadi nama gambar.',art:ems(['🐘'])+'<span class="br"></span>'+chips(['ga','jah']),
   fn(st,api,D){const w=takeWord(D,x=>x.s.length>=2&&x.s.length<=3&&(D.b>=3||HASE(x)));
    arrange(st,api,{word:w,target:w.s,unit:'s',pieces:shuffle([...w.s,...sylDistract('',[0,1,1,2,2][D.b],ALLSYL.filter(x=>!w.s.includes(x)),false)])});}},
@@ -117,31 +125,31 @@ const GAMES=[
  {id:'hitung',title:'Hitung Suku Kata',c:'mint',ins:'Ada berapa suku kata?',art:chips(['sa','pu'])+'<span class="br"></span>'+chips(['1','2','3']),
   fn(st,api,D){const w=takeWord(D,x=>x.s.length<=4);const q=h('div','q');if(w.e)q.append(P(w.e));const word=h('div','qword',caseWord(w.w));q.append(word,spkBtn(()=>TTS.say([w.w])));
    const max=Math.max([3,3,4,4,4][D.b],w.s.length);const nums=Array.from({length:max},(_,i)=>i+1);
-   const a=h('div','a');a.append(optsEl(nums,n=>n,(n,b)=>{if(n===w.s.length){b.classList.add('right');word.innerHTML=w.s.map((s,i)=>`<span style="color:${COL[i%6]}">${casePart(s,i)}</span>`).join(' ');api.ok([...w.s,n+' suku kata']);}
+   const a=h('div','a');a.append(optsEl(nums,n=>n,(n,b)=>{if(n===w.s.length){b.classList.add('right');word.innerHTML=w.s.map((s,i)=>`<span style="color:${COL[i%6]}">${casePart(s,i)}</span>`).join(' ');api.ok();}
      else{TTS.say([String(n)]);api.bad(b);}}));st.append(q,a);return [w.w];}},
  {id:'tsuku',title:'Tebak Suara Suku Kata',c:'lilac',ins:'Dengarkan, lalu pilih suku katanya.',art:ems(['🔊'])+'<span class="br"></span>'+chips(['fu','ra','bo']),
   fn(st,api,D){const pl=[...new Set(sylPool(D.b))].sort((a,b)=>sylScore(a)-sylScore(b)||a.localeCompare(b));const fresh=pl.filter(s=>!D.used.has(s));const ans=bySeg(D,fresh.length?fresh:pl);D.used.add(ans);
    const q=h('div','q');q.append(spkBtn(()=>TTS.say([ans],{rate:.7}),true));
-   const a=h('div','a');a.append(optsEl(shuffle([ans,...sylDistract(ans,OPT[D.b]-1,pl,D.b>=2)]),caseUnit,(s,b)=>{if(s===ans){b.classList.add('right');api.ok([s]);}else{TTS.say([s]);api.bad(b);}}));
+   const a=h('div','a');a.append(optsEl(shuffle([ans,...sylDistract(ans,OPT[D.b]-1,pl,D.b>=2)]),caseUnit,(s,b)=>{if(s===ans){b.classList.add('right');api.ok();}else{TTS.say([s]);api.bad(b);}}));
    st.append(q,a);return [ans];}},
  {id:'tbenda',title:'Tebak Suara Nama Benda',c:'coral',ins:'Dengarkan, lalu pilih nama bendanya.',art:ems(['🔊'])+'<span class="br"></span>'+chips(['bola','sapu']),
   fn(st,api,D){const w=takeWord(D,HASE);const q=h('div','q');const ph=h('div','gpic','❓');preloadEmo(w.e);q.append(ph,spkBtn(()=>TTS.say([w.w]),true));
    const a=h('div','a');a.append(optsEl(shuffle([w,...distract(w,OPT[D.b]-1,D,HASE)]),x=>caseWord(x.w),(x,b)=>{
-     if(x===w){b.classList.add('right');ph.innerHTML=ico(w.e);ph.classList.add('pop');api.ok([w.w]);}else{TTS.say([x.w]);api.bad(b);}}));st.append(q,a);return [w.w];}},
+     if(x===w){b.classList.add('right');ph.innerHTML=ico(w.e);ph.classList.add('pop');api.ok();}else{TTS.say([x.w]);api.bad(b);}}));st.append(q,a);return [w.w];}},
  {id:'akhir',title:'Tebak Akhir Nama Benda',c:'berry',ins:'Huruf apa di akhir nama benda ini?',art:chips(['jeru','?'])+'<span class="br"></span>'+chips(['a','k','r']),
   fn(st,api,D){const w=takeWord(D,x=>LET(x)&&HASE(x));const last=w.w.slice(-1);const set=VOW.includes(last)?VOW:CONSL;
    const q=h('div','q');q.append(P(w.e));const word=h('div','qword',`${casePart(w.w.slice(0,-1),0)}<span class="blank">?</span>`);q.append(word,spkBtn(()=>TTS.say([w.w])));
    const a=h('div','a');a.append(optsEl(shuffle([last,...letterDistract(last,[3,3,4,4,4][D.b]-1,set,D.b>=2)]),caseUnit,(l,b)=>{TTS.say([LN[l]]);
-     if(l===last){b.classList.add('right');word.querySelector('.blank').textContent=caseUnit(l);api.ok([w.w]);}else api.bad(b);}));st.append(q,a);}},
+     if(l===last){b.classList.add('right');word.querySelector('.blank').textContent=caseUnit(l);api.ok();}else api.bad(b);}));st.append(q,a);}},
  {id:'tnama',title:'Tebak Nama Benda',c:'sun',ins:'Apa nama gambar ini?',art:ems(['🥕'])+'<span class="br"></span>'+chips(['?']),
   fn(st,api,D){const w=takeWord(D,HASE);const q=h('div','q');q.append(P(w.e));
-   const a=h('div','a');a.append(optsEl(shuffle([w,...distract(w,OPT[D.b]-1,D)]),x=>caseWord(x.w),(x,b)=>{if(x===w){b.classList.add('right');api.ok([w.w]);}else{TTS.say([x.w]);api.bad(b);}}));st.append(q,a);}},
+   const a=h('div','a');a.append(optsEl(shuffle([w,...distract(w,OPT[D.b]-1,D)]),x=>caseWord(x.w),(x,b)=>{if(x===w){b.classList.add('right');api.ok();}else{TTS.say([x.w]);api.bad(b);}}));st.append(q,a);}},
  {id:'pasang',title:'Pasangkan Suara',c:'mint',ins:'Dengarkan suaranya, lalu pilih katanya.',art:chips(['Sapi'])+ems(['🔊'])+'<span class="br"></span>'+chips(['Lemon'])+ems(['🔊']),
   fn(st,api,D){matchGame(st,api,pickDistinct(D,[2,2,3,3,3][D.b],x=>x.w.length<=9),()=>IC.spk,w=>TTS.say([w.w]),'spkb');}},
  {id:'awal',title:'Tebak Huruf Awal Kata',c:'sky',ins:'Huruf apa di awal kata?',art:ems(['🥕'])+'<span class="br"></span>'+chips(['L','M','W']),
   fn(st,api,D){const w=takeWord(D,x=>LET(x)&&(D.b>=3||HASE(x)));const first=w.w[0];const q=h('div','q');if(w.e)q.append(P(w.e));q.append(spkBtn(()=>TTS.say([w.w]),!w.e));
    const a=h('div','a');a.append(optsEl(shuffle([first,...letterDistract(first,OPT[D.b]-1,'abcdefghijklmnoprstuwyz'.split(''),D.b>=2)]),l=>l.toUpperCase(),(l,b)=>{TTS.say([LN[l]]);
-     if(l===first){b.classList.add('right');api.ok([w.w]);}else api.bad(b);}));st.append(q,a);return [w.w];}},
+     if(l===first){b.classList.add('right');api.ok();}else api.bad(b);}));st.append(q,a);return [w.w];}},
  {id:'cari',title:'Cari Kata',c:'pink',ins:'Cari kata ini di kotak huruf. Ketuk hurufnya berurutan.',art:ems(['🍊'])+'<span class="br"></span>'+chips(['J','U','K']),
   fn(st,api,D){const w=takeWord(D,x=>LET(x)&&x.w.length>=3&&x.w.length<=4);const T=w.w.toUpperCase();const N=4;
    const grid=Array(N*N).fill(null);const d=pick(D.b<2?[[0,1]]:[[0,1],[1,0]]);
@@ -158,7 +166,7 @@ const GAMES=[
          if(k===1){const dr=r-pr,dc=c-pc;if((dr===0&&dc===1)||(dr===1&&dc===0))dir=[dr,dc];else okStep=false;}
          else if(r!==pr+dir[0]||c!==pc+dir[1])okStep=false;}
        if(!okStep){if(ch===T[0]){clear();sel=[i];b.classList.add('sel');return;}clear();api.bad(b);return;}
-       sel.push(i);b.classList.add('sel');if(sel.length===T.length){sel.forEach(j=>cells[j].classList.add('found'));api.ok([w.w]);}};ws.append(b);});
+       sel.push(i);b.classList.add('sel');if(sel.length===T.length){sel.forEach(j=>cells[j].classList.add('found'));api.ok();}};ws.append(b);});
    const a=h('div','a');a.append(ws);st.append(q,a);}},
  {id:'urutk',title:'Urutkan Huruf Konsonan',c:'mint',ins:'Suku kata apa yang hilang?',art:chips(['ba','bi','?','be','bo']),
   fn(st,api,D){const bases=[['b','m','p','s','t'],['d','k','l','n','r'],['g','j','h','c','w'],['f','y','z','ng','ny'],[...CVORDER,'ng','ny']][D.b];
@@ -169,19 +177,19 @@ const GAMES=[
    const q=h('div','q');const row=h('div','slots');seq.forEach((s,i)=>row.append(h('div','slot'+(left.has(i)?'':' fill'),left.has(i)?'?':caseUnit(s))));
    q.append(row,spkBtn(()=>TTS.say(seq.map((s,i)=>left.has(i)?'hmm':s),{rate:.75})));
    const a=h('div','a');a.append(optsEl(shuffle([...miss.map(k=>seq[k]),...dis]),caseUnit,(s,b)=>{TTS.say([s]);const k=seq.indexOf(s);
-     if(left.has(k)){left.delete(k);b.classList.add('right');b.disabled=true;const sl=row.children[k];sl.textContent=caseUnit(s);sl.classList.add('fill','pop');if(!left.size)api.ok(seq);}else api.bad(b);}));
+     if(left.has(k)){left.delete(k);b.classList.add('right');b.disabled=true;const sl=row.children[k];sl.textContent=caseUnit(s);sl.classList.add('fill','pop');if(!left.size)api.ok();}else api.bad(b);}));
    st.append(q,a);}},
  {id:'uruth',title:'Urutkan Huruf',c:'grape',ins:'Dengarkan katanya, lalu susun hurufnya.',art:chips(['S','?','?','?'])+'<span class="br"></span>'+chips(['A','P','U']),
   fn(st,api,D){const w=takeWord(D,x=>LET(x)&&x.w.length<=maxLen[D.b]);const ex=sample('abdeghiklmnoprstu'.split('').filter(l=>!w.w.includes(l)),[0,0,0,1,1][D.b]);
    arrange(st,api,{word:w,target:[...w.w],pieces:shuffle([...w.w,...ex]),prefill:[1,1,1,0,0][D.b],pic:false,upper:true});return [w.w];}},
  {id:'bacaan',title:'Puzzle Bacaan Benda',c:'coral',ins:'Baca katanya, lalu pilih gambarnya.',art:chips(['Monyet'])+'<span class="br"></span>'+ems(['🐒','🍊']),
   fn(st,api,D){const w=takeWord(D,HASE);const q=h('div','q');q.append(h('div','qword'+(w.w.length>9?' long':''),SET.case==='upper'?w.w.toUpperCase():cap(w.w)));
-   const a=h('div','a');a.append(optsEl(shuffle([w,...distract(w,OPT[D.b]-1,D,HASE)]),x=>ico(x.e),(x,b)=>{if(x===w){b.classList.add('right');api.ok([w.w]);}else{TTS.say([x.w]);api.bad(b);}},'pic'));st.append(q,a);}},
+   const a=h('div','a');a.append(optsEl(shuffle([w,...distract(w,OPT[D.b]-1,D,HASE)]),x=>ico(x.e),(x,b)=>{if(x===w){b.classList.add('right');api.ok();}else{TTS.say([x.w]);api.bad(b);}},'pic'));st.append(q,a);}},
  {id:'jumlah',title:'Tebak Jumlah Huruf',c:'berry',ins:'Ada berapa huruf di kata ini?',art:chips(['?'])+'<span class="br"></span>'+chips(['3','4','5']),
   fn(st,api,D){const w=takeWord(D,x=>LET(x)&&x.w.length<=8);const n=w.w.length;const q=h('div','q');if(w.e)q.append(P(w.e));
    if(D.b<2){const lb=h('div','lboxes');[...w.w].forEach((ch,i)=>{const s=h('span','',casePart(ch,i));s.style.color=COL[i%6];lb.append(s);});q.append(lb);}else q.append(h('div','qword',caseWord(w.w)));
    q.append(spkBtn(()=>TTS.say([w.w])));const cnt=[3,3,4,4,4][D.b];const start=Math.max(1,n-(rnd()*cnt|0));
-   const a=h('div','a');a.append(optsEl(Array.from({length:cnt},(_,i)=>start+i),x=>x,(x,b)=>{if(x===n){b.classList.add('right');api.ok([n+' huruf']);}else{TTS.say([String(x)]);api.bad(b);}}));st.append(q,a);}}
+   const a=h('div','a');a.append(optsEl(Array.from({length:cnt},(_,i)=>start+i),x=>x,(x,b)=>{if(x===n){b.classList.add('right');api.ok();}else{TTS.say([String(x)]);api.bad(b);}}));st.append(q,a);}}
 ];
 function buildGameCards(){buildCards($('#gameCards'),GAMES,openLevels,g=>{const s=gameStars(g.id);return s?`<span class="badge">⭐ ${s}/75</span>`:'';});}
 

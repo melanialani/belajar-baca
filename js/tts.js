@@ -16,7 +16,10 @@ const TTS={ok:'speechSynthesis' in window,voice:null,token:0,
       speechSynthesis.speak(u);});};
     if(o.keep)go();else setTimeout(go,60);}};
 const LN={a:'a',b:'be',c:'ce',d:'de',e:'e',f:'ef',g:'ge',h:'ha',i:'i',j:'je',k:'ka',l:'el',m:'em',n:'en',o:'o',p:'pe',q:'ki',r:'er',s:'es',t:'te',u:'u',v:'fe',w:'we',x:'eks',y:'ye',z:'zet'};
-const PRAISE=['Hebat!','Pintar!','Bagus sekali!','Keren!','Benar!','Wah, hebat!'];
+// game feedback phrases, picked at random so they don't get boring
+const PRAISE=['Wow!','Kamu hebat!','Pintar!','Keren!','Hebat sekali!','Benar!','Mantap!','Bagus sekali!'];
+const OOPS=['Salah','Ayo coba lagi!','Ups, belum tepat','Coba lagi ya!','Hampir!'];
+const GAMEOVER=['Yah, coba lagi ya!','Yah, hatinya habis. Ayo coba lagi!','Yah, belum berhasil. Coba lagi ya!'];
 let AC=null;
 function tone(fs,dur=.15,type='sine',gap=.09,vol=.16){try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();if(AC.state==='suspended')AC.resume();
   const t0=AC.currentTime;fs.forEach((f,i)=>{const o=AC.createOscillator(),g=AC.createGain();o.type=type;o.frequency.value=f;const st=t0+i*gap;
