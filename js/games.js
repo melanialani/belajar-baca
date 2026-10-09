@@ -125,7 +125,7 @@ const GAMES=[
    const a=h('div','a');a.append(optsEl(shuffle([ans,...sylDistract(ans,OPT[D.b]-1,pl,D.b>=2)]),caseUnit,(s,b)=>{if(s===ans){b.classList.add('right');api.ok([s]);}else{TTS.say([s]);api.bad(b);}}));
    st.append(q,a);return [ans];}},
  {id:'tbenda',title:'Tebak Suara Nama Benda',c:'coral',ins:'Dengarkan, lalu pilih nama bendanya.',art:ems(['🔊'])+'<span class="br"></span>'+chips(['bola','sapu']),
-  fn(st,api,D){const w=takeWord(D,HASE);const q=h('div','q');const ph=h('div','gpic','❓');q.append(ph,spkBtn(()=>TTS.say([w.w]),true));
+  fn(st,api,D){const w=takeWord(D,HASE);const q=h('div','q');const ph=h('div','gpic','❓');preloadEmo(w.e);q.append(ph,spkBtn(()=>TTS.say([w.w]),true));
    const a=h('div','a');a.append(optsEl(shuffle([w,...distract(w,OPT[D.b]-1,D,HASE)]),x=>caseWord(x.w),(x,b)=>{
      if(x===w){b.classList.add('right');ph.innerHTML=ico(w.e);ph.classList.add('pop');api.ok([w.w]);}else{TTS.say([x.w]);api.bad(b);}}));st.append(q,a);return [w.w];}},
  {id:'akhir',title:'Tebak Akhir Nama Benda',c:'berry',ins:'Huruf apa di akhir nama benda ini?',art:chips(['jeru','?'])+'<span class="br"></span>'+chips(['a','k','r']),

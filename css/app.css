@@ -214,4 +214,3 @@ button:active{transform:translateY(3px)}
 .toast{position:fixed;left:50%;bottom:max(18px,env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:14px;font-size:18px;z-index:95;max-width:90vw;text-align:center}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 @media (orientation:portrait){.logo span{width:clamp(56px,17vw,110px);font-size:clamp(40px,12vw,84px)}.logo .bow{font-size:clamp(40px,12vw,84px);margin-right:calc(-1 * clamp(44px,13vw,90px))}}
-body.loading #app{visibility:hidden}

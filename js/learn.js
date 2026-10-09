@@ -49,6 +49,7 @@ function renderItem(it,c){c.innerHTML='';const hl=[];
 function renderLearn(speak){TTS.stop();const it=L.items[L.i];L.hl=renderItem(it,$('#lcontent'));
   const n=L.items.length;$('#progbar').style.width=((L.i+1)/n*100)+'%';$('#progtxt').textContent=(L.i+1)+'/'+n;$('#lprev').disabled=L.i===0;
   store.set('li:'+L.stage.id,L.i);if(L.i+1>store.get('lp:'+L.stage.id,0))store.set('lp:'+L.stage.id,L.i+1);
+  const nx=L.items[L.i+1];if(nx)preloadEmo(nx.e,nx.ex&&nx.ex[1]);
   if(speak)sayItem();}
 function sayItem(after){const it=L.items[L.i],hl=L.hl;
   TTS.say(it.say,{rate:it.k==='letter'?.8:.72,

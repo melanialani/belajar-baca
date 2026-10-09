@@ -9,23 +9,22 @@
 Split into static files (2026-10-09); the public URL is unchanged, GitHub Pages serves the extra files next to `index.html`.
 
 ```
-index.html          ← markup only; links css/app.css, preloads the emoji data, loads js/boot.js
+index.html          ← markup only; links css/app.css and the scripts below (plain <script src>, in order)
 css/app.css
-js/boot.js          ← fetches assets/emoji.json, then loads the app scripts below in order
-js/helpers.js       ← $, ico/emojify, random, store (ayobaca2:), SET + case helpers, longPress
+js/emoji-index.js   ← EMO: Set of emoji that have an SVG file
+js/helpers.js       ← $, ico/emojify/preloadEmo, random, store (ayobaca2:), SET + case helpers, longPress
 js/tts.js           ← speech + sound effects
 js/words.js         ← word lists, difficulty, learning stages, stickers
 js/learn.js         ← navigation, Belajar screens, Belajar → Bermain links
 js/parent.js        ← parent mode, report, break timer
 js/games.js         ← level engine + all games
 js/main.js          ← startup
-assets/emoji.json   ← ~6.7 MB Fluent Emoji SVG data
+assets/emoji/*.svg  ← 488 Fluent Emoji SVGs, one file each (name = hex code points joined by "-")
 ```
 
-- Why a loader: data in words.js/games.js calls `ico()` at load time, so `EMO` must exist before those scripts run (same as the old inline `<script id="emo">`). `helpers.js` reads `window.EMO_DATA`. If the fetch fails, icons fall back to plain emoji characters.
-- `body.loading` hides `#app` until `main.js` has run, so no half-built screen is shown while the emoji data downloads.
-- Loading speed: the total download is about the same as before (the emoji data is most of it). The gain is that the browser caches each file separately, so a code change no longer forces re-downloading the 6.7 MB emoji data, and the code files are small to edit and review. Further size cuts would mean shrinking/compressing the emoji SVGs or loading them lazily.
-- Development needs a local static server (`fetch` does not work from `file://`): port 4006, see `.claude/launch.json`. Saving the page as one file for offline use no longer works.
+- Emoji are loaded per image (2026-10-09): `ico()` returns `<img src="assets/emoji/….svg">`, so the browser downloads only the icons on screen (home ≈ 26 small files instead of one 6.7 MB JSON, ~770 KB gzipped). Each file is cached separately.
+- Risks handled: if an SVG fails to load (offline, missing file) `emoFail` swaps it for the plain emoji character; `.emo` has a fixed 1em size so late images don't shift the layout; `preloadEmo()` fetches icons that appear later (next Belajar item, the hidden answer picture in Tebak Suara Nama Benda) so they show without delay.
+- No fetch at startup any more, so the app also opens from `file://`; the local static server (port 4006, `.claude/launch.json`) is still the normal way to test.
 
 ## Branches
 - `claude`: working branch for Claude. Merge into `main` (live) only after the user approves; later changes go back to `claude`.
@@ -33,3 +32,4 @@ assets/emoji.json   ← ~6.7 MB Fluent Emoji SVG data
 ## History
 - 2026-10-08: parent setting "Bentuk huruf" (abc / Abc / ABC) added on branch `feature/letter-case-setting`; default stays lowercase.
 - 2026-10-09: split index.html into css/js/assets files (branch `claude`, includes the letter-case setting); behavior verified identical against the single-file version.
+- 2026-10-09: emoji moved from one JSON to one SVG file per emoji, loaded on demand.

@@ -1,8 +1,13 @@
 /* ============ helpers ============ */
 const $=(s,r=document)=>r.querySelector(s);
-const EMO=window.EMO_DATA||{},URI={}; // EMO_DATA is loaded from assets/emoji.json by boot.js
 const nk=k=>String(k).replace(/\uFE0F/g,'');
-function ico(k){if(!k)return '';const n=nk(k),s=EMO[n];if(!s)return k;return `<img class="emo" alt="" draggable="false" src="${URI[n]||(URI[n]='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(s))}">`;}
+// each emoji SVG is its own file, loaded by the browser only when shown (EMO = available keys, js/emoji-index.js)
+const emoUrl=n=>`assets/emoji/${[...n].map(c=>c.codePointAt(0).toString(16)).join('-')}.svg`;
+function ico(k){if(!k)return '';const n=nk(k);if(!EMO.has(n))return k;return `<img class="emo" alt="" draggable="false" src="${emoUrl(n)}" onerror="emoFail(this)">`;}
+// image failed (e.g. offline): show the plain emoji character instead
+function emoFail(img){const m=img.getAttribute('src').match(/([0-9a-f-]+)\.svg$/);img.replaceWith(String.fromCodePoint(...m[1].split('-').map(x=>parseInt(x,16))));}
+// warm the cache for icons that appear later (next learn item, hidden answers)
+function preloadEmo(...ks){ks.forEach(k=>{if(k&&EMO.has(nk(k)))new Image().src=emoUrl(nk(k));});}
 const EMRE=/(\p{Extended_Pictographic}|[0-9]\uFE0F?\u20E3)(\uFE0F|\u20E3|\u200D\p{Extended_Pictographic}\uFE0F?)*/gu;
 function emojify(sel){document.querySelectorAll(sel).forEach(el=>{el.innerHTML=el.innerHTML.replace(EMRE,m=>ico(m));});}
 const h=(tag,cls,html)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e;};
