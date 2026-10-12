@@ -10,7 +10,7 @@ const GOODS=[['apel','🍎'],['jeruk','🍊'],['pisang','🍌'],['roti','🍞'],
 
 MATH_GAMES.push(
  {id:'mmakan',title:'Kasih Makan Hewan',c:'peach',ins:'Beri makan sebanyak yang diminta, lalu tekan Sudah.',art:ems(['🐰'])+'<span class="br"></span>'+ems(['🥕','🥕','🥕']),
-  fn(st,api,D){const n=takeNum(D,D.b>=3?3:1,[5,6,8,10,10][D.b]),[an,ae,fname,fe]=pick(FEED);let fed=0;
+  fn(st,api,D){const n=takeNum(D,D.L>=11?3:1,maxCount(D)),[an,ae,fname,fe]=pick(FEED);let fed=0;
    const say=D.b>=3?[`${cap(an)} mau ${fname} sebanyak angka ini`]:[`${cap(an)} mau ${numW(n)} ${fname}`];
    const q=h('div','q'),animal=h('div','gpic',ico(ae)),tummy=h('div','tummy');
    q.append(mrow(animal,h('div','mnum sm',String(n))),tummy,spkBtn(()=>TTS.say(say)));
@@ -28,9 +28,9 @@ MATH_GAMES.push(
    const again=h('button','spk eye',ico('👀'));again.setAttribute('aria-label','Lihat lagi');again.onclick=()=>{if(!G.done){sfx.tap();flash();}};
    q.append(box,again);numBtns(st,api,q,n,numOpts(n,OPT[D.b],1,max,D.b>=2),()=>{clearTimeout(t);box.classList.remove('hide');});flash();}},
  {id:'mtoko',title:'Toko Buah',c:'sun',ins:'Bayar dengan koin sesuai harganya, lalu tekan Bayar.',art:ems(['🍎'])+chips(['3'])+'<span class="br"></span>'+chips(['1','2']),
-  fn(st,api,D){const coins=[[1],[1,2],[1,2,5],[1,2,5],[1,2,5]][D.b],max=[5,7,10,10,10][D.b];let items;
+  fn(st,api,D){const coins=[[1],[1,2],[1,2,5],[1,2,5],[1,2,5,10]][D.b],max=[5,7,10,10,20][D.b];let items;
    if(D.b<4){const p=takeNum(D,D.b>=2?3:1,max);items=[[...pick(GOODS),p]];}
-   else{const g=sample(GOODS,2),p1=1+(rnd()*5|0),p2=1+(rnd()*Math.min(5,max-p1)|0);items=[[...g[0],p1],[...g[1],p2]];}
+   else{const g=sample(GOODS,2),p1=rint(2,10),p2=rint(1,Math.min(10,max-p1));items=[[...g[0],p1],[...g[1],p2]];}
    const total=items.reduce((t,x)=>t+x[2],0);
    const say=[items.map(([nm,,p])=>`Harga ${nm} ${numW(p)}`).join(', ')+'. Ayo bayar!'];
    const q=h('div','q'),shelf=h('div','shelf');items.forEach(([,e,p])=>shelf.append(h('div','good',`<span class="gpic">${ico(e)}</span><span class="tag">${p}</span>`)));

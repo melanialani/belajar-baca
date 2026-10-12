@@ -22,5 +22,5 @@ GAMES.push(
 
 MATH_GAMES.push(
  {id:'mmemori',title:'Kartu Memori Angka',c:'grape',ins:'Buka dua kartu. Cari gambar dan angkanya yang sama.',art:chips(['3','?'])+'<span class="br"></span>'+ems(['🍓','🍓','🍓']),
-  fn(st,api,D){const e=pick(COUNTEMO),ns=sample(range(1,maxCount(D)),MEMN[D.b]);
-   memoryGame(st,api,ns,n=>`<span class="mcw">${n}</span>`,n=>objsEl(n,e,{cls:'sm'}).outerHTML,numW);}});
+  fn(st,api,D){const e=pick(COUNTEMO),[lo,hi]=qtyRange(D),ns=sample(range(lo,hi),MEMN[D.b]);
+   memoryGame(st,api,ns,n=>`<span class="mcw">${n}</span>`,n=>qtyEl(n,e,true).outerHTML,numW);}});

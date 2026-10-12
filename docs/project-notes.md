@@ -18,11 +18,14 @@ js/words.js         ← word lists, difficulty, learning stages, stickers
 js/learn.js         ← navigation, Belajar screens, Belajar → Bermain links
 js/parent.js        ← parent mode, report, break timer
 js/games.js         ← level engine + all reading games
-js/math.js          ← Berhitung menu: number learn stages + counting games
+js/math.js          ← counting core: numW (0–100), objects / ten frames / blocks, level ladders, first counting games
+js/math-learn.js    ← Belajar Hitung stages (1–5 … sums with tens)
 js/parade.js        ← parade() (answers on flags over looping vehicles) + Parade Kata / Parade Angka
 js/phonics.js       ← Kereta Bunyi, Tepuk Suku Kata, Kalimat Pendek, Baca Keras (mic, only if supported)
 js/count-games.js   ← Kasih Makan Hewan, Kilat Titik, Toko Buah
 js/memory.js        ← memoryGame() + Kartu Memori (words) / Kartu Memori Angka
+js/number-games.js  ← Urutkan Balon, Buaya Lapar, Susun Angka, Bangun Angka, Teman Sepuluh, Lompat Katak
+js/shapes.js        ← Bentuk & Pola: learn stages + Tebak Bentuk, Hitung Bentuk, Lanjutkan Pola
 js/daily.js         ← Latihan Hari Ini (10 mixed questions, streak)
 js/main.js          ← builds ALLGAMES, startup
 assets/emoji/*.svg  ← 488 Fluent Emoji SVGs, one file each (name = hex code points joined by "-")
@@ -45,3 +48,4 @@ assets/emoji/*.svg  ← 488 Fluent Emoji SVGs, one file each (name = hex code po
 - 2026-10-12: new home menu "Berhitung" (🧮): learn stages Angka 1–10, Angka 11–20, Penjumlahan, Pengurangan + 7 games (Hitung Benda, Tebak Suara Angka, Mana Lebih Banyak, Angka Hilang, Penjumlahan, Pengurangan, Sambung Angka), 25 levels each, stars count toward stickers. Asset version `?v=2026-10-12b` (second release that day).
 - 2026-10-12: 11 more games + daily practice. Bermain: Parade Kata, Kereta Bunyi (blending), Tepuk Suku Kata, Kalimat Pendek, Kartu Memori, Baca Keras (speech recognition; hidden on browsers without it). Berhitung: Parade Angka, Kasih Makan Hewan, Kilat Titik, Toko Buah, Kartu Memori Angka. Home: "Latihan Hari Ini" (10 questions mixing reading/counting at the child's level, review words first; streak 🔥 in `store` key `daily`, no stars). Exceptions to the feedback rule, on purpose: Kartu Memori only costs a heart when the partner card was already seen; Baca Keras only counts every third misheard attempt (recognizer is unreliable). Asset version `?v=2026-10-12c`.
 - 2026-10-12: home split into four menus: Belajar Baca, Game Baca, Belajar Hitung (`#belhitung`, `MATH_STAGES`), Game Hitung (`#mainhitung`, `MATH_GAMES`); Stiker as a tall side button (full-width row on portrait). Counting content gets its back target (`home`) in `main.js`. Asset version `?v=2026-10-12d`.
+- 2026-10-12: counting curriculum from zero to 100. Number words 0–100 (`numW`). Belajar Hitung now 17 stages: Angka 1–5, 6–10 & 0, Banyak & Sedikit, Belasan 11–19 ("dua belas = sepuluh dan dua"), Puluhan 10–100, Cara Baca Angka (2 · 12 · 20 · 22), Angka 21–50, 51–100 (tens rods + cubes, read as "dua puluh, dan dua"), Tambah/Kurang sampai 5 and 10, Teman Sepuluh, Hitung sampai 20, Tambah Kurang Puluhan, Bentuk, Pola (stage ids m1–m4 kept for saved progress). Existing counting games now step up every level up to 100 (look-alike choices like 12/21/20/22 later). 9 new games: Urutkan Balon, Buaya Lapar, Susun Angka, Bangun Angka, Teman Sepuluh, Lompat Katak, Tebak Bentuk, Hitung Bentuk, Lanjutkan Pola (all in Latihan Hari Ini except Bangun Angka). Toko Buah gets a 10 coin in the last band. Fixed: crossed-out pictures used the class `.x` (overlay close button style) and showed as 60px circles; now `.cx`. Asset version `?v=2026-10-12e`.

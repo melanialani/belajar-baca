@@ -83,14 +83,14 @@ function leaveGame(){TTS.stop();G.tok++;hideFb();rnd=Math.random;if(G.g.daily)re
 $('#gback').onclick=()=>{sfx.tap();leaveGame();};
 
 /* --- pola game --- */
-function arrange(st,api,{word,target,pieces,prefill=0,pic=true,unit='l',upper=false}){
+function arrange(st,api,{word,target,pieces,prefill=0,pic=true,unit='l',upper=false,speak=null}){
   const f=(s,i)=>upper?s.toUpperCase():i==null?caseUnit(s):casePart(s,i); // slots use word position, tiles stay standalone
   const q=h('div','q');if(pic&&word.e)q.append(P(word.e));q.append(spkBtn(()=>TTS.say([word.w])));
   const slots=h('div','slots');target.forEach((t,i)=>{const s=h('div','slot',i<prefill?f(t,i):'');if(i<prefill)s.classList.add('fill');slots.append(s);});q.append(slots);
   const pl=[...pieces];for(let i=0;i<prefill;i++){const k=pl.indexOf(target[i]);if(k>-1)pl.splice(k,1);}
   const a=h('div','a'),tiles=h('div','tiles');let pos=prefill;
   pl.forEach(p=>{const b=h('button','tile',f(p));
-    b.onclick=()=>{if(pos>=target.length||G.done)return;const spoken=unit==='l'?LN[p]:p;
+    b.onclick=()=>{if(pos>=target.length||G.done)return;const spoken=speak?speak(p):unit==='l'?LN[p]:p;
       if(p===target[pos]){b.classList.add('gone');b.disabled=true;const sl=slots.children[pos];sl.textContent=f(p,pos);sl.classList.add('fill','pop');pos++;TTS.say([spoken]);if(pos===target.length)api.ok();}
       else{TTS.say([spoken]);api.bad(b);}};tiles.append(b);});
   a.append(tiles);st.append(q,a);}

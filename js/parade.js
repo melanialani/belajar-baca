@@ -31,7 +31,8 @@ GAMES.push(
 MATH_GAMES.push(
  {id:'mparade',title:'Parade Angka',c:'sky',ins:'Ketuk kendaraan yang membawa jawabannya.',art:chips(['3'])+'<span class="br"></span>'+ems(['🚂','🚢']),
   fn(st,api,D){let o;
-   if(D.b<2){const max=maxCount(D),n=takeNum(D,1,max),q=h('div','q');q.append(objsEl(n,pick(COUNTEMO)));o={q,ans:n,list:numOpts(n,PARN[D.b],1,max,D.b>=1),say:['Ada berapa gambar?'],onRight(){}};}
-   else{o=opQ(D,rnd()<.5?'+':'-');const top=[4,5,7,10,10][D.b];o.list=numOpts(o.ans,PARN[D.b],0,top,true);}
+   // levels 1–10 count pictures, 11–25 walk through the whole sum ladder (opQ levels 2–25)
+   if(D.L<=10){const max=maxCount(D),n=takeNum(D,1,max),q=h('div','q');q.append(objsEl(n,pick(COUNTEMO)));o={q,ans:n,list:numOpts(n,PARN[D.b],1,max+2,D.b>=1),say:['Ada berapa gambar?'],onRight(){}};}
+   else o=opQ(D,rnd()<.5?'+':'-',Math.round((D.L-10)*25/15),PARN[D.b]);
    paradeGame(st,o.q,parade(D,o.list,String,(n,b)=>{if(n===o.ans){b.classList.add('right');o.onRight();api.ok();}else{TTS.say([numW(n)]);api.bad(b);}}));
    return o.say;}});
