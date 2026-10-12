@@ -18,6 +18,7 @@ css/parent.css      ← parent mode, report, break reminder
 css/reading-games.css ← parade, blending train, drum, sentences, read aloud, word search, memory cards
 css/math.css        ← numbers, pictures, ten frames, blocks, counting games
 css/science.css     ← shapes, patterns, science topics, true/false
+css/experiments.css ← experiment pages
 js/emoji-index.js   ← EMO: Set of emoji that have an SVG file
 js/helpers.js       ← $, ico/emojify/preloadEmo, random, store (ayobaca2:), SET + case helpers, longPress
 js/tts.js           ← speech + sound effects
@@ -34,6 +35,10 @@ js/count-games.js   ← Kasih Makan Hewan, Kilat Titik, Toko Buah
 js/memory.js        ← memoryGame() + Kartu Memori (words) / Kartu Memori Angka
 js/number-games.js  ← Urutkan Balon, Buaya Lapar, Susun Angka, Bangun Angka, Teman Sepuluh, Lompat Katak
 js/science-data.js  ← science topics per category (question, pictures, sentences), Kuis Sains questions, Benar atau Salah facts
+js/data/sains-hewan.js ← Sains Hewan: 100 topics in 6 smaller cards (+ quiz / true-false items)
+js/data/eksperimen.js  ← 100 experiments in 8 themes
+js/experiments.js   ← Eksperimen cards (materials, steps, what happens, why; page scrolls to the line being read)
+tools/emoji_tool.py ← exports Fluent Emoji SVGs by code point (see its header)
 js/science.js       ← Sains: Warna/Hewan/Buah/Sayur stages, science category stages, Kuis Sains, Benar atau Salah (+ shapes/patterns pushed in by shapes.js)
 js/shapes.js        ← Bentuk & Pola: learn stages + Tebak Bentuk, Hitung Bentuk, Lanjutkan Pola
 js/daily.js         ← Latihan Hari Ini (10 mixed questions, streak)
@@ -62,3 +67,4 @@ assets/emoji/*.svg  ← 488 Fluent Emoji SVGs, one file each (name = hex code po
 - 2026-10-12: cards in every menu ordered easy → hard (one list per menu in `main.js`). New home menu "Kenali Dunia" 🌈 (`#dunia`): Warna, Bentuk, Hewan, Buah, Sayur, Pola + Tebak Bentuk, Hitung Bentuk, Lanjutkan Pola, moved out of Belajar Baca / Belajar Hitung / Game Hitung (stage ids k2–k5 kept). Huruf A–Z is now a normal Belajar Baca stage (3rd); the "kamus" card style is gone. Asset version `?v=2026-10-12f`.
 - 2026-10-12: navigation reworked: Home has Belajar, Main, Stiker; Belajar and Main each open Baca · Hitung · Sains (the Kenali Dunia menu became Sains). Sains learn: Warna, Bentuk, Hewan, Buah, Sayur, Tubuh Kita, Sains Hewan, Pola, Tumbuhan, Air & Benda, Cuaca & Alam, Langit & Antariksa (44 science topics, each a question + pictures + sentences read one by one). Sains games: Tebak Bentuk, Kuis Sains, Hitung Bentuk, Lanjutkan Pola, Benar atau Salah. 🧲 has no SVG and shows the device emoji. Asset version `?v=2026-10-12g`.
 - 2026-10-12: css/app.css split into 8 feature files and js/games.js into engine.js + reading-games.js. Rule order kept per file; checked that every element's computed style is identical before/after (192 screens/games, 10,168 elements, desktop + phone landscape + phone portrait). Asset version `?v=2026-10-12h`.
+- 2026-10-12: Belajar hub gets a 4th button Eksperimen (100 safe experiments for TK/SD in 8 themes, each marked "Bersama orang tua"). Sains categories can now be split into smaller cards: Sains Hewan = 100 topics in 6 cards (Hewan di Rumah, Hewan Ternak, Serangga & Hewan Kecil, Burung, Hewan Laut, Hewan Liar); old stage id `sc-hewan` is now the group card. Emoji set grown 488 → 549 from the same Fluent Emoji art (Iconify `@iconify-json/fluent-emoji` 1.2.7, mapped to code points with emojibase labels; 1,563 icons available). Earlier picture substitutions (🌋, moon phases, 🪥, 🧲 …) restored. Plan: the other 5 science categories get 100 topics each, one at a time after review. Asset version `?v=2026-10-12i`.

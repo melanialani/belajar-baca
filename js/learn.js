@@ -3,7 +3,7 @@ let L=null,G=null;
 function show(id){
   TTS.stop();if(L){L.auto=false;L.tok++;}if(G)G.tok++;rnd=Math.random;
   onScreen(id);['endov','gridov','parentov','practov'].forEach(o=>$('#'+o).classList.remove('on'));
-  if(id==='belajar')buildLearnCards();if(id==='bermain')buildGameCards();if(id==='stiker')buildStickers();if(id==='belhitung')buildMathLearnCards();if(id==='mainhitung')buildMathGameCards();if(id==='belsains')buildSciLearnCards();if(id==='mainsains')buildSciGameCards();if(id==='home')updateDaily();
+  if(id==='belajar')buildLearnCards();if(id==='bermain')buildGameCards();if(id==='stiker')buildStickers();if(id==='belhitung')buildMathLearnCards();if(id==='mainhitung')buildMathGameCards();if(id==='belsains')buildSciLearnCards();if(id==='mainsains')buildSciGameCards();if(id==='sciGroup')buildGroupCards();if(id==='beleksp')buildExpCards();if(id==='home')updateDaily();
   updateStars();}
 document.querySelectorAll('.back').forEach(b=>b.innerHTML=IC.back);
 // any [data-go] button opens that screen; data-say speaks its name (home and the Belajar / Main hubs)
@@ -17,7 +17,12 @@ function updateStars(){const t='⭐ '+totalStars();document.querySelectorAll('.j
 function buildCards(el,list,onPick,extra){el.innerHTML='';
   list.forEach((m,i)=>{const [c,d]=PAL[m.c];const b=h('button','card');b.style.setProperty('--c',c);b.style.setProperty('--d',d);
     b.innerHTML=`<div class="art">${m.art}</div><div class="lbl">${m.title}</div>${extra?extra(m,i):''}`;b.onclick=()=>{sfx.tap();onPick(m);};el.append(b);});}
-function buildLearnCards(el=$('#learnCards'),list=STAGES){buildCards(el,list,openStage,(m,i)=>{const tot=m.items().length,got=Math.min(tot,store.get('lp:'+m.id,0));
+// [items seen, items total] of a learn card; a group card adds up its smaller cards
+const stageProg=m=>m.sub?m.sub.map(stageProg).reduce((a,b)=>[a[0]+b[0],a[1]+b[1]],[0,0]):(n=>[Math.min(n,store.get('lp:'+m.id,0)),n])(m.items().length);
+let GRP=null;
+function openGroup(g){GRP=g;show('sciGroup');TTS.say([g.title]);}
+function buildGroupCards(){if(!GRP)return show('belsains');$('#grpTitle').textContent=GRP.title;$('#sciGroup .back').dataset.go=GRP.home;buildLearnCards($('#grpCards'),GRP.sub);}
+function buildLearnCards(el=$('#learnCards'),list=STAGES){buildCards(el,list,m=>m.sub?openGroup(m):openStage(m),(m,i)=>{const [got,tot]=stageProg(m);
   return `<span class="num">${i+1}</span>`+(got>=tot?'<span class="badge">✓</span>':got>0?`<span class="badge">${got}/${tot}</span>`:'');});}
 function buildStickers(){
   const s=totalStars(),n=stkCount(s);$('#stkcount').textContent=`${n}/${STICKERS.length}`;
@@ -53,11 +58,11 @@ function renderLearn(speak){TTS.stop();const it=L.items[L.i];L.hl=renderItem(it,
   if(speak)sayItem();}
 function sayItem(after){const it=L.items[L.i],hl=L.hl;
   TTS.say(it.say,{rate:it.k==='letter'?.8:.72,
-    onPart:i=>{hl.forEach(x=>x.classList.remove('hi'));if(i<hl.length&&it.say.length>1&&it.k!=='big')hl[i].classList.add('hi');else hl.forEach(x=>x.classList.add('hi'));},
+    onPart:i=>{hl.forEach(x=>x.classList.remove('hi'));if(i<hl.length&&it.say.length>1&&it.k!=='big'){hl[i].classList.add('hi');if(it.k==='exp')hl[i].scrollIntoView({block:'nearest',behavior:'smooth'});}else hl.forEach(x=>x.classList.add('hi'));},
     onEnd:()=>{hl.forEach(x=>x.classList.remove('hi'));after&&after();}});}
 function go(i){const n=L.items.length;
   if(i<0)return;
-  if(i>=n){if(L.auto){L.i=0;renderLearn(false);autoStep();return;}L.auto=false;sfx.win();confetti();openPractice(L.stage,true);return;}
+  if(i>=n){if(L.auto){L.i=0;renderLearn(false);autoStep();return;}L.auto=false;sfx.win();confetti();if(L.stage.play.length)openPractice(L.stage,true);else show(L.stage.home);return;}
   L.i=i;if(L.auto){renderLearn(false);autoStep();}else renderLearn(true);}
 function autoStep(){const tok=++L.tok;sayItem(()=>{if(!L.auto||tok!==L.tok)return;setTimeout(()=>{if(!L.auto||tok!==L.tok)return;go(L.i+1);},1400);});}
 $('#lprev').onclick=()=>{sfx.tap();go(L.i-1);};

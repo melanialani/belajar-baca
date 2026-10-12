@@ -6,11 +6,12 @@ byIds(MATH_STAGES,['m1','m1b','mcmp','m3','m4','m2','mt10','mk10','mteman','mten
 byIds(SCI_STAGES,['k5','mbentuk','k2','k4','k3','sc-tubuh','sc-hewan','mpola','sc-tumbuhan','sc-benda','sc-alam','sc-langit']);
 byIds(GAMES,['tepuk','awal','tsuku','urutk','kereta','hitung','akhir','jumlah','memori','sambung','tbenda','pasang','parade','tnama','bacaan','lengkapi','pzsuku','puzzle','uruth','cari','kalimat','keras']);
 byIds(MATH_GAMES,['mhitung','msuara','mmakan','mkilat','mbanyak','mpasang','mmemori','mbuaya','murutb','murut','mtambah','mkurang','mkatak','mparade','mteman','mtoko','msusun','mbangun']);
+byIds(EXP_STAGES,['ex-air','ex-warna','ex-tumbuhan','ex-udara','ex-cahaya','ex-suara','ex-magnet','ex-dapur']);
 byIds(SCI_GAMES,['mbentuk','squiz','mhbentuk','mpola','sbs']);
 const ALLGAMES=[...GAMES,...MATH_GAMES,...SCI_GAMES];
 // back buttons of the learn viewer and the level list return to the subject's card list
 MATH_STAGES.forEach(s=>s.home='belhitung');MATH_GAMES.forEach(g=>g.home='mainhitung');
-SCI_STAGES.forEach(s=>s.home='belsains');SCI_GAMES.forEach(g=>g.home='mainsains');
+SCI_STAGES.forEach(s=>{s.home='belsains';(s.sub||[]).forEach(x=>x.home='sciGroup');});EXP_STAGES.forEach(s=>s.home='beleksp');SCI_GAMES.forEach(g=>g.home='mainsains');
 emojify('.hb b, .logo .bow, .brk .big, .endrow > .eb b, .daily b');
 TTS.init();buildLearnCards();buildGameCards();updateStars();updateDaily();
 document.addEventListener('pointerdown',function unlock(){try{if(TTS.ok){const u=new SpeechSynthesisUtterance(' ');u.volume=0;speechSynthesis.speak(u);}tone([1],.01,'sine',0,.0001);}catch(e){}},{once:true});

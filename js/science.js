@@ -15,7 +15,10 @@ function sciItem([short,q,p,lines]){const e=emoList(p)[0];
   return {k:'sci',e,label:`<span class="ge">${ico(e)}</span>${caseUnit(short)}`,say:[q,...lines],
     render(c){const qq=h('div','sciq',caseUnit(q)),pics=h('div','scipics',sciPics(p)),box=h('div','scilines'),ls=lines.map(x=>h('p','scil',caseUnit(x)));
       box.append(...ls);c.append(qq,pics,box);return [qq,...ls];}};}
-SCI_STAGES.push(...SCI_CATS.map(cat=>({id:cat.id,title:cat.title,c:cat.c,art:ems(emoList(cat.art)),play:[['squiz',1],['sbs',1]],items:()=>cat.topics.map(sciItem)})));
+const SUBPAL=['peach','sun','mint','sky','lilac','rose'];
+const sciStage=(g,c)=>({id:g.id,title:g.title,c,art:ems(emoList(g.art)),play:[['squiz',1],['sbs',1]],items:()=>g.topics.map(sciItem)});
+// a category with groups is one card that opens its smaller cards (sub); others are a single card
+SCI_STAGES.push(...SCI_CATS.map(cat=>cat.groups?{id:cat.id,title:cat.title,c:cat.c,art:ems(emoList(cat.art)),sub:cat.groups.map((g,i)=>sciStage(g,SUBPAL[i%SUBPAL.length]))}:sciStage(cat,cat.c)));
 
 // questions of the allowed difficulty for the band, easiest first, no repeats within a level
 function sciTake(D,list){const maxd=[1,1,2,2,3][D.b],pool=list.filter(x=>x[3]<=maxd).sort((a,b)=>a[3]-b[3]),fresh=pool.filter(x=>!D.used.has(x[0]));

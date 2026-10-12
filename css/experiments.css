@@ -1,0 +1,12 @@
+/* ============ experiments: one scrollable page per experiment ============ */
+.expw{width:100%;max-width:760px;max-height:100%;overflow-y:auto;display:flex;flex-direction:column;align-items:center;gap:clamp(6px,1.4vmin,12px);padding:4px 6px 12px}
+.expbadge{font-family:var(--ui);font-weight:600;font-size:clamp(14px,3vmin,20px);color:var(--ink2);background:var(--card);border-radius:999px;padding:2px 12px}
+.expmats{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;transition:transform .2s}
+.expmats .ex{font-size:clamp(15px,3.2vmin,24px);padding:2px 12px;gap:6px}
+.expsteps{margin:0;padding-left:1.7em;align-self:stretch;display:flex;flex-direction:column;gap:4px;text-align:left;font-weight:600;font-size:clamp(16px,3.6vmin,28px);line-height:1.25;color:var(--ink2)}
+.expsteps li{border-radius:12px;padding:2px 8px;transition:background .2s,color .2s}
+.expres{margin:0;align-self:stretch;text-align:left;font-weight:600;font-size:clamp(16px,3.6vmin,28px);line-height:1.25;color:var(--ink2);border-radius:12px;padding:4px 10px;background:var(--bg2);transition:background .2s,color .2s}
+.expres b{color:var(--pink)}
+.expsteps li.hi,.expres.hi{background:var(--card);color:var(--ink);box-shadow:0 3px 0 var(--bg2)}
+.expmats.hi{transform:scale(1.04)}
+@media (orientation:portrait){.expsteps,.expres{font-size:clamp(15px,4.2vw,26px)}.expmats .ex{font-size:clamp(14px,3.8vw,24px)}}

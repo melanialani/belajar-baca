@@ -33,14 +33,15 @@ Ilustrasi benda khas Indonesia: dibuat khusus untuk Ayo Baca.
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Andika:wght@400;700&family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/base.css?v=2026-10-12h">
-<link rel="stylesheet" href="css/home.css?v=2026-10-12h">
-<link rel="stylesheet" href="css/learn.css?v=2026-10-12h">
-<link rel="stylesheet" href="css/game.css?v=2026-10-12h">
-<link rel="stylesheet" href="css/parent.css?v=2026-10-12h">
-<link rel="stylesheet" href="css/reading-games.css?v=2026-10-12h">
-<link rel="stylesheet" href="css/math.css?v=2026-10-12h">
-<link rel="stylesheet" href="css/science.css?v=2026-10-12h">
+<link rel="stylesheet" href="css/base.css?v=2026-10-12i">
+<link rel="stylesheet" href="css/home.css?v=2026-10-12i">
+<link rel="stylesheet" href="css/learn.css?v=2026-10-12i">
+<link rel="stylesheet" href="css/game.css?v=2026-10-12i">
+<link rel="stylesheet" href="css/parent.css?v=2026-10-12i">
+<link rel="stylesheet" href="css/reading-games.css?v=2026-10-12i">
+<link rel="stylesheet" href="css/math.css?v=2026-10-12i">
+<link rel="stylesheet" href="css/science.css?v=2026-10-12i">
+<link rel="stylesheet" href="css/experiments.css?v=2026-10-12i">
 </head>
 <body>
 <div id="app">
@@ -72,6 +73,7 @@ Ilustrasi benda khas Indonesia: dibuat khusus untuk Ayo Baca.
       <button class="hb" style="--c:#A47CFF;--d:#8257E6" data-go="belajar" data-say="Belajar baca"><b>📚</b>Baca</button>
       <button class="hb" style="--c:#2EC4A6;--d:#1A9F86" data-go="belhitung" data-say="Belajar hitung"><b>🧮</b>Hitung</button>
       <button class="hb" style="--c:#FF9A62;--d:#EC7436" data-go="belsains" data-say="Belajar sains"><b>🌍</b>Sains</button>
+      <button class="hb" style="--c:#4FB3FF;--d:#2B90DE" data-go="beleksp" data-say="Eksperimen"><b>🧪</b>Eksperimen</button>
     </div>
   </section>
 
@@ -95,6 +97,24 @@ Ilustrasi benda khas Indonesia: dibuat khusus untuk Ayo Baca.
       <div style="width:clamp(64px,13vmin,88px)"></div>
     </div>
     <div class="cards" id="sciLearnCards"></div>
+  </section>
+
+  <section class="screen" id="sciGroup">
+    <div class="top">
+      <button class="back" data-go="belsains" aria-label="Kembali"></button>
+      <div class="spacer"></div><div class="title" id="grpTitle" style="background:#FF9A62;box-shadow:0 5px 0 #EC7436">Sains</div><div class="spacer"></div>
+      <div style="width:clamp(64px,13vmin,88px)"></div>
+    </div>
+    <div class="cards" id="grpCards"></div>
+  </section>
+
+  <section class="screen" id="beleksp">
+    <div class="top">
+      <button class="back" data-go="hubLearn" aria-label="Kembali"></button>
+      <div class="spacer"></div><div class="title" style="background:#4FB3FF;box-shadow:0 5px 0 #2B90DE">Eksperimen</div><div class="spacer"></div>
+      <div style="width:clamp(64px,13vmin,88px)"></div>
+    </div>
+    <div class="cards" id="expCards"></div>
   </section>
 
   <section class="screen" id="mainsains">
@@ -237,25 +257,28 @@ Ilustrasi benda khas Indonesia: dibuat khusus untuk Ayo Baca.
   <button class="lock" id="brklock" aria-label="Orang tua: tekan tahan 3 detik untuk lanjut"><i></i>🔒</button>
 </div></div>
 
-<script src="js/emoji-index.js?v=2026-10-12h"></script>
-<script src="js/helpers.js?v=2026-10-12h"></script>
-<script src="js/tts.js?v=2026-10-12h"></script>
-<script src="js/words.js?v=2026-10-12h"></script>
-<script src="js/learn.js?v=2026-10-12h"></script>
-<script src="js/parent.js?v=2026-10-12h"></script>
-<script src="js/engine.js?v=2026-10-12h"></script>
-<script src="js/reading-games.js?v=2026-10-12h"></script>
-<script src="js/math.js?v=2026-10-12h"></script>
-<script src="js/math-learn.js?v=2026-10-12h"></script>
-<script src="js/parade.js?v=2026-10-12h"></script>
-<script src="js/phonics.js?v=2026-10-12h"></script>
-<script src="js/count-games.js?v=2026-10-12h"></script>
-<script src="js/memory.js?v=2026-10-12h"></script>
-<script src="js/number-games.js?v=2026-10-12h"></script>
-<script src="js/science-data.js?v=2026-10-12h"></script>
-<script src="js/science.js?v=2026-10-12h"></script>
-<script src="js/shapes.js?v=2026-10-12h"></script>
-<script src="js/daily.js?v=2026-10-12h"></script>
-<script src="js/main.js?v=2026-10-12h"></script>
+<script src="js/emoji-index.js?v=2026-10-12i"></script>
+<script src="js/helpers.js?v=2026-10-12i"></script>
+<script src="js/tts.js?v=2026-10-12i"></script>
+<script src="js/words.js?v=2026-10-12i"></script>
+<script src="js/learn.js?v=2026-10-12i"></script>
+<script src="js/parent.js?v=2026-10-12i"></script>
+<script src="js/engine.js?v=2026-10-12i"></script>
+<script src="js/reading-games.js?v=2026-10-12i"></script>
+<script src="js/math.js?v=2026-10-12i"></script>
+<script src="js/math-learn.js?v=2026-10-12i"></script>
+<script src="js/parade.js?v=2026-10-12i"></script>
+<script src="js/phonics.js?v=2026-10-12i"></script>
+<script src="js/count-games.js?v=2026-10-12i"></script>
+<script src="js/memory.js?v=2026-10-12i"></script>
+<script src="js/number-games.js?v=2026-10-12i"></script>
+<script src="js/science-data.js?v=2026-10-12i"></script>
+<script src="js/data/sains-hewan.js?v=2026-10-12i"></script>
+<script src="js/science.js?v=2026-10-12i"></script>
+<script src="js/shapes.js?v=2026-10-12i"></script>
+<script src="js/data/eksperimen.js?v=2026-10-12i"></script>
+<script src="js/experiments.js?v=2026-10-12i"></script>
+<script src="js/daily.js?v=2026-10-12i"></script>
+<script src="js/main.js?v=2026-10-12i"></script>
 </body>
 </html>
