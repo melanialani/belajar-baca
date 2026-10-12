@@ -1,0 +1,63 @@
+/* ============ home, Belajar / Main hubs, card lists, level grid, stickers ============ */
+#home{align-items:center;justify-content:center;gap:clamp(10px,3.4vmin,30px);padding:12px}
+.logowrap{display:flex;flex-direction:column;align-items:center;gap:clamp(6px,1.6vmin,12px)}
+.logo{display:flex;gap:clamp(4px,1.2vmin,10px);flex-wrap:nowrap;justify-content:center;align-items:center}
+@media (orientation:landscape) and (max-height:500px){.logo span{width:clamp(40px,10vmin,96px);font-size:clamp(28px,7.4vmin,70px)}.logo .bow{font-size:clamp(28px,7.4vmin,70px)}}
+.logo span{display:grid;place-items:center;width:clamp(44px,12vmin,104px);aspect-ratio:1;border-radius:24%;color:#fff;font-family:var(--read);font-weight:700;font-size:clamp(30px,9vmin,78px);box-shadow:0 6px 0 rgba(0,0,0,.16);animation:drop .8s cubic-bezier(.3,1.5,.5,1) both}
+.logo span:nth-child(odd){rotate:-6deg}
+.logo span:nth-child(even){rotate:5deg}
+.logo .bow{background:none!important;box-shadow:none;font-size:clamp(32px,9vmin,76px);width:auto!important;margin-right:calc(-1 * clamp(36px,9vmin,80px))}
+.homebtns{display:flex;gap:clamp(14px,4vmin,36px);flex-wrap:wrap;justify-content:center}
+.hb{width:clamp(130px,min(36vmin,20vw),270px);aspect-ratio:1.15;border-radius:34px;color:#fff;font-weight:700;font-size:clamp(22px,min(6.4vmin,3.3vw),46px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;background:var(--c);box-shadow:0 9px 0 var(--d)}
+.hb b{font-size:1.7em;line-height:1}
+.homefoot{display:flex;align-items:center;gap:14px}
+.lock{position:relative;width:60px;height:60px;border-radius:50%;background:var(--card);box-shadow:inset 0 0 0 3px var(--bg2);font-size:28px;display:grid;place-items:center;overflow:hidden;flex:none}
+.lock i{position:absolute;inset:0;background:conic-gradient(var(--pink) var(--p,0%),transparent 0);opacity:.4;pointer-events:none}
+.note{font-size:16px;color:var(--ink2);max-width:540px;text-align:center;margin:0}
+.cards{flex:1;min-height:0;display:grid;gap:clamp(14px,3vmin,24px);
+  padding:clamp(14px,2.6vmin,22px) max(20px,env(safe-area-inset-right)) clamp(18px,3vmin,26px) max(20px,env(safe-area-inset-left));
+  grid-auto-flow:column;grid-auto-columns:clamp(180px,38vmin,270px);overflow-x:auto;overflow-y:hidden;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch}
+@media (orientation:portrait){.cards{grid-auto-flow:row;grid-auto-columns:auto;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));grid-auto-rows:clamp(240px,62vw,330px);overflow-y:auto;overflow-x:hidden}}
+.card{position:relative;border-radius:30px;background:var(--c);box-shadow:0 0 0 5px var(--bg2),0 8px 0 5px var(--d);display:flex;flex-direction:column;overflow:hidden;scroll-snap-align:start;color:#fff;text-align:center;min-height:200px;max-height:440px}
+.card .art{flex:1;display:flex;flex-wrap:wrap;align-content:center;justify-content:center;gap:6px;padding:52px 10px 8px;font-family:var(--read);font-weight:700;font-size:clamp(32px,7.4vmin,54px);line-height:1.05}
+.card .art .em{font-size:1.15em;line-height:1}
+.card .art .chip{font-size:.62em;background:#fff;border-radius:12px;padding:.12em .45em;box-shadow:0 3px 0 rgba(0,0,0,.15)}
+.card .art .br{flex-basis:100%;height:0}
+.card .lbl{background:var(--d);padding:8px 6px;font-size:clamp(26px,5vmin,34px);font-weight:600;min-height:2.6em;display:grid;place-items:center;line-height:1.05}
+.card .num{position:absolute;top:10px;left:10px;width:50px;height:50px;border-radius:50%;background:#fff;color:var(--d);font-weight:700;font-size:28px;display:grid;place-items:center}
+.card .badge{position:absolute;top:12px;right:10px;background:#fff;color:#E0407F;border-radius:999px;padding:3px 10px;font-size:22px;font-weight:700}
+.levels{flex:1;min-height:0;overflow-y:auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(clamp(88px,16vmin,124px),1fr));gap:clamp(12px,2.6vmin,20px);align-content:start;
+  padding:clamp(12px,2.6vmin,20px) max(20px,env(safe-area-inset-right)) 24px max(20px,env(safe-area-inset-left))}
+.lv{aspect-ratio:1;border-radius:50%;background:var(--c);box-shadow:0 7px 0 var(--d);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:700;font-size:clamp(32px,7vmin,48px);line-height:1}
+.lv small{font-size:clamp(16px,3.2vmin,20px);letter-spacing:1px;margin-top:4px;min-height:1em}
+.lv.done{box-shadow:0 7px 0 var(--d),0 0 0 5px #FFD84D}
+.stkhead{display:flex;align-items:center;gap:14px;padding:4px max(20px,env(safe-area-inset-right)) 0 max(20px,env(safe-area-inset-left));font-weight:700;font-size:clamp(22px,4.6vmin,28px)}
+.stkgrid{flex:1;min-height:0;overflow-y:auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(clamp(76px,15vmin,110px),1fr));gap:12px;align-content:start;
+  padding:12px max(20px,env(safe-area-inset-right)) 24px max(20px,env(safe-area-inset-left))}
+.stk{aspect-ratio:1;border-radius:24px;background:var(--card);box-shadow:0 5px 0 var(--bg2);display:grid;place-items:center;font-size:clamp(44px,10vmin,70px)}
+.stk.locked{font-size:clamp(28px,6vmin,40px);color:var(--ink2);opacity:.5}
+.stk.wiggle{animation:pop .5s}
+/* phone portrait: home sizes follow height too, so logo + 2 rows of buttons fit short screens */
+@media (orientation:portrait){.logo span{width:clamp(48px,min(17vw,9vh),110px);font-size:clamp(34px,min(12vw,6.4vh),84px)}.logo .bow{font-size:clamp(34px,min(12vw,6.4vh),84px);margin-right:calc(-1 * clamp(38px,min(13vw,7vh),90px))}.hb{width:clamp(110px,min(40vw,24vh),270px)}}
+@media (orientation:landscape) and (max-height:500px){#home.on{display:grid;grid-template-columns:auto auto;grid-template-areas:"logo btns" "logo foot" "note note";align-content:center;justify-content:center;column-gap:clamp(16px,4vw,48px);row-gap:clamp(8px,3vh,20px)}.logowrap{grid-area:logo}.homebtns{grid-area:btns;flex-wrap:nowrap}.homefoot{grid-area:foot;justify-self:center}.note{grid-area:note;justify-self:center}.hb{width:clamp(110px,19vw,200px)}}
+/* tall content scrolls instead of being cut off at the top */
+#home{overflow-y:auto;justify-content:safe center}
+@media (orientation:landscape) and (max-height:500px){.homebtns .hb{width:clamp(96px,15vw,180px)}}
+@media (orientation:portrait){.hb{font-size:clamp(22px,6.4vmin,46px)}}
+/* daily practice button on home */
+.daily{display:inline-flex;align-items:center;gap:8px;background:var(--pink);color:#fff;border-radius:999px;padding:6px 18px;font-weight:700;font-size:clamp(20px,4.4vmin,28px);box-shadow:0 5px 0 #E0407F;white-space:nowrap}
+.daily b{font-size:1.2em;line-height:1}
+.daily span:empty{display:none}
+.daily span{background:rgba(255,255,255,.25);border-radius:999px;padding:0 10px}
+.daily.done{background:var(--mint);box-shadow:0 5px 0 #1A9F86}
+.homefoot{flex-wrap:wrap;justify-content:center}
+/* home: Belajar, Main, Stiker; the Belajar / Main hubs each show Baca, Hitung, Sains */
+.homebtns{display:grid;grid-template-columns:repeat(3,auto);grid-template-areas:"b m st";gap:clamp(12px,3vmin,28px)}
+#goBelajar{grid-area:b}
+#goMain{grid-area:m}
+#goStk{grid-area:st}
+.homebtns .hb,.hub .hb{width:clamp(130px,min(30vmin,22vw),260px);line-height:1.05;text-align:center}
+.hub{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:clamp(14px,4vmin,36px);padding:12px;overflow-y:auto}
+@media (orientation:portrait){.homebtns{grid-template-columns:repeat(2,1fr);grid-template-areas:"b m" "st st"}.homebtns .hb{justify-self:center;width:clamp(120px,min(40vw,22vh),270px)}.daily{font-size:clamp(17px,4.4vw,24px);padding:6px 14px}.homefoot{gap:10px}.homebtns #goStk{width:auto;justify-self:stretch;aspect-ratio:auto;flex-direction:row;gap:10px;padding:8px}.hub{flex-direction:column;flex-wrap:nowrap}.hub .hb{width:clamp(140px,min(56vw,22vh),280px)}}
+@media (orientation:landscape) and (max-height:500px){.homebtns .hb{width:clamp(90px,min(30vmin,15vw),160px);font-size:clamp(18px,4.6vmin,28px)}}
+@media (orientation:landscape) and (max-height:500px){.hub .hb{width:clamp(110px,min(40vmin,22vw),180px);font-size:clamp(20px,5vmin,30px)}}

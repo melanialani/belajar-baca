@@ -9,15 +9,23 @@
 Split into static files (2026-10-09); the public URL is unchanged, GitHub Pages serves the extra files next to `index.html`.
 
 ```
-index.html          ← markup only; links css/app.css and the scripts below (plain <script src>, in order)
-css/app.css
+index.html          ← markup only; links the CSS files and the scripts below (plain <script src>, in order)
+css/base.css        ← design tokens, page, screens, top bar, shared panels, animations
+css/home.css        ← home, Belajar / Main hubs, card lists, level grid, stickers
+css/learn.css       ← learn viewer
+css/game.css        ← game screen: questions, answers, tiles, matching, feedback, end panel
+css/parent.css      ← parent mode, report, break reminder
+css/reading-games.css ← parade, blending train, drum, sentences, read aloud, word search, memory cards
+css/math.css        ← numbers, pictures, ten frames, blocks, counting games
+css/science.css     ← shapes, patterns, science topics, true/false
 js/emoji-index.js   ← EMO: Set of emoji that have an SVG file
 js/helpers.js       ← $, ico/emojify/preloadEmo, random, store (ayobaca2:), SET + case helpers, longPress
 js/tts.js           ← speech + sound effects
 js/words.js         ← word lists, difficulty, learning stages, stickers
 js/learn.js         ← navigation, Belajar screens, Belajar → Bermain links
 js/parent.js        ← parent mode, report, break timer
-js/games.js         ← level engine + all reading games
+js/engine.js        ← level engine (levels, hearts, feedback) + shared patterns arrange() / matchGame()
+js/reading-games.js ← word / syllable pickers + the Game Baca list
 js/math.js          ← counting core: numW (0–100), objects / ten frames / blocks, level ladders, first counting games
 js/math-learn.js    ← Belajar Hitung stages (1–5 … sums with tens)
 js/parade.js        ← parade() (answers on flags over looping vehicles) + Parade Kata / Parade Angka
@@ -53,3 +61,4 @@ assets/emoji/*.svg  ← 488 Fluent Emoji SVGs, one file each (name = hex code po
 - 2026-10-12: counting curriculum from zero to 100. Number words 0–100 (`numW`). Belajar Hitung now 17 stages: Angka 1–5, 6–10 & 0, Banyak & Sedikit, Belasan 11–19 ("dua belas = sepuluh dan dua"), Puluhan 10–100, Cara Baca Angka (2 · 12 · 20 · 22), Angka 21–50, 51–100 (tens rods + cubes, read as "dua puluh, dan dua"), Tambah/Kurang sampai 5 and 10, Teman Sepuluh, Hitung sampai 20, Tambah Kurang Puluhan, Bentuk, Pola (stage ids m1–m4 kept for saved progress). Existing counting games now step up every level up to 100 (look-alike choices like 12/21/20/22 later). 9 new games: Urutkan Balon, Buaya Lapar, Susun Angka, Bangun Angka, Teman Sepuluh, Lompat Katak, Tebak Bentuk, Hitung Bentuk, Lanjutkan Pola (all in Latihan Hari Ini except Bangun Angka). Toko Buah gets a 10 coin in the last band. Fixed: crossed-out pictures used the class `.x` (overlay close button style) and showed as 60px circles; now `.cx`. Asset version `?v=2026-10-12e`.
 - 2026-10-12: cards in every menu ordered easy → hard (one list per menu in `main.js`). New home menu "Kenali Dunia" 🌈 (`#dunia`): Warna, Bentuk, Hewan, Buah, Sayur, Pola + Tebak Bentuk, Hitung Bentuk, Lanjutkan Pola, moved out of Belajar Baca / Belajar Hitung / Game Hitung (stage ids k2–k5 kept). Huruf A–Z is now a normal Belajar Baca stage (3rd); the "kamus" card style is gone. Asset version `?v=2026-10-12f`.
 - 2026-10-12: navigation reworked: Home has Belajar, Main, Stiker; Belajar and Main each open Baca · Hitung · Sains (the Kenali Dunia menu became Sains). Sains learn: Warna, Bentuk, Hewan, Buah, Sayur, Tubuh Kita, Sains Hewan, Pola, Tumbuhan, Air & Benda, Cuaca & Alam, Langit & Antariksa (44 science topics, each a question + pictures + sentences read one by one). Sains games: Tebak Bentuk, Kuis Sains, Hitung Bentuk, Lanjutkan Pola, Benar atau Salah. 🧲 has no SVG and shows the device emoji. Asset version `?v=2026-10-12g`.
+- 2026-10-12: css/app.css split into 8 feature files and js/games.js into engine.js + reading-games.js. Rule order kept per file; checked that every element's computed style is identical before/after (192 screens/games, 10,168 elements, desktop + phone landscape + phone portrait). Asset version `?v=2026-10-12h`.
