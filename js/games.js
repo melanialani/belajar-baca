@@ -31,7 +31,7 @@ function spkBtn(fn,big){const b=h('button','spk'+(big?' big':''),IC.spk);b.setAt
 function optsEl(list,render,onPick,cls=''){const wrap=h('div','opts');list.forEach(v=>{const b=h('button','opt '+cls,render(v));b.onclick=()=>{if(G.done)return;onPick(v,b);};wrap.append(b);});return wrap;}
 
 function openLevels(g){G={g,tok:0};onScreen('levels');$('#lvtitle').textContent=g.title;buildLevelGrid();TTS.say([g.title]);}
-function buildLevelGrid(){const g=G.g,st=levelStars(g.id),box=$('#lvgrid');box.innerHTML='';$('#lvstars').textContent=`⭐ ${gameStars(g.id)}/75`;
+function buildLevelGrid(){const g=G.g,st=levelStars(g.id),box=$('#lvgrid');$('#levels .back').dataset.go=g.home||'bermain';box.innerHTML='';$('#lvstars').textContent=`⭐ ${gameStars(g.id)}/75`;
   for(let L=1;L<=25;L++){const [c,d]=BANDPAL[(L-1)/5|0];const s=st[L-1]||0;
     const b=h('button','lv'+(s?' done':''),`${L}<small>${s?'⭐'.repeat(s):''}</small>`);b.style.setProperty('--c',c);b.style.setProperty('--d',d);
     b.setAttribute('aria-label','Level '+L);b.onclick=()=>{sfx.tap();startLevel(L);};box.append(b);}}
@@ -98,7 +98,7 @@ function matchGame(st,api,words,leftRender,onLeft,leftCls=''){
     b.onclick=()=>{if(b.classList.contains('ok')||G.done)return;
       if(!sel){b.classList.remove('shake');void b.offsetWidth;b.classList.add('shake');TTS.say(['Pilih yang kiri dulu']);return;}
       if(sel.w===w){const c=pal[done%4];[sel.b,b].forEach(x=>{x.classList.add('ok');x.classList.remove('sel');x.style.setProperty('--m',c);});
-        sel=null;done++;if(done===words.length)api.ok();else{sfx.tap();TTS.say([w.w]);}}
+        sel=null;done++;if(done===words.length)api.ok();else{sfx.tap();TTS.say([w.say||w.w]);}}
       else api.bad(b,sel.w.w);};Rc.append(b);});
   const wrap=h('div','match');wrap.append(Lc,Rc);st.append(wrap);}
 const LGROUP=[['b','d','p'],['m','n'],['s','z','c'],['k','g','h'],['t','d'],['f','v','p'],['j','l','i'],['u','o'],['a','e'],['r','l'],['w','y']];

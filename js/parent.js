@@ -9,9 +9,9 @@ function openParent(){sfx.ok();$('#tExtra').classList.toggle('on',SET.extra);$('
     b.onclick=()=>{SET.case=v;store.set('set',SET);[...cs.children].forEach(x=>x.classList.toggle('on',x===b));};cs.append(b);});
   buildReport();$('#parentov').classList.add('on');}
 function buildReport(){
-  const r=$('#report');const st=STAGES.filter(s=>!s.kamus).map(s=>{const tot=s.items().length,got=Math.min(tot,store.get('lp:'+s.id,0));
+  const r=$('#report');const st=[...STAGES.filter(s=>!s.kamus),...MATH_STAGES].map(s=>{const tot=s.items().length,got=Math.min(tot,store.get('lp:'+s.id,0));
     return `<div class="rrow"><span>${s.title}</span><div class="bar"><i style="width:${Math.round(got/tot*100)}%"></i></div><span>${got}/${tot}</span></div>`;}).join('');
-  const gm=GAMES.map(g=>{const s=gameStars(g.id),lv=levelStars(g.id).filter(Boolean).length;
+  const gm=ALLGAMES.map(g=>{const s=gameStars(g.id),lv=levelStars(g.id).filter(Boolean).length;
     return `<div class="rrow"><span>${g.title}</span><div class="bar"><i style="width:${Math.round(s/75*100)}%"></i></div><span>⭐${s} · ${lv} lv</span></div>`;}).join('');
   const ms=Object.entries(MISS).sort((a,b)=>b[1]-a[1]).slice(0,15);
   r.innerHTML=`<h3>📚 Progres Belajar</h3>${st}<h3>🎮 Bintang Game</h3>${gm}

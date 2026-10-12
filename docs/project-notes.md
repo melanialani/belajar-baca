@@ -17,7 +17,8 @@ js/tts.js           ← speech + sound effects
 js/words.js         ← word lists, difficulty, learning stages, stickers
 js/learn.js         ← navigation, Belajar screens, Belajar → Bermain links
 js/parent.js        ← parent mode, report, break timer
-js/games.js         ← level engine + all games
+js/games.js         ← level engine + all reading games
+js/math.js          ← Berhitung menu: number learn stages + counting games, ALLGAMES
 js/main.js          ← startup
 assets/emoji/*.svg  ← 488 Fluent Emoji SVGs, one file each (name = hex code points joined by "-")
 ```
@@ -36,3 +37,4 @@ assets/emoji/*.svg  ← 488 Fluent Emoji SVGs, one file each (name = hex code po
 - 2026-10-09: game feedback reworked for all games: big praise + confetti then next question at once, big X on wrong, 5 hearts per level (0 → back to level list). Lengkapi Kata now says the word (+🔊 button).
 - 2026-10-09: break reminder fixed: 2-minute countdown uses real time (finishes while the screen is off), screen-off time no longer counts as screen time. Default reminder 15 → 30 min; saved 15 moved to 30 once (`SET.brkMig` marks it done).
 - 2026-10-09: CSS/JS links versioned with `?v=2026-10-09` so parents get matching new files without a hard refresh (GitHub Pages cache is ~10 min).
+- 2026-10-12: new home menu "Berhitung" (🧮): learn stages Angka 1–10, Angka 11–20, Penjumlahan, Pengurangan + 7 games (Hitung Benda, Tebak Suara Angka, Mana Lebih Banyak, Angka Hilang, Penjumlahan, Pengurangan, Sambung Angka), 25 levels each, stars count toward stickers. Asset version `?v=2026-10-12b` (second release that day).

@@ -4,7 +4,8 @@ Reading-practice web app for Indonesian kindergarten kids. Background, deploy no
 
 ## Stack & structure
 - Static files, no build step, no package manager. Classic `<script>` files sharing globals (no modules).
-- `index.html` (markup) → `css/app.css` and plain `<script src>` files in order: `js/emoji-index.js, helpers.js, tts.js, words.js, learn.js, parent.js, games.js, main.js`.
+- `index.html` (markup) → `css/app.css` and plain `<script src>` files in order: `js/emoji-index.js, helpers.js, tts.js, words.js, learn.js, parent.js, games.js, math.js, main.js`.
+- Berhitung (counting) menu lives in `js/math.js`: `MATH_STAGES` (learn, reuse the learn viewer via `item.render`) and `MATH_GAMES` (same level engine). Anything summing stars/games uses `ALLGAMES`. Numbers are spoken via `numW()` (words), never raw digits.
 - Emoji: one SVG per emoji in `assets/emoji/<hex code points joined by ->.svg`; `EMO` (`js/emoji-index.js`) is the Set of available keys. Always render emoji via `ico()`/`emojify()` (lazy `<img>` with text fallback via `emoFail`); use `preloadEmo()` for icons revealed later. Don't print the SVG files.
 - State lives in `localStorage` via `store` (prefix `ayobaca2:`); settings in `SET` (`store` key `set`).
 

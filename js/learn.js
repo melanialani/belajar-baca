@@ -3,16 +3,17 @@ let L=null,G=null;
 function show(id){
   TTS.stop();if(L){L.auto=false;L.tok++;}if(G)G.tok++;rnd=Math.random;
   onScreen(id);['endov','gridov','parentov','practov'].forEach(o=>$('#'+o).classList.remove('on'));
-  if(id==='belajar')buildLearnCards();if(id==='bermain')buildGameCards();if(id==='stiker')buildStickers();
+  if(id==='belajar')buildLearnCards();if(id==='bermain')buildGameCards();if(id==='stiker')buildStickers();if(id==='berhitung')buildMathCards();
   updateStars();}
 document.querySelectorAll('.back').forEach(b=>b.innerHTML=IC.back);
 document.addEventListener('click',e=>{const b=e.target.closest('[data-go]');if(b){sfx.tap();show(b.dataset.go);}});
 $('#goLearn').onclick=()=>{sfx.tap();show('belajar');TTS.say(['Belajar']);};
 $('#goPlay').onclick=()=>{sfx.tap();show('bermain');TTS.say(['Bermain']);};
+$('#goMath').onclick=()=>{sfx.tap();show('berhitung');TTS.say(['Berhitung']);};
 $('#goStk').onclick=()=>{sfx.tap();show('stiker');TTS.say(['Stiker']);};
 const levelStars=id=>store.get('lv:'+id,[]);
 const gameStars=id=>levelStars(id).reduce((a,b)=>a+(b||0),0);
-const totalStars=()=>GAMES.reduce((t,g)=>t+gameStars(g.id),0);
+const totalStars=()=>ALLGAMES.reduce((t,g)=>t+gameStars(g.id),0);
 function updateStars(){const t='⭐ '+totalStars();document.querySelectorAll('.js-stars').forEach(e=>e.textContent=t);}
 function buildCards(el,list,onPick,extra){el.innerHTML='';
   list.forEach((m,i)=>{const [c,d]=PAL[m.c];const b=h('button','card'+(m.kamus?' kamus':''));b.style.setProperty('--c',c);b.style.setProperty('--d',d);
@@ -30,9 +31,9 @@ function buildStickers(){
 $('#lprev').innerHTML=IC.back;$('#lnext').innerHTML=IC.next;$('#lgrid').innerHTML=IC.grid;$('#lsay').innerHTML=IC.spk;
 function openStage(stage){const items=stage.items();
   L={stage,items,i:Math.min(store.get('li:'+stage.id,0),items.length-1),auto:false,tok:0,hl:[]};
-  onScreen('learn');$('#lauto').hidden=!SET.extra;$('#lauto').classList.remove('on');
+  onScreen('learn');$('#learn .back').dataset.go=stage.home||'belajar';$('#lauto').hidden=!SET.extra;$('#lauto').classList.remove('on');
   renderLearn(false);TTS.say([stage.title],{onEnd:()=>sayItem()});}
-function renderItem(it,c){c.innerHTML='';const hl=[];
+function renderItem(it,c){c.innerHTML='';if(it.render)return it.render(c);const hl=[];
   const addPic=(e,small)=>{if(e)c.append(h('div',small?'pic sm':'pic',ico(e)));};
   const exChip=ex=>h('div','ex',`<span>${ico(ex[1])}</span><span>${caseWord(ex[0])}</span>`);
   if(it.k==='letter'){const col=COL[L.i%6];const r=h('div','lettercard');
@@ -77,7 +78,7 @@ $('#lcontent').addEventListener('touchend',e=>{if(touchX==null)return;const dx=e
 function openPractice(stage,finished){
   const msg=finished?'Tahap selesai! Ayo latihan!':'Ayo latihan!';$('#practmsg').textContent=(finished?'🎉 ':'🎮 ')+msg;
   const row=$('#practrow');row.innerHTML='';
-  stage.play.forEach(([gid,lv])=>{const g=GAMES.find(x=>x.id===gid);const [c,d]=PAL[g.c];
+  stage.play.forEach(([gid,lv])=>{const g=ALLGAMES.find(x=>x.id===gid);const [c,d]=PAL[g.c];
     const b=h('button','eb wide',`<b>${ico('🎮')}</b>${g.title}<span>Level ${lv}</span>`);b.style.setProperty('--c',c);b.style.setProperty('--d',d);
     b.onclick=()=>{sfx.tap();$('#practov').classList.remove('on');TTS.stop();G={g,tok:0};$('#lvtitle').textContent=g.title;startLevel(lv);};row.append(b);});
   $('#practov').classList.add('on');TTS.say([msg]);}
