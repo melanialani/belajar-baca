@@ -356,12 +356,14 @@ button:active{transform:translateY(3px)}
 @media (orientation:portrait){.mem{grid-template-columns:repeat(2,auto)}.mc{width:clamp(90px,min(36vw,17vh),170px);font-size:clamp(46px,min(18vw,9vh),96px)}.mc .mcw{font-size:clamp(20px,min(7vw,3.6vh),40px)}.mc .objs{font-size:clamp(14px,min(5vw,2.4vh),26px)}}
 @media (orientation:landscape) and (max-height:500px){.parade{height:clamp(120px,36vmin,180px)}.veh{font-size:clamp(44px,12vmin,80px)}.loco{font-size:clamp(54px,14vmin,90px)}.flag span{font-size:clamp(22px,6vmin,36px)}}
 .spk.eye,.spk.mic{font-size:clamp(44px,10vmin,72px)}
-/* home: reading row and counting row, Kenali Dunia and stickers on the side (one row below on portrait) */
-.homebtns{display:grid;grid-template-columns:repeat(3,auto);grid-template-areas:"lb lg kd" "hb hg st";gap:clamp(12px,3vmin,28px)}
-#goLearn{grid-area:lb}#goPlay{grid-area:lg}#goMathLearn{grid-area:hb}#goMathPlay{grid-area:hg}#goWorld{grid-area:kd}#goStk{grid-area:st}
-.homebtns .hb{width:clamp(120px,min(25vmin,19vw),230px);line-height:1.05;text-align:center}
-@media (orientation:portrait){.homebtns{grid-template-columns:repeat(2,1fr);grid-template-areas:"lb lg" "hb hg" "kd st"}.homebtns .hb{justify-self:center}
-  .homebtns .hb{width:clamp(110px,min(40vw,18vh),270px)}.daily{font-size:clamp(17px,4.4vw,24px);padding:6px 14px}.homefoot{gap:10px}.homebtns :is(#goStk,#goWorld){width:auto;justify-self:stretch;aspect-ratio:auto;flex-direction:row;gap:10px;padding:8px}}
+/* home: Belajar, Main, Stiker; the Belajar / Main hubs each show Baca, Hitung, Sains */
+.homebtns{display:grid;grid-template-columns:repeat(3,auto);grid-template-areas:"b m st";gap:clamp(12px,3vmin,28px)}
+#goBelajar{grid-area:b}#goMain{grid-area:m}#goStk{grid-area:st}
+.homebtns .hb,.hub .hb{width:clamp(130px,min(30vmin,22vw),260px);line-height:1.05;text-align:center}
+.hub{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:clamp(14px,4vmin,36px);padding:12px;overflow-y:auto}
+@media (orientation:portrait){.homebtns{grid-template-columns:repeat(2,1fr);grid-template-areas:"b m" "st st"}.homebtns .hb{justify-self:center;width:clamp(120px,min(40vw,22vh),270px)}
+  .daily{font-size:clamp(17px,4.4vw,24px);padding:6px 14px}.homefoot{gap:10px}.homebtns #goStk{width:auto;justify-self:stretch;aspect-ratio:auto;flex-direction:row;gap:10px;padding:8px}
+  .hub{flex-direction:column;flex-wrap:nowrap}.hub .hb{width:clamp(140px,min(56vw,22vh),280px)}}
 @media (orientation:landscape) and (max-height:500px){.homebtns .hb{width:clamp(90px,min(30vmin,15vw),160px);font-size:clamp(18px,4.6vmin,28px)}}
 /* numbers to 100: digits by place, ten frames, base-ten blocks */
 .d1{color:var(--pink)}.d2{color:var(--lilac)}.d3{color:var(--sky)}
@@ -453,3 +455,19 @@ button:active{transform:translateY(3px)}
   .content .cgrp .objs{font-size:clamp(20px,6vw,60px)}.cgrp{padding:6px 8px}
   .content .blocks{--u:clamp(8px,2.5vw,26px)}
   .content .qword{font-size:clamp(32px,9vw,96px)}.shpwrap{font-size:clamp(80px,32vw,200px)}.content .ex{font-size:clamp(24px,6.6vw,44px)}}
+@media (orientation:landscape) and (max-height:500px){.hub .hb{width:clamp(110px,min(40vmin,22vw),180px);font-size:clamp(20px,5vmin,30px)}}
+/* science topics: question, picture strip, sentences read one by one */
+.sciq{font-family:var(--read);font-weight:700;font-size:clamp(24px,5.6vmin,46px);line-height:1.15;color:var(--pink);max-width:min(760px,92vw);transition:transform .2s}
+.scipics{display:flex;flex-wrap:wrap;justify-content:center;gap:4px clamp(14px,4vmin,34px);font-size:clamp(40px,11vmin,90px);line-height:1}
+.scig{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:6px}
+.sciar{font-family:var(--read);font-weight:700;font-size:.5em;color:var(--lilac)}
+.scilines{display:flex;flex-direction:column;gap:clamp(2px,.8vmin,6px);max-width:min(720px,92vw)}
+.scil{margin:0;font-weight:600;font-size:clamp(16px,3.8vmin,28px);line-height:1.25;color:var(--ink2);border-radius:12px;padding:2px 10px;transition:background .2s,color .2s}
+.scil.hi{background:var(--card);color:var(--ink);box-shadow:0 3px 0 var(--bg2)}
+.sciq.hi{transform:scale(1.04)}
+.q .sciq{font-size:clamp(24px,5.4vmin,42px)}
+.opt.tf{display:inline-flex;align-items:center;gap:8px;padding:4px 22px}
+.opt.tf svg{width:.9em;height:.9em}
+.opts>.opt.tf:first-child{--oc:#2EC4A6}.opts>.opt.tf:last-child{--oc:#FF7A6B}
+@media (orientation:portrait){.scipics{font-size:clamp(34px,10vw,80px)}.scil{font-size:clamp(15px,4.4vw,26px);padding:2px 6px}.sciq{font-size:clamp(20px,5.8vw,40px)}}
+@media (orientation:landscape) and (max-height:500px){.scipics{font-size:clamp(30px,9vmin,90px)}.scil{font-size:clamp(14px,3.6vmin,28px);padding:1px 8px}.sciq{font-size:clamp(20px,5vmin,46px)}}

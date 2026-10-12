@@ -33,7 +33,7 @@ Ilustrasi benda khas Indonesia: dibuat khusus untuk Ayo Baca.
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Andika:wght@400;700&family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/app.css?v=2026-10-12f">
+<link rel="stylesheet" href="css/app.css?v=2026-10-12g">
 </head>
 <body>
 <div id="app">
@@ -43,11 +43,8 @@ Ilustrasi benda khas Indonesia: dibuat khusus untuk Ayo Baca.
       <div class="logo"><span style="background:#2EC4A6">B</span><span style="background:#4FB3FF">a</span><span style="background:#FFBE1A">c</span><span style="background:#FF7EB6">a</span></div>
     </div>
     <div class="homebtns">
-      <button class="hb" style="--c:#A47CFF;--d:#8257E6" id="goLearn"><b>📚</b>Belajar Baca</button>
-      <button class="hb" style="--c:#FF5FA2;--d:#E0407F" id="goPlay"><b>🎮</b>Game Baca</button>
-      <button class="hb" style="--c:#2EC4A6;--d:#1A9F86" id="goMathLearn"><b>🧮</b>Belajar Hitung</button>
-      <button class="hb" style="--c:#4FB3FF;--d:#2B90DE" id="goMathPlay"><b>🎲</b>Game Hitung</button>
-      <button class="hb" style="--c:#FF9A62;--d:#EC7436" id="goWorld"><b>🌈</b>Kenali Dunia</button>
+      <button class="hb" style="--c:#A47CFF;--d:#8257E6" id="goBelajar" data-go="hubLearn" data-say="Belajar"><b>📚</b>Belajar</button>
+      <button class="hb" style="--c:#FF5FA2;--d:#E0407F" id="goMain" data-go="hubPlay" data-say="Main"><b>🎮</b>Main</button>
       <button class="hb" style="--c:#FFBE1A;--d:#E09E00" id="goStk"><b>🦄</b>Stiker</button>
     </div>
     <div class="homefoot">
@@ -58,18 +55,53 @@ Ilustrasi benda khas Indonesia: dibuat khusus untuk Ayo Baca.
     <p class="note" id="voiceNote" hidden></p>
   </section>
 
-  <section class="screen" id="dunia">
+  <section class="screen" id="hubLearn">
     <div class="top">
       <button class="back" data-go="home" aria-label="Kembali"></button>
-      <div class="spacer"></div><div class="title" style="background:#FF9A62;box-shadow:0 5px 0 #EC7436">Kenali Dunia</div><div class="spacer"></div>
+      <div class="spacer"></div><div class="title">Belajar</div><div class="spacer"></div>
+      <div style="width:clamp(64px,13vmin,88px)"></div>
+    </div>
+    <div class="hub">
+      <button class="hb" style="--c:#A47CFF;--d:#8257E6" data-go="belajar" data-say="Belajar baca"><b>📚</b>Baca</button>
+      <button class="hb" style="--c:#2EC4A6;--d:#1A9F86" data-go="belhitung" data-say="Belajar hitung"><b>🧮</b>Hitung</button>
+      <button class="hb" style="--c:#FF9A62;--d:#EC7436" data-go="belsains" data-say="Belajar sains"><b>🌍</b>Sains</button>
+    </div>
+  </section>
+
+  <section class="screen" id="hubPlay">
+    <div class="top">
+      <button class="back" data-go="home" aria-label="Kembali"></button>
+      <div class="spacer"></div><div class="title" style="background:#FF5FA2;box-shadow:0 5px 0 #E0407F">Main</div><div class="spacer"></div>
       <div class="starpill js-stars">⭐ 0</div>
     </div>
-    <div class="cards" id="worldCards"></div>
+    <div class="hub">
+      <button class="hb" style="--c:#FF5FA2;--d:#E0407F" data-go="bermain" data-say="Game baca"><b>🧩</b>Baca</button>
+      <button class="hb" style="--c:#4FB3FF;--d:#2B90DE" data-go="mainhitung" data-say="Game hitung"><b>🎲</b>Hitung</button>
+      <button class="hb" style="--c:#FF7A6B;--d:#E2513F" data-go="mainsains" data-say="Game sains"><b>🌈</b>Sains</button>
+    </div>
+  </section>
+
+  <section class="screen" id="belsains">
+    <div class="top">
+      <button class="back" data-go="hubLearn" aria-label="Kembali"></button>
+      <div class="spacer"></div><div class="title" style="background:#FF9A62;box-shadow:0 5px 0 #EC7436">Belajar Sains</div><div class="spacer"></div>
+      <div style="width:clamp(64px,13vmin,88px)"></div>
+    </div>
+    <div class="cards" id="sciLearnCards"></div>
+  </section>
+
+  <section class="screen" id="mainsains">
+    <div class="top">
+      <button class="back" data-go="hubPlay" aria-label="Kembali"></button>
+      <div class="spacer"></div><div class="title" style="background:#FF7A6B;box-shadow:0 5px 0 #E2513F">Game Sains</div><div class="spacer"></div>
+      <div class="starpill js-stars">⭐ 0</div>
+    </div>
+    <div class="cards" id="sciGameCards"></div>
   </section>
 
   <section class="screen" id="belajar">
     <div class="top">
-      <button class="back" data-go="home" aria-label="Kembali"></button>
+      <button class="back" data-go="hubLearn" aria-label="Kembali"></button>
       <div class="spacer"></div><div class="title">Belajar Baca</div><div class="spacer"></div>
       <div style="width:clamp(64px,13vmin,88px)"></div>
     </div>
@@ -78,7 +110,7 @@ Ilustrasi benda khas Indonesia: dibuat khusus untuk Ayo Baca.
 
   <section class="screen" id="bermain">
     <div class="top">
-      <button class="back" data-go="home" aria-label="Kembali"></button>
+      <button class="back" data-go="hubPlay" aria-label="Kembali"></button>
       <div class="spacer"></div><div class="title pink">Game Baca</div><div class="spacer"></div>
       <div class="starpill js-stars">⭐ 0</div>
     </div>
@@ -87,7 +119,7 @@ Ilustrasi benda khas Indonesia: dibuat khusus untuk Ayo Baca.
 
   <section class="screen" id="belhitung">
     <div class="top">
-      <button class="back" data-go="home" aria-label="Kembali"></button>
+      <button class="back" data-go="hubLearn" aria-label="Kembali"></button>
       <div class="spacer"></div><div class="title" style="background:#2EC4A6;box-shadow:0 5px 0 #1A9F86">Belajar Hitung</div><div class="spacer"></div>
       <div style="width:clamp(64px,13vmin,88px)"></div>
     </div>
@@ -96,7 +128,7 @@ Ilustrasi benda khas Indonesia: dibuat khusus untuk Ayo Baca.
 
   <section class="screen" id="mainhitung">
     <div class="top">
-      <button class="back" data-go="home" aria-label="Kembali"></button>
+      <button class="back" data-go="hubPlay" aria-label="Kembali"></button>
       <div class="spacer"></div><div class="title" style="background:#4FB3FF;box-shadow:0 5px 0 #2B90DE">Game Hitung</div><div class="spacer"></div>
       <div class="starpill js-stars">⭐ 0</div>
     </div>
@@ -198,23 +230,24 @@ Ilustrasi benda khas Indonesia: dibuat khusus untuk Ayo Baca.
   <button class="lock" id="brklock" aria-label="Orang tua: tekan tahan 3 detik untuk lanjut"><i></i>🔒</button>
 </div></div>
 
-<script src="js/emoji-index.js?v=2026-10-12f"></script>
-<script src="js/helpers.js?v=2026-10-12f"></script>
-<script src="js/tts.js?v=2026-10-12f"></script>
-<script src="js/words.js?v=2026-10-12f"></script>
-<script src="js/learn.js?v=2026-10-12f"></script>
-<script src="js/parent.js?v=2026-10-12f"></script>
-<script src="js/games.js?v=2026-10-12f"></script>
-<script src="js/math.js?v=2026-10-12f"></script>
-<script src="js/math-learn.js?v=2026-10-12f"></script>
-<script src="js/parade.js?v=2026-10-12f"></script>
-<script src="js/phonics.js?v=2026-10-12f"></script>
-<script src="js/count-games.js?v=2026-10-12f"></script>
-<script src="js/memory.js?v=2026-10-12f"></script>
-<script src="js/number-games.js?v=2026-10-12f"></script>
-<script src="js/world.js?v=2026-10-12f"></script>
-<script src="js/shapes.js?v=2026-10-12f"></script>
-<script src="js/daily.js?v=2026-10-12f"></script>
-<script src="js/main.js?v=2026-10-12f"></script>
+<script src="js/emoji-index.js?v=2026-10-12g"></script>
+<script src="js/helpers.js?v=2026-10-12g"></script>
+<script src="js/tts.js?v=2026-10-12g"></script>
+<script src="js/words.js?v=2026-10-12g"></script>
+<script src="js/learn.js?v=2026-10-12g"></script>
+<script src="js/parent.js?v=2026-10-12g"></script>
+<script src="js/games.js?v=2026-10-12g"></script>
+<script src="js/math.js?v=2026-10-12g"></script>
+<script src="js/math-learn.js?v=2026-10-12g"></script>
+<script src="js/parade.js?v=2026-10-12g"></script>
+<script src="js/phonics.js?v=2026-10-12g"></script>
+<script src="js/count-games.js?v=2026-10-12g"></script>
+<script src="js/memory.js?v=2026-10-12g"></script>
+<script src="js/number-games.js?v=2026-10-12g"></script>
+<script src="js/science-data.js?v=2026-10-12g"></script>
+<script src="js/science.js?v=2026-10-12g"></script>
+<script src="js/shapes.js?v=2026-10-12g"></script>
+<script src="js/daily.js?v=2026-10-12g"></script>
+<script src="js/main.js?v=2026-10-12g"></script>
 </body>
 </html>

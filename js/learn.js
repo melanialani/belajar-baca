@@ -3,15 +3,11 @@ let L=null,G=null;
 function show(id){
   TTS.stop();if(L){L.auto=false;L.tok++;}if(G)G.tok++;rnd=Math.random;
   onScreen(id);['endov','gridov','parentov','practov'].forEach(o=>$('#'+o).classList.remove('on'));
-  if(id==='belajar')buildLearnCards();if(id==='bermain')buildGameCards();if(id==='stiker')buildStickers();if(id==='belhitung')buildMathLearnCards();if(id==='mainhitung')buildMathGameCards();if(id==='dunia')buildWorldCards();if(id==='home')updateDaily();
+  if(id==='belajar')buildLearnCards();if(id==='bermain')buildGameCards();if(id==='stiker')buildStickers();if(id==='belhitung')buildMathLearnCards();if(id==='mainhitung')buildMathGameCards();if(id==='belsains')buildSciLearnCards();if(id==='mainsains')buildSciGameCards();if(id==='home')updateDaily();
   updateStars();}
 document.querySelectorAll('.back').forEach(b=>b.innerHTML=IC.back);
-document.addEventListener('click',e=>{const b=e.target.closest('[data-go]');if(b){sfx.tap();show(b.dataset.go);}});
-$('#goLearn').onclick=()=>{sfx.tap();show('belajar');TTS.say(['Belajar baca']);};
-$('#goPlay').onclick=()=>{sfx.tap();show('bermain');TTS.say(['Game baca']);};
-$('#goMathLearn').onclick=()=>{sfx.tap();show('belhitung');TTS.say(['Belajar hitung']);};
-$('#goMathPlay').onclick=()=>{sfx.tap();show('mainhitung');TTS.say(['Game hitung']);};
-$('#goWorld').onclick=()=>{sfx.tap();show('dunia');TTS.say(['Kenali dunia']);};
+// any [data-go] button opens that screen; data-say speaks its name (home and the Belajar / Main hubs)
+document.addEventListener('click',e=>{const b=e.target.closest('[data-go]');if(b){sfx.tap();show(b.dataset.go);if(b.dataset.say)TTS.say([b.dataset.say]);}});
 $('#goStk').onclick=()=>{sfx.tap();show('stiker');TTS.say(['Stiker']);};
 const levelStars=id=>store.get('lv:'+id,[]);
 const gameStars=id=>levelStars(id).reduce((a,b)=>a+(b||0),0);
