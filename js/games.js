@@ -28,6 +28,8 @@ function sylDistract(ans,n,pl,similar){let c=[...new Set(pl)].filter(s=>s!==ans)
 function bySeg(D,arr){const n=arr.length,a=Math.floor(D.q*n/QN),b=Math.max(a+1,Math.floor((D.q+1)*n/QN));return arr[Math.min(n-1,a+(rnd()*(b-a)|0))];}
 const P=e=>h('div','gpic',ico(e));
 function spkBtn(fn,big){const b=h('button','spk'+(big?' big':''),IC.spk);b.setAttribute('aria-label','Dengarkan');b.onclick=()=>fn();return b;}
+// shared confirm button for games where the child decides when they are done (drum, feeding, paying)
+function okBtn(html,fn){const b=h('button','okb',html);b.onclick=()=>{if(!G.done)fn(b);};return b;}
 function optsEl(list,render,onPick,cls=''){const wrap=h('div','opts');list.forEach(v=>{const b=h('button','opt '+cls,render(v));b.onclick=()=>{if(G.done)return;onPick(v,b);};wrap.append(b);});return wrap;}
 
 function openLevels(g){G={g,tok:0};onScreen('levels');$('#lvtitle').textContent=g.title;buildLevelGrid();TTS.say([g.title]);}
@@ -35,16 +37,17 @@ function buildLevelGrid(){const g=G.g,st=levelStars(g.id),box=$('#lvgrid');$('#l
   for(let L=1;L<=25;L++){const [c,d]=BANDPAL[(L-1)/5|0];const s=st[L-1]||0;
     const b=h('button','lv'+(s?' done':''),`${L}<small>${s?'⭐'.repeat(s):''}</small>`);b.style.setProperty('--c',c);b.style.setProperty('--d',d);
     b.setAttribute('aria-label','Level '+L);b.onclick=()=>{sfx.tap();startLevel(L);};box.append(b);}}
-function startLevel(L){rnd=mulberry32(hashStr(G.g.id)+L*7919);Object.assign(G,{L,q:0,err:0,hearts:HEARTS,D:makeD(L),stars0:totalStars()});
-  onScreen('game');$('#endov').classList.remove('on');$('#gtitle').textContent='Level '+L;drawHearts();nextQ();}
+function startLevel(L){rnd=G.g.daily?Math.random:mulberry32(hashStr(G.g.id)+L*7919);Object.assign(G,{L,q:0,err:0,hearts:HEARTS,D:makeD(L),stars0:totalStars()});
+  onScreen('game');$('#endov').classList.remove('on');$('#gtitle').textContent=G.g.daily?'Latihan':'Level '+L;drawHearts();nextQ();}
 function drawHearts(lost){$('#ghearts').innerHTML=Array.from({length:HEARTS},(_,i)=>`<span class="${i<G.hearts?'':'lost'}${i===lost?' pop':''}">${ico('❤️')}</span>`).join('');}
 // big feedback layer over the game; it also blocks taps while shown
 function showFb(kind,text){const f=$('#gfb');f.className='gfb on '+kind;f.querySelector('.fbx').innerHTML=kind==='ok'?'':IC.bigx;f.querySelector('.fbt').textContent=text;}
 const hideFb=()=>{$('#gfb').className='gfb';};
-function dots(){const d=$('#gdots');d.innerHTML='';for(let i=0;i<QN;i++)d.append(h('i',i<G.q?'done':i===G.q?'now':''));}
+const qnOf=()=>G.g.qn||QN;
+function dots(){const d=$('#gdots');d.innerHTML='';for(let i=0;i<qnOf();i++)d.append(h('i',i<G.q?'done':i===G.q?'now':''));}
 function nextQ(){
   const tok=++G.tok;G.done=false;G.qerr=0;TTS.stop();hideFb();
-  if(G.q>=QN)return endLevel();
+  if(G.q>=qnOf())return endLevel();
   Object.assign(G.D,{q:G.q,cur:[],review:false,revTried:false});
   dots();const st=$('#stage');st.innerHTML='';
   const api={
@@ -64,18 +67,19 @@ function nextQ(){
   if(intro.length||auto.length)TTS.say([...intro,...auto]);}
 function endLevel(){
   rnd=Math.random;const g=G.g,L=G.L;const s=G.err===0?3:G.err<=2?2:1;
-  const arr=levelStars(g.id);arr[L-1]=Math.max(arr[L-1]||0,s);store.set('lv:'+g.id,arr);updateStars();
+  if(g.daily)g.finish();else{const arr=levelStars(g.id);arr[L-1]=Math.max(arr[L-1]||0,s);store.set('lv:'+g.id,arr);}updateStars();
   $('#endstars').innerHTML=[0,1,2].map(i=>`<span class="${i<s?'':'dim'}">⭐</span>`).join('');
   const msg=s===3?'Hebat sekali!':s===2?'Bagus!':'Selesai! Ayo coba lagi.';
-  $('#endmsg').textContent=msg;$('#eNext').style.visibility=L<25?'visible':'hidden';
+  $('#endmsg').textContent=msg;$('#eNext').style.visibility=!g.daily&&L<25?'visible':'hidden';
+  $('#eMap').innerHTML=g.daily?`<b>${ico('🏠')}</b>Rumah`:`<b>${ico('🗺️')}</b>Level`;
   const before=stkCount(G.stars0),after=stkCount(totalStars());const sp=[msg,s+' bintang'];
   if(after>before){const nw=STICKERS.slice(before,after);$('#endstk').innerHTML=`<b>${nw.slice(-3).map(ico).join('')}</b><span>${nw.length>3?'+'+(nw.length-3)+' ':''}Stiker baru!</span>`;$('#endstk').hidden=false;sp.push('Hore! Kamu dapat stiker baru!');}
   else $('#endstk').hidden=true;
   $('#endov').classList.add('on');sfx.win();confetti();TTS.say(sp);}
 $('#eAgain').onclick=()=>{sfx.tap();startLevel(G.L);};
 $('#eNext').onclick=()=>{sfx.tap();startLevel(Math.min(25,G.L+1));};
-$('#eMap').onclick=()=>{sfx.tap();$('#endov').classList.remove('on');onScreen('levels');$('#lvtitle').textContent=G.g.title;buildLevelGrid();};
-function leaveGame(){TTS.stop();G.tok++;hideFb();rnd=Math.random;onScreen('levels');$('#lvtitle').textContent=G.g.title;buildLevelGrid();}
+$('#eMap').onclick=()=>{sfx.tap();if(G.g.daily)return show('home');$('#endov').classList.remove('on');onScreen('levels');$('#lvtitle').textContent=G.g.title;buildLevelGrid();};
+function leaveGame(){TTS.stop();G.tok++;hideFb();rnd=Math.random;if(G.g.daily)return show('home');onScreen('levels');$('#lvtitle').textContent=G.g.title;buildLevelGrid();}
 $('#gback').onclick=()=>{sfx.tap();leaveGame();};
 
 /* --- pola game --- */

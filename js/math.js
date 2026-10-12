@@ -38,7 +38,7 @@ const numBtns=(st,api,q,ans,list,onRight)=>{const a=h('div','a');
   a.append(optsEl(list,String,(n,b)=>{if(n===ans){b.classList.add('right');onRight&&onRight();api.ok();}else{TTS.say([numW(n)]);api.bad(b);}}));st.append(q,a);};
 const maxCount=D=>Math.min(10,3+Math.ceil(D.L*7/25)); // 4 → 10 pictures over the 25 levels
 const maxNum=[5,10,10,15,20];
-function opQuestion(st,api,D,op){
+function opQ(D,op){
   const top=[4,5,7,10,10][D.b];let a,b,guard=0;
   do{if(op==='+'){a=1+(rnd()*(top-1)|0);b=1+(rnd()*(top-a)|0);}else{a=2+(rnd()*(top-1)|0);b=1+(rnd()*(a-1)|0);}}while(D.used.has(a+op+b)&&guard++<30);
   D.used.add(a+op+b);const r=op==='+'?a+b:a-b,e=pick(COUNTEMO),sign=op==='+'?'+':'−';
@@ -46,7 +46,8 @@ function opQuestion(st,api,D,op){
   const q=h('div','q');
   if(D.b<4)q.append(op==='+'?mrow(objsEl(a,e),msign('+'),objsEl(b,e)):mrow(objsEl(a,e,{cross:b})));
   const ex=h('div','meq',`${a} ${sign} ${b} = <span class="blank">?</span>`);q.append(ex,spkBtn(()=>TTS.say(say)));
-  numBtns(st,api,q,r,numOpts(r,OPT[D.b],op==='+'?2:0,top,D.b>=2),()=>{ex.querySelector('.blank').textContent=r;});return say;}
+  return {q,ans:r,list:numOpts(r,OPT[D.b],op==='+'?2:0,top,D.b>=2),say,onRight:()=>{ex.querySelector('.blank').textContent=r;}};}
+function opQuestion(st,api,D,op){const o=opQ(D,op);numBtns(st,api,o.q,o.ans,o.list,o.onRight);return o.say;}
 
 const MATH_GAMES=[
  {id:'mhitung',home:'berhitung',title:'Hitung Benda',c:'mint',ins:'Ada berapa gambar?',art:ems(['🐥','🐥','🐥'])+'<span class="br"></span>'+chips(['2','3','4']),
@@ -77,7 +78,6 @@ const MATH_GAMES=[
   fn(st,api,D){const max=maxCount(D),e=pick(COUNTEMO),ns=sample(range(1,max),[2,2,3,3,3][D.b]);
    matchGame(st,api,ns.map(n=>({w:String(n),say:numW(n),n})),x=>objsEl(x.n,e,{cls:'sm'}).outerHTML,null,'grp');}}
 ];
-const ALLGAMES=[...GAMES,...MATH_GAMES];
 function buildMathCards(){buildCards($('#mathCards'),[...MATH_STAGES,...MATH_GAMES],m=>m.items?openStage(m):openLevels(m),m=>{
   if(m.items){const tot=m.items().length,got=Math.min(tot,store.get('lp:'+m.id,0));return `<span class="num">${ico('📚')}</span>`+(got>=tot?'<span class="badge">✓</span>':got>0?`<span class="badge">${got}/${tot}</span>`:'');}
   const s=gameStars(m.id);return `<span class="num">${ico('🎮')}</span>`+(s?`<span class="badge">⭐ ${s}/75</span>`:'');});}

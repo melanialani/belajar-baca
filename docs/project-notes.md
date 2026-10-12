@@ -18,8 +18,13 @@ js/words.js         ← word lists, difficulty, learning stages, stickers
 js/learn.js         ← navigation, Belajar screens, Belajar → Bermain links
 js/parent.js        ← parent mode, report, break timer
 js/games.js         ← level engine + all reading games
-js/math.js          ← Berhitung menu: number learn stages + counting games, ALLGAMES
-js/main.js          ← startup
+js/math.js          ← Berhitung menu: number learn stages + counting games
+js/parade.js        ← parade() (answers on flags over looping vehicles) + Parade Kata / Parade Angka
+js/phonics.js       ← Kereta Bunyi, Tepuk Suku Kata, Kalimat Pendek, Baca Keras (mic, only if supported)
+js/count-games.js   ← Kasih Makan Hewan, Kilat Titik, Toko Buah
+js/memory.js        ← memoryGame() + Kartu Memori (words) / Kartu Memori Angka
+js/daily.js         ← Latihan Hari Ini (10 mixed questions, streak)
+js/main.js          ← builds ALLGAMES, startup
 assets/emoji/*.svg  ← 488 Fluent Emoji SVGs, one file each (name = hex code points joined by "-")
 ```
 
@@ -38,3 +43,4 @@ assets/emoji/*.svg  ← 488 Fluent Emoji SVGs, one file each (name = hex code po
 - 2026-10-09: break reminder fixed: 2-minute countdown uses real time (finishes while the screen is off), screen-off time no longer counts as screen time. Default reminder 15 → 30 min; saved 15 moved to 30 once (`SET.brkMig` marks it done).
 - 2026-10-09: CSS/JS links versioned with `?v=2026-10-09` so parents get matching new files without a hard refresh (GitHub Pages cache is ~10 min).
 - 2026-10-12: new home menu "Berhitung" (🧮): learn stages Angka 1–10, Angka 11–20, Penjumlahan, Pengurangan + 7 games (Hitung Benda, Tebak Suara Angka, Mana Lebih Banyak, Angka Hilang, Penjumlahan, Pengurangan, Sambung Angka), 25 levels each, stars count toward stickers. Asset version `?v=2026-10-12b` (second release that day).
+- 2026-10-12: 11 more games + daily practice. Bermain: Parade Kata, Kereta Bunyi (blending), Tepuk Suku Kata, Kalimat Pendek, Kartu Memori, Baca Keras (speech recognition; hidden on browsers without it). Berhitung: Parade Angka, Kasih Makan Hewan, Kilat Titik, Toko Buah, Kartu Memori Angka. Home: "Latihan Hari Ini" (10 questions mixing reading/counting at the child's level, review words first; streak 🔥 in `store` key `daily`, no stars). Exceptions to the feedback rule, on purpose: Kartu Memori only costs a heart when the partner card was already seen; Baca Keras only counts every third misheard attempt (recognizer is unreliable). Asset version `?v=2026-10-12c`.
