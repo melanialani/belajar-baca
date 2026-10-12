@@ -357,3 +357,10 @@ button:active{transform:translateY(3px)}
 @media (orientation:portrait){.mem{grid-template-columns:repeat(2,auto)}.mc{width:clamp(90px,min(36vw,17vh),170px);font-size:clamp(46px,min(18vw,9vh),96px)}.mc .mcw{font-size:clamp(20px,min(7vw,3.6vh),40px)}.mc .objs{font-size:clamp(14px,min(5vw,2.4vh),26px)}}
 @media (orientation:landscape) and (max-height:500px){.parade{height:clamp(120px,36vmin,180px)}.veh{font-size:clamp(44px,12vmin,80px)}.loco{font-size:clamp(54px,14vmin,90px)}.flag span{font-size:clamp(22px,6vmin,36px)}}
 .spk.eye,.spk.mic{font-size:clamp(44px,10vmin,72px)}
+/* home: reading row and counting row, stickers on the side (below on portrait) */
+.homebtns{display:grid;grid-template-columns:repeat(3,auto);grid-template-areas:"lb lg st" "hb hg st";gap:clamp(12px,3vmin,28px)}
+#goLearn{grid-area:lb}#goPlay{grid-area:lg}#goMathLearn{grid-area:hb}#goMathPlay{grid-area:hg}#goStk{grid-area:st;aspect-ratio:auto}
+.homebtns .hb{width:clamp(120px,min(25vmin,19vw),230px);line-height:1.05;text-align:center}
+@media (orientation:portrait){.homebtns{grid-template-columns:repeat(2,auto);grid-template-areas:"lb lg" "hb hg" "st st"}
+  .homebtns .hb{width:clamp(110px,min(40vw,18vh),270px)}.daily{font-size:clamp(17px,4.4vw,24px);padding:6px 14px}.homefoot{gap:10px}.homebtns #goStk{width:auto;flex-direction:row;gap:12px;padding:8px}}
+@media (orientation:landscape) and (max-height:500px){.homebtns .hb{width:clamp(90px,min(30vmin,15vw),160px);font-size:clamp(18px,4.6vmin,28px)}}

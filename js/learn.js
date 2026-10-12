@@ -3,13 +3,14 @@ let L=null,G=null;
 function show(id){
   TTS.stop();if(L){L.auto=false;L.tok++;}if(G)G.tok++;rnd=Math.random;
   onScreen(id);['endov','gridov','parentov','practov'].forEach(o=>$('#'+o).classList.remove('on'));
-  if(id==='belajar')buildLearnCards();if(id==='bermain')buildGameCards();if(id==='stiker')buildStickers();if(id==='berhitung')buildMathCards();if(id==='home')updateDaily();
+  if(id==='belajar')buildLearnCards();if(id==='bermain')buildGameCards();if(id==='stiker')buildStickers();if(id==='belhitung')buildMathLearnCards();if(id==='mainhitung')buildMathGameCards();if(id==='home')updateDaily();
   updateStars();}
 document.querySelectorAll('.back').forEach(b=>b.innerHTML=IC.back);
 document.addEventListener('click',e=>{const b=e.target.closest('[data-go]');if(b){sfx.tap();show(b.dataset.go);}});
-$('#goLearn').onclick=()=>{sfx.tap();show('belajar');TTS.say(['Belajar']);};
-$('#goPlay').onclick=()=>{sfx.tap();show('bermain');TTS.say(['Bermain']);};
-$('#goMath').onclick=()=>{sfx.tap();show('berhitung');TTS.say(['Berhitung']);};
+$('#goLearn').onclick=()=>{sfx.tap();show('belajar');TTS.say(['Belajar baca']);};
+$('#goPlay').onclick=()=>{sfx.tap();show('bermain');TTS.say(['Game baca']);};
+$('#goMathLearn').onclick=()=>{sfx.tap();show('belhitung');TTS.say(['Belajar hitung']);};
+$('#goMathPlay').onclick=()=>{sfx.tap();show('mainhitung');TTS.say(['Game hitung']);};
 $('#goStk').onclick=()=>{sfx.tap();show('stiker');TTS.say(['Stiker']);};
 const levelStars=id=>store.get('lv:'+id,[]);
 const gameStars=id=>levelStars(id).reduce((a,b)=>a+(b||0),0);
@@ -18,7 +19,7 @@ function updateStars(){const t='⭐ '+totalStars();document.querySelectorAll('.j
 function buildCards(el,list,onPick,extra){el.innerHTML='';
   list.forEach((m,i)=>{const [c,d]=PAL[m.c];const b=h('button','card'+(m.kamus?' kamus':''));b.style.setProperty('--c',c);b.style.setProperty('--d',d);
     b.innerHTML=`<div class="art">${m.art}</div><div class="lbl">${m.title}</div>${extra?extra(m,i):''}`;b.onclick=()=>{sfx.tap();onPick(m);};el.append(b);});}
-function buildLearnCards(){buildCards($('#learnCards'),STAGES,openStage,(m,i)=>{const tot=m.items().length,got=Math.min(tot,store.get('lp:'+m.id,0));
+function buildLearnCards(el=$('#learnCards'),list=STAGES){buildCards(el,list,openStage,(m,i)=>{const tot=m.items().length,got=Math.min(tot,store.get('lp:'+m.id,0));
   return (m.kamus?`<span class="num">${ico('📖')}</span>`:`<span class="num">${i+1}</span>`)+(got>=tot?'<span class="badge">✓</span>':got>0?`<span class="badge">${got}/${tot}</span>`:'');});}
 function buildStickers(){
   const s=totalStars(),n=stkCount(s);$('#stkcount').textContent=`${n}/${STICKERS.length}`;

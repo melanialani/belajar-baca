@@ -21,6 +21,6 @@ GAMES.push(
   fn(st,api,D){const ws=pickDistinct(D,MEMN[D.b],x=>HASE(x)&&x.w.length<=8);memoryGame(st,api,ws,w=>`<span class="mcw">${caseWord(w.w)}</span>`,w=>ico(w.e),w=>w.w);}});
 
 MATH_GAMES.push(
- {id:'mmemori',home:'berhitung',title:'Kartu Memori Angka',c:'grape',ins:'Buka dua kartu. Cari gambar dan angkanya yang sama.',art:chips(['3','?'])+'<span class="br"></span>'+ems(['🍓','🍓','🍓']),
+ {id:'mmemori',title:'Kartu Memori Angka',c:'grape',ins:'Buka dua kartu. Cari gambar dan angkanya yang sama.',art:chips(['3','?'])+'<span class="br"></span>'+ems(['🍓','🍓','🍓']),
   fn(st,api,D){const e=pick(COUNTEMO),ns=sample(range(1,maxCount(D)),MEMN[D.b]);
    memoryGame(st,api,ns,n=>`<span class="mcw">${n}</span>`,n=>objsEl(n,e,{cls:'sm'}).outerHTML,numW);}});
