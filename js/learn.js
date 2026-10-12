@@ -3,7 +3,7 @@ let L=null,G=null;
 function show(id){
   TTS.stop();if(L){L.auto=false;L.tok++;}if(G)G.tok++;rnd=Math.random;
   onScreen(id);['endov','gridov','parentov','practov'].forEach(o=>$('#'+o).classList.remove('on'));
-  if(id==='belajar')buildLearnCards();if(id==='bermain')buildGameCards();if(id==='stiker')buildStickers();if(id==='belhitung')buildMathLearnCards();if(id==='mainhitung')buildMathGameCards();if(id==='home')updateDaily();
+  if(id==='belajar')buildLearnCards();if(id==='bermain')buildGameCards();if(id==='stiker')buildStickers();if(id==='belhitung')buildMathLearnCards();if(id==='mainhitung')buildMathGameCards();if(id==='dunia')buildWorldCards();if(id==='home')updateDaily();
   updateStars();}
 document.querySelectorAll('.back').forEach(b=>b.innerHTML=IC.back);
 document.addEventListener('click',e=>{const b=e.target.closest('[data-go]');if(b){sfx.tap();show(b.dataset.go);}});
@@ -11,16 +11,18 @@ $('#goLearn').onclick=()=>{sfx.tap();show('belajar');TTS.say(['Belajar baca']);}
 $('#goPlay').onclick=()=>{sfx.tap();show('bermain');TTS.say(['Game baca']);};
 $('#goMathLearn').onclick=()=>{sfx.tap();show('belhitung');TTS.say(['Belajar hitung']);};
 $('#goMathPlay').onclick=()=>{sfx.tap();show('mainhitung');TTS.say(['Game hitung']);};
+$('#goWorld').onclick=()=>{sfx.tap();show('dunia');TTS.say(['Kenali dunia']);};
 $('#goStk').onclick=()=>{sfx.tap();show('stiker');TTS.say(['Stiker']);};
 const levelStars=id=>store.get('lv:'+id,[]);
 const gameStars=id=>levelStars(id).reduce((a,b)=>a+(b||0),0);
 const totalStars=()=>ALLGAMES.reduce((t,g)=>t+gameStars(g.id),0);
+const starBadge=g=>{const s=gameStars(g.id);return s?`<span class="badge">⭐ ${s}/75</span>`:'';};
 function updateStars(){const t='⭐ '+totalStars();document.querySelectorAll('.js-stars').forEach(e=>e.textContent=t);}
 function buildCards(el,list,onPick,extra){el.innerHTML='';
-  list.forEach((m,i)=>{const [c,d]=PAL[m.c];const b=h('button','card'+(m.kamus?' kamus':''));b.style.setProperty('--c',c);b.style.setProperty('--d',d);
+  list.forEach((m,i)=>{const [c,d]=PAL[m.c];const b=h('button','card');b.style.setProperty('--c',c);b.style.setProperty('--d',d);
     b.innerHTML=`<div class="art">${m.art}</div><div class="lbl">${m.title}</div>${extra?extra(m,i):''}`;b.onclick=()=>{sfx.tap();onPick(m);};el.append(b);});}
 function buildLearnCards(el=$('#learnCards'),list=STAGES){buildCards(el,list,openStage,(m,i)=>{const tot=m.items().length,got=Math.min(tot,store.get('lp:'+m.id,0));
-  return (m.kamus?`<span class="num">${ico('📖')}</span>`:`<span class="num">${i+1}</span>`)+(got>=tot?'<span class="badge">✓</span>':got>0?`<span class="badge">${got}/${tot}</span>`:'');});}
+  return `<span class="num">${i+1}</span>`+(got>=tot?'<span class="badge">✓</span>':got>0?`<span class="badge">${got}/${tot}</span>`:'');});}
 function buildStickers(){
   const s=totalStars(),n=stkCount(s);$('#stkcount').textContent=`${n}/${STICKERS.length}`;
   const prev=n?stkNeed(n):0,nxt=n<STICKERS.length?stkNeed(n+1):prev;$('#stkbar').style.width=(n>=STICKERS.length?100:Math.round((s-prev)/(nxt-prev)*100))+'%';

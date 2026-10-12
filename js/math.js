@@ -112,4 +112,4 @@ const MATH_GAMES=[
    matchGame(st,api,ns.map(n=>({w:String(n),say:numW(n),n})),x=>qtyEl(x.n,e,true).outerHTML,null,'grp');}}
 ];
 const buildMathLearnCards=()=>buildLearnCards($('#mathLearnCards'),MATH_STAGES);
-function buildMathGameCards(){buildCards($('#mathGameCards'),MATH_GAMES,openLevels,g=>{const s=gameStars(g.id);return s?`<span class="badge">⭐ ${s}/75</span>`:'';});}
+function buildMathGameCards(){buildCards($('#mathGameCards'),MATH_GAMES,openLevels,starBadge);}

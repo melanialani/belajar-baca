@@ -69,11 +69,7 @@ const STAGES=[
  {id:'s11',title:'Bunyi ai au oi',c:'sky',art:chips(['pan tai','pu lau','ko boi']),play:[['tnama',20],['bacaan',20],['akhir',20]],items:()=>tierWords(11).map(sylItem)},
  {id:'s12',title:'Konsonan Gabung',c:'grape',art:chips(['truk','pu tri','dra ma']),play:[['awal',23],['cari',23],['uruth',23]],items:()=>tierWords(12).map(sylItem)},
  {id:'s13',title:'Kata Panjang',c:'pink',art:chips(['ma ta ha ri']),play:[['hitung',25],['lengkapi',25],['pasang',25]],items:()=>tierWords(13).map(sylItem)},
- {id:'k1',kamus:true,title:'Huruf A–Z',c:'peach',art:chips(['A a','B b','C c']),play:[['awal',1],['akhir',1],['uruth',1]],items:()=>LETTERS.map(l=>({k:'letter',up:l.toUpperCase(),low:l,ex:EXA[l],label:l.toUpperCase()+' '+l,say:[LN[l],EXA[l][0]]}))},
- {id:'k2',kamus:true,title:'Hewan',c:'peach',art:ems(['🐬','🐒','🐓','🐢']),play:[['tnama',3],['sambung',3],['bacaan',3]],items:()=>easyFirst(HEWAN).map(picItem)},
- {id:'k3',kamus:true,title:'Sayur',c:'grape',art:ems(['🍆','🌽','🥕','🍅']),play:[['tnama',5],['sambung',5],['bacaan',5]],items:()=>easyFirst(SAYUR).map(picItem)},
- {id:'k4',kamus:true,title:'Buah',c:'sky',art:ems(['🍌','🍎','🍊','🍉']),play:[['tnama',5],['sambung',5],['bacaan',5]],items:()=>easyFirst(BUAH).map(picItem)},
- {id:'k5',kamus:true,title:'Warna',c:'sun',art:'<span class="chip" style="color:#FF3B47">merah</span><span class="chip" style="color:#3B8BFF">biru</span><span class="chip" style="color:#3CC75A">hijau</span>',play:[['tnama',2],['bacaan',2],['awal',2]],items:()=>easyFirst(WARNA).map(picItem)}
+ {id:'k1',title:'Huruf A–Z',c:'peach',art:chips(['A a','B b','C c']),play:[['awal',1],['akhir',1],['uruth',1]],items:()=>LETTERS.map(l=>({k:'letter',up:l.toUpperCase(),low:l,ex:EXA[l],label:l.toUpperCase()+' '+l,say:[LN[l],EXA[l][0]]}))}
 ];
 
 /* ============ stiker ============ */

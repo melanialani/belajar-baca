@@ -195,5 +195,5 @@ const GAMES=[
    q.append(spkBtn(()=>TTS.say([w.w])));const cnt=[3,3,4,4,4][D.b];const start=Math.max(1,n-(rnd()*cnt|0));
    const a=h('div','a');a.append(optsEl(Array.from({length:cnt},(_,i)=>start+i),x=>x,(x,b)=>{if(x===n){b.classList.add('right');api.ok();}else{TTS.say([String(x)]);api.bad(b);}}));st.append(q,a);}}
 ];
-function buildGameCards(){buildCards($('#gameCards'),GAMES,openLevels,g=>{const s=gameStars(g.id);return s?`<span class="badge">⭐ ${s}/75</span>`:'';});}
+function buildGameCards(){buildCards($('#gameCards'),GAMES,openLevels,starBadge);}
 

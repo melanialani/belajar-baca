@@ -8,7 +8,7 @@ function dailyStreak(){const log=new Set(dailyLog()),d=new Date();if(!log.has(da
 const topLevel=id=>levelStars(id).reduce((t,s,i)=>s?i+1:t,0);
 const DAILY={id:'daily',daily:true,title:'Latihan Hari Ini',qn:10,ins:'Ayo latihan hari ini!',
   fn(st,api,D){if(!D.by)D.by={};
-    const math=G.q%2===1,pool=DAILY_IDS.map(id=>ALLGAMES.find(g=>g.id===id)).filter(g=>g&&MATH_GAMES.includes(g)===math&&g.id!==D.prev);
+    const math=G.q%2===1,pool=DAILY_IDS.map(id=>ALLGAMES.find(g=>g.id===id)).filter(g=>g&&!GAMES.includes(g)===math&&g.id!==D.prev);
     // most review value first: games the child already plays, plus one fresh pick now and then
     const played=pool.filter(g=>topLevel(g.id)),g=played.length&&Math.random()<.7?pickM(played):pickM(pool);D.prev=g.id;
     const L=Math.max(1,Math.min(25,topLevel(g.id)+(G.q>=6?1:0)));

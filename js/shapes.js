@@ -36,7 +36,7 @@ function numPatItem(ns,desc){
   return {k:'pat',label:ns.slice(0,4).join(' '),say:[...ns.map(numW),desc],
     render(c){const cells=ns.map(n=>patCell(numHtml(n),'num'));c.append(patRow(cells));return cells;}};}
 
-MATH_STAGES.push(
+WORLD_STAGES.push(
  {id:'mbentuk',title:'Bentuk',c:'pink',art:`<span class="em">${shapeEl(SHAPES[0],'#fff')}</span><span class="em">${shapeEl(SHAPES[1],'#fff')}</span>`+BR+`<span class="em">${shapeEl(SHAPES[2],'#fff')}</span>`,
   play:[['mbentuk',1],['mhbentuk',1],['mbentuk',21]],items:()=>SHAPES.map(shapeItem)},
  {id:'mpola',title:'Pola',c:'sun',art:ems(['🍎','🍌','🍎'])+BR+ems(['🍌','🍎','❓']),play:[['mpola',1],['mpola',6],['mpola',11]],
@@ -55,7 +55,7 @@ function numPattern(st,api,D){const step=pick([1,2,5,10]),s0=step*rint(step===1?
   numBtns(st,api,q,ans,numOpts(ans,OPT[D.b],Math.max(0,ans-3*step),ans+3*step,true,step),()=>{cells[miss].innerHTML=numHtml(ans);cells[miss].classList.remove('miss');});
   return say;}
 
-MATH_GAMES.push(
+WORLD_GAMES.push(
  {id:'mbentuk',title:'Tebak Bentuk',c:'pink',ins:'Dengarkan, lalu pilih bentuknya.',art:`<span class="em">${shapeEl(SHAPES[1],'#fff')}</span>`+BR+chips(['segitiga']),
   fn(st,api,D){const pool=SHAPES.slice(0,[3,4,8,8,8][D.b]),fresh=pool.filter(s=>!D.used.has(s.id)),t=pick(fresh.length?fresh:pool);D.used.add(t.id);
    let others=shuffle(pool.filter(s=>s!==t));
