@@ -90,7 +90,7 @@ const MATH_GAMES=[
    if(D.L<=15){const gap=Math.max(1,[4,3,2,1,1][D.b]-(D.q>=3?1:0));x=lo+(rnd()*(hi-lo-gap+1)|0);y=Math.min(hi,x+gap+(rnd()*Math.min(2,hi-x-gap+1)|0));}
    else{x=takeNum(D,lo,hi);const near=confusers(x).filter(n=>n>=lo&&n<=hi);const far=range(lo,hi).filter(n=>Math.abs(n-x)>=5);y=near.length&&D.L>=21?pick(near):far.length?pick(far):x===hi?x-1:x+1;}
    const more=D.b<2||rnd()<.5,ans=more?Math.max(x,y):Math.min(x,y),txt=more?'Mana yang lebih banyak?':'Mana yang lebih sedikit?',e=pick(COUNTEMO);
-   const q=h('div','q');q.append(h('div','chipw',more?'Lebih banyak':'Lebih sedikit'),spkBtn(()=>TTS.say([txt])));
+   const q=h('div','q');q.append(h('div','chipw',caseUnit(more?'Lebih banyak':'Lebih sedikit')),spkBtn(()=>TTS.say([txt])));
    const a=h('div','a');a.append(optsEl(shuffle([x,y]),n=>qtyEl(n,e).outerHTML,(n,b)=>{if(n===ans){b.classList.add('right');api.ok();}else api.bad(b);},'pic grp'));
    st.append(q,a);return [txt];}},
  {id:'murut',title:'Angka Hilang',c:'sky',ins:'Angka berapa yang hilang?',art:chips(['1','2','?','4','5']),

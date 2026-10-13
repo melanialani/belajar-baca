@@ -49,7 +49,7 @@ const GAMES=[
   fn(st,api,D){const w=takeWord(D,x=>x.s.length<=4);const q=h('div','q');if(w.e)q.append(P(w.e));const word=h('div','qword',caseWord(w.w));q.append(word,spkBtn(()=>TTS.say([w.w])));
    const max=Math.max([3,3,4,4,4][D.b],w.s.length);const nums=Array.from({length:max},(_,i)=>i+1);
    const a=h('div','a');a.append(optsEl(nums,n=>n,(n,b)=>{if(n===w.s.length){b.classList.add('right');word.innerHTML=w.s.map((s,i)=>`<span style="color:${COL[i%6]}">${casePart(s,i)}</span>`).join(' ');api.ok();}
-     else{TTS.say([String(n)]);api.bad(b);}}));st.append(q,a);return [w.w];}},
+     else{TTS.say([numW(n)]);api.bad(b);}}));st.append(q,a);return [w.w];}},
  {id:'tsuku',title:'Tebak Suara Suku Kata',c:'lilac',ins:'Dengarkan, lalu pilih suku katanya.',art:ems(['🔊'])+'<span class="br"></span>'+chips(['fu','ra','bo']),
   fn(st,api,D){const pl=[...new Set(sylPool(D.b))].sort((a,b)=>sylScore(a)-sylScore(b)||a.localeCompare(b));const fresh=pl.filter(s=>!D.used.has(s));const ans=bySeg(D,fresh.length?fresh:pl);D.used.add(ans);
    const q=h('div','q');q.append(spkBtn(()=>TTS.say([ans],{rate:.7}),true));
@@ -91,7 +91,7 @@ const GAMES=[
        if(!okStep){if(ch===T[0]){clear();sel=[i];b.classList.add('sel');return;}clear();api.bad(b);return;}
        sel.push(i);b.classList.add('sel');if(sel.length===T.length){sel.forEach(j=>cells[j].classList.add('found'));api.ok();}};ws.append(b);});
    const a=h('div','a');a.append(ws);st.append(q,a);}},
- {id:'urutk',title:'Urutkan Huruf Konsonan',c:'mint',ins:'Suku kata apa yang hilang?',art:chips(['ba','bi','?','be','bo']),
+ {id:'urutk',title:'Urutkan Suku Kata',c:'mint',ins:'Suku kata apa yang hilang?',art:chips(['ba','bi','?','be','bo']),
   fn(st,api,D){const bases=[['b','m','p','s','t'],['d','k','l','n','r'],['g','j','h','c','w'],['f','y','z','ng','ny'],[...CVORDER,'ng','ny']][D.b];
    const fresh=bases.filter(x=>!D.used.has(x));const c=bySeg(D,fresh.length?fresh:bases);D.used.add(c);const seq=VOW.map(v=>c+v);
    const miss=sample([0,1,2,3,4],[1,1,1,2,2][D.b]).sort();const left=new Set(miss);
@@ -112,6 +112,6 @@ const GAMES=[
   fn(st,api,D){const w=takeWord(D,x=>LET(x)&&x.w.length<=8);const n=w.w.length;const q=h('div','q');if(w.e)q.append(P(w.e));
    if(D.b<2){const lb=h('div','lboxes');[...w.w].forEach((ch,i)=>{const s=h('span','',casePart(ch,i));s.style.color=COL[i%6];lb.append(s);});q.append(lb);}else q.append(h('div','qword',caseWord(w.w)));
    q.append(spkBtn(()=>TTS.say([w.w])));const cnt=[3,3,4,4,4][D.b];const start=Math.max(1,n-(rnd()*cnt|0));
-   const a=h('div','a');a.append(optsEl(Array.from({length:cnt},(_,i)=>start+i),x=>x,(x,b)=>{if(x===n){b.classList.add('right');api.ok();}else{TTS.say([String(x)]);api.bad(b);}}));st.append(q,a);}}
+   const a=h('div','a');a.append(optsEl(Array.from({length:cnt},(_,i)=>start+i),x=>x,(x,b)=>{if(x===n){b.classList.add('right');api.ok();}else{TTS.say([numW(x)]);api.bad(b);}}));st.append(q,a);}}
 ];
 function buildGameCards(){buildCards($('#gameCards'),GAMES,openLevels,starBadge);}

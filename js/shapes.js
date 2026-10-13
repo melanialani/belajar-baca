@@ -6,8 +6,8 @@ const SHAPES=[
  {id:'persegi',fact:'persegi punya empat sisi yang sama panjang',ex:[['kado','🎁'],['dadu','🎲']],svg:'<rect x="10" y="10" width="80" height="80" rx="3"/>'},
  {id:'persegi panjang',fact:'persegi panjang punya dua sisi panjang dan dua sisi pendek',ex:[['pintu','🚪'],['batu bata','🧱'],['cokelat','🍫']],svg:'<rect x="3" y="26" width="94" height="48" rx="3"/>'},
  {id:'oval',fact:'oval itu lonjong',ex:[['telur','🥚'],['kentang','🥔']],svg:'<ellipse cx="50" cy="50" rx="30" ry="45"/>'},
- {id:'belah ketupat',fact:'belah ketupat punya empat sisi yang miring',ex:[['layang-layang','🪁']],svg:'<path d="M50 3L86 50L50 97L14 50Z"/>'},
- {id:'bintang',fact:'bintang punya lima ujung',ex:[['bintang di langit','⭐']],svg:`<polygon points="${STARPTS}"/>`},
+ {id:'belah ketupat',fact:'belah ketupat punya empat sisi yang sama panjang, bentuknya seperti ketupat',ex:[['ketupat','#ketupat']],svg:'<path d="M50 3L86 50L50 97L14 50Z"/>'},
+ {id:'bintang',fact:'bintang punya lima ujung',ex:[['stiker bintang','⭐']],svg:`<polygon points="${STARPTS}"/>`},
  {id:'hati',fact:'hati tanda sayang',ex:[['stiker hati','💖']],svg:'<path d="M50 90C22 70 4 52 10 30C15 12 40 8 50 28C60 8 85 12 90 30C96 52 78 70 50 90Z"/>'}];
 // shapes a child mixes up, used as wrong choices in later levels
 const SHSIM={lingkaran:['oval'],oval:['lingkaran'],persegi:['persegi panjang','belah ketupat'],'persegi panjang':['persegi'],'belah ketupat':['persegi','segitiga'],segitiga:['belah ketupat'],bintang:['hati'],hati:['bintang']};

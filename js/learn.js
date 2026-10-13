@@ -20,7 +20,7 @@ function buildCards(el,list,onPick,extra){el.innerHTML='';
 // [items seen, items total] of a learn card; a group card adds up its smaller cards
 const stageProg=m=>m.sub?m.sub.map(stageProg).reduce((a,b)=>[a[0]+b[0],a[1]+b[1]],[0,0]):(n=>[Math.min(n,store.get('lp:'+m.id,0)),n])(m.items().length);
 let GRP=null;
-function openGroup(g){GRP=g;show('sciGroup');TTS.say([g.title]);}
+function openGroup(g){GRP=g;show('sciGroup');TTS.say([g.say||g.title]);}
 function buildGroupCards(){if(!GRP)return show('belsains');$('#grpTitle').textContent=GRP.title;$('#sciGroup .back').dataset.go=GRP.home;buildLearnCards($('#grpCards'),GRP.sub);}
 function buildLearnCards(el=$('#learnCards'),list=STAGES){buildCards(el,list,m=>m.sub?openGroup(m):openStage(m),(m,i)=>{const [got,tot]=stageProg(m);
   return `<span class="num">${i+1}</span>`+(got>=tot?'<span class="badge">✓</span>':got>0?`<span class="badge">${got}/${tot}</span>`:'');});}
@@ -36,7 +36,7 @@ $('#lprev').innerHTML=IC.back;$('#lnext').innerHTML=IC.next;$('#lgrid').innerHTM
 function openStage(stage){const items=stage.items();
   L={stage,items,i:Math.min(store.get('li:'+stage.id,0),items.length-1),auto:false,tok:0,hl:[]};
   onScreen('learn');$('#learn .back').dataset.go=stage.home||'belajar';$('#lauto').hidden=!SET.extra;$('#lauto').classList.remove('on');
-  renderLearn(false);TTS.say([stage.title],{onEnd:()=>sayItem()});}
+  renderLearn(false);TTS.say([stage.say||stage.title],{onEnd:()=>sayItem()});}
 function renderItem(it,c){c.innerHTML='';if(it.render)return it.render(c);const hl=[];
   const addPic=(e,small)=>{if(e)c.append(h('div',small?'pic sm':'pic',ico(e)));};
   const exChip=ex=>h('div','ex',`<span>${ico(ex[1])}</span><span>${caseWord(ex[0])}</span>`);

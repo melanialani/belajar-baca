@@ -3,7 +3,7 @@
 SCI_CATS.push({id:'sc-hewan',title:'Sains Hewan',c:'peach',art:'🐔🥚🐱',groups:[
  {id:'sh-rumah',title:'Hewan di Rumah',art:'🐱🐶🐠',topics:[
   ['Kumis kucing','Kenapa kucing punya kumis?','🐱',['Kumis kucing sangat peka.','Kumis membantu kucing merasakan benda di sekitarnya, walaupun gelap.','Jadi, jangan menarik kumis kucing, ya!']],
-  ['Kucing mendengkur','Kenapa kucing mendengkur?','🐱>😌',['Kucing mendengkur dengan suara grrr yang halus.','Biasanya kucing mendengkur saat merasa nyaman dan senang.','Kadang kucing juga mendengkur untuk menenangkan dirinya.']],
+  ['Kucing mendengkur','Kenapa kucing mendengkur?','🐱>😌',['Kucing mendengkur dengan suara rrrr yang halus.','Biasanya kucing mendengkur saat merasa nyaman dan senang.','Kadang kucing juga mendengkur untuk menenangkan dirinya.']],
   ['Kucing menjilat bulu','Kenapa kucing sering menjilati bulunya?','🐱>👅',['Kucing membersihkan bulunya dengan lidah.','Lidah kucing kasar seperti sikat kecil.','Menjilat bulu juga membuat kucing tetap rapi dan sejuk.']],
   ['Kucing jatuh','Kenapa kucing bisa mendarat dengan kakinya?','🐈>🐾',['Saat jatuh, kucing bisa memutar badannya dengan cepat.','Tulang punggung kucing sangat lentur.','Tapi kucing tetap bisa terluka, jadi jangan dijatuhkan, ya!']],
   ['Hidung anjing','Kenapa hidung anjing basah?','🐶>👃',['Hidung yang basah membantu anjing menangkap bau.','Anjing bisa mencium bau jauh lebih baik daripada manusia.','Karena itu, anjing bisa membantu polisi mencari barang.']],
@@ -11,11 +11,11 @@ SCI_CATS.push({id:'sc-hewan',title:'Sains Hewan',c:'peach',art:'🐔🥚🐱',gr
   ['Ekor anjing','Kenapa anjing mengibaskan ekornya?','🐕>👋',['Ekor adalah cara anjing berbicara.','Ekor yang dikibaskan sering berarti anjing senang.','Ekor yang diselipkan di antara kaki berarti anjing takut.']],
   ['Ikan tidur','Apakah ikan juga tidur?','🐠>😴',['Ya, ikan juga beristirahat.','Kebanyakan ikan tidak punya kelopak mata, jadi beristirahat dengan mata terbuka.','Saat beristirahat, ikan diam dan bergerak pelan.']],
   ['Gelembung akuarium','Kenapa akuarium perlu gelembung udara?','🐟>🫧',['Ikan bernapas dengan oksigen yang ada di dalam air.','Gelembung udara membantu menambah oksigen ke dalam air.','Air akuarium juga harus dijaga tetap bersih.']],
-  ['Gigi kelinci','Kenapa kelinci terus mengunyah?','🐰>🥕',['Gigi kelinci tumbuh terus sepanjang hidupnya.','Mengunyah rumput dan sayur membuat giginya tidak terlalu panjang.','Makanan utama kelinci adalah rumput kering dan sayuran.']],
+  ['Gigi kelinci','Kenapa kelinci terus mengunyah?','🐰>🌾',['Gigi kelinci tumbuh terus sepanjang hidupnya.','Mengunyah rumput dan sayur membuat giginya tidak terlalu panjang.','Makanan utama kelinci adalah rumput kering dan sayuran.']],
   ['Telinga kelinci','Kenapa telinga kelinci panjang?','🐇>👂',['Telinga panjang membantu kelinci mendengar suara dari jauh.','Kelinci bisa memutar telinganya ke arah suara.','Telinga juga membantu kelinci membuang panas tubuhnya.']],
   ['Pipi hamster','Kenapa pipi hamster bisa menggembung?','🐹>🌻',['Hamster punya kantong di dalam pipinya.','Hamster membawa makanan di kantong pipi ke sarangnya.','Lalu makanan itu disimpan untuk dimakan nanti.']],
   ['Tempurung kura-kura','Bisakah kura-kura keluar dari tempurungnya?','🐢',['Tidak bisa. Tempurung adalah bagian dari tubuh kura-kura.','Tempurung menyatu dengan tulang punggung dan tulang rusuknya.','Kalau takut, banyak kura-kura menarik kepala dan kakinya ke dalam tempurung.']],
-  ['Burung nuri bicara','Kenapa burung nuri bisa menirukan suara?','🦜>🗣️',['Burung nuri pandai mendengar dan meniru suara.','Nuri bersuara dengan bagian khusus di dalam lehernya, bukan dengan bibir.','Nuri meniru suara supaya akrab dengan keluarganya.']],
+  ['Burung nuri bicara','Kenapa burung nuri bisa menirukan suara?','🦜>🗣️',['Burung nuri pandai mendengar dan meniru suara.','Nuri bersuara dengan bagian khusus di dalam tubuhnya, bukan dengan bibir.','Nuri meniru suara supaya akrab dengan keluarganya.']],
   ['Merawat hewan','Bagaimana cara merawat hewan peliharaan?','🐶+💧+🦴',['Beri makan dan air bersih setiap hari.','Ajak bermain dan bersihkan kandangnya.','Hewan yang sakit perlu dibawa ke dokter hewan.']]]},
  {id:'sh-ternak',title:'Hewan Ternak',art:'🐄🐔🐑',topics:[
   ['Bertelur dan melahirkan','Kenapa ayam bertelur, tapi kucing melahirkan?','🐔>🥚>🐣|🐱>🍼',['Ayam termasuk burung. Bayi ayam tumbuh di dalam telur, lalu menetas.','Kucing termasuk mamalia. Bayi kucing tumbuh di dalam perut induknya, lalu lahir.','Bayi mamalia minum susu dari induknya.']],
@@ -56,7 +56,7 @@ SCI_CATS.push({id:'sc-hewan',title:'Sains Hewan',c:'peach',art:'🐔🥚🐱',gr
   ['Bulu burung','Untuk apa burung punya bulu?','🪶>🐦',['Bulu menjaga burung tetap hangat.','Bulu sayap membantu burung terbang.','Warna bulu membantu burung bersembunyi atau menarik pasangan.']],
   ['Sarang burung','Kenapa burung membuat sarang?','🐦>🪺',['Sarang adalah tempat burung bertelur.','Sarang menjaga telur dan anak burung tetap hangat.','Burung membuat sarang dari ranting, rumput, dan daun.']],
   ['Mengerami telur','Kenapa burung duduk di atas telurnya?','🐦>🥚',['Burung mengerami telur supaya tetap hangat.','Di dalam telur, anak burung tumbuh.','Setelah cukup besar, anak burung memecah cangkang dan menetas.']],
-  ['Paruh burung','Kenapa bentuk paruh burung berbeda-beda?','🦜|🦅|🦩',['Bentuk paruh sesuai dengan makanannya.','Paruh elang tajam untuk merobek daging.','Paruh nuri kuat untuk memecah biji.']],
+  ['Paruh burung','Kenapa bentuk paruh burung berbeda-beda?','🦜|🦅|🦩',['Bentuk paruh sesuai dengan makanannya.','Paruh elang tajam untuk merobek daging.','Paruh nuri kuat untuk memecah biji.','Paruh flamingo menyaring makanan kecil dari air.']],
   ['Burung berkicau','Kenapa burung berkicau di pagi hari?','🐦>🎵',['Burung berkicau untuk memanggil teman dan pasangan.','Kicauan juga berarti: ini wilayahku.','Pagi hari udara tenang, jadi suaranya terdengar jauh.']],
   ['Burung hantu','Kenapa burung hantu aktif di malam hari?','🦉>🌙',['Burung hantu bisa melihat dalam gelap.','Pendengarannya sangat tajam untuk mencari tikus.','Burung hantu bisa memutar kepalanya jauh ke belakang.']],
   ['Mata elang','Kenapa mata elang sangat tajam?','🦅>👀',['Elang bisa melihat mangsa dari tempat yang sangat tinggi.','Penglihatan elang jauh lebih tajam daripada manusia.','Elang menangkap mangsa dengan cakarnya.']],
@@ -73,11 +73,11 @@ SCI_CATS.push({id:'sc-hewan',title:'Sains Hewan',c:'peach',art:'🐔🥚🐱',gr
   ['Paus','Apakah paus itu ikan?','🐳>💨',['Bukan. Paus adalah mamalia, seperti kita.','Paus bernapas dengan paru-paru, jadi harus naik ke permukaan.','Paus menyemburkan napas dari lubang di atas kepalanya.']],
   ['Paus biru','Hewan apa yang paling besar di dunia?','🐋',['Paus biru adalah hewan paling besar di dunia.','Panjangnya bisa sepanjang dua sampai tiga bus.','Anehnya, paus biru makan udang-udang kecil.']],
   ['Lumba-lumba','Bagaimana lumba-lumba berbicara?','🐬>🔊',['Lumba-lumba berbicara dengan bunyi siulan dan klik.','Lumba-lumba bisa mengenali temannya dari suaranya.','Lumba-lumba juga bernapas dengan paru-paru.']],
-  ['Gurita','Berapa jumlah lengan gurita?','🐙',['Gurita punya delapan lengan.','Setiap lengan punya banyak penghisap untuk memegang.','Gurita bisa mengubah warna kulitnya untuk bersembunyi.']],
+  ['Gurita','Berapa jumlah lengan gurita?','🐙',['Gurita punya delapan lengan.','Setiap lengan punya banyak pengisap untuk memegang.','Gurita bisa mengubah warna kulitnya untuk bersembunyi.']],
   ['Tinta cumi-cumi','Kenapa cumi-cumi menyemburkan tinta?','🦑>⚫',['Cumi-cumi menyemburkan tinta saat diserang.','Tinta hitam membuat air menjadi gelap.','Saat musuh bingung, cumi-cumi berenang kabur.']],
   ['Gigi hiu','Apakah gigi hiu bisa tumbuh lagi?','🦈>🦷',['Ya! Hiu punya banyak baris gigi.','Kalau satu gigi lepas, gigi di belakangnya maju menggantikan.','Hiu bisa mencium bau dari jauh di dalam air.']],
   ['Kepiting berjalan','Kenapa kepiting berjalan menyamping?','🦀>↔️',['Kaki kepiting menekuk ke samping.','Jadi, kepiting lebih mudah berjalan ke samping.','Kepiting punya capit untuk mengambil makanan.']],
-  ['Bintang laut','Apakah bintang laut itu ikan?','🌟>🌊',['Bukan. Bintang laut tidak punya tulang punggung.','Biasanya bintang laut punya lima lengan.','Kalau satu lengan putus, lengannya bisa tumbuh lagi.']],
+  ['Bintang laut','Apakah bintang laut itu ikan?','🌊',['Bukan. Bintang laut tidak punya tulang punggung.','Biasanya bintang laut punya lima lengan.','Kalau satu lengan putus, lengannya bisa tumbuh lagi.']],
   ['Penyu bertelur','Di mana penyu bertelur?','🐢>🏖️>🥚',['Penyu hidup di laut, tapi bertelur di pantai.','Induk penyu menggali pasir dan mengubur telurnya.','Setelah menetas, anak penyu yang bernama tukik berjalan menuju laut.']],
   ['Ubur-ubur','Kenapa ubur-ubur bisa menyengat?','🪼>⚠️',['Ubur-ubur punya tentakel dengan sengat kecil.','Sengat dipakai untuk menangkap makanan.','Jangan menyentuh ubur-ubur di pantai, ya.']],
   ['Ikan badut','Kenapa ikan badut tinggal di anemon?','🐠>🪸',['Anemon punya tentakel yang menyengat.','Ikan badut punya lendir khusus, jadi tidak tersengat.','Anemon melindungi ikan badut dari musuh.']],
@@ -98,7 +98,7 @@ SCI_CATS.push({id:'sc-hewan',title:'Sains Hewan',c:'peach',art:'🐔🥚🐱',gr
   ['Kamuflase','Kenapa ada hewan yang warnanya mirip sekitarnya?','🦎>🍃',['Warna yang mirip sekitarnya membantu hewan bersembunyi.','Ini namanya kamuflase.','Bunglon bahkan bisa mengubah warna kulitnya.']],
   ['Ekor monyet','Untuk apa ekor monyet?','🐒>🌳',['Ekor membantu monyet menjaga keseimbangan.','Beberapa monyet bisa berpegangan dengan ekornya.','Monyet hidup berkelompok di pohon.']],
   ['Orangutan','Di mana orangutan tinggal?','🦧>🌳',['Orangutan tinggal di hutan Sumatra dan Kalimantan.','Setiap malam, orangutan membuat sarang dari daun di atas pohon untuk tidur.','Hutan perlu dijaga supaya orangutan tetap punya rumah.']],
-  ['Komodo','Hewan apa yang hanya ada di Indonesia?','🦎>🏝️',['Komodo adalah kadal paling besar di dunia.','Komodo hidup di Pulau Komodo dan pulau-pulau di sekitarnya.','Komodo mencium bau makanan dari jauh dengan lidahnya.']],
+  ['Komodo','Kadal apa yang paling besar di dunia?','🦎>🏝️',['Komodo adalah kadal paling besar di dunia.','Di alam, komodo hanya ada di Indonesia, di Pulau Komodo dan pulau-pulau di sekitarnya.','Komodo mencium bau makanan dari jauh dengan lidahnya.']],
   ['Punuk unta','Kenapa unta punya punuk?','🐫>🏜️',['Unta tinggal di gurun yang panas dan kering.','Punuk unta berisi lemak, yaitu cadangan makanan.','Karena itu, unta kuat berjalan berhari-hari tanpa makan.']],
   ['Beruang tidur panjang','Kenapa beruang tidur lama di musim dingin?','🐻>😴',['Di musim dingin, makanan sulit dicari.','Beruang tidur lama di sarangnya dan memakai cadangan lemak di tubuhnya.','Tidur panjang seperti ini mirip hibernasi.']],
   ['Beruang kutub','Kenapa beruang kutub tidak kedinginan?','🐻‍❄️>🧊',['Beruang kutub punya bulu tebal dan lemak yang tebal.','Kulitnya berwarna hitam untuk menyerap panas.','Beruang kutub pandai berenang di laut yang dingin.']],
@@ -109,10 +109,10 @@ SCI_CATS.push({id:'sc-hewan',title:'Sains Hewan',c:'peach',art:'🐔🥚🐱',gr
   ['Hewan malam','Kenapa ada hewan yang aktif di malam hari?','🦉|🦇|🐱',['Hewan malam tidur di siang hari.','Mata mereka bisa melihat dalam cahaya yang redup.','Malam hari lebih sejuk dan aman untuk mencari makan.']]]}
 ]});
 SCI_QUIZ.push(
- ['Mana hewan yang bisa membuat madu?','🐝','🐜🦋🐞',1],['Mana hewan yang punya delapan lengan?','🐙','🐟🦀🐬',1],['Mana hewan yang paling tinggi?','🦒','🐘🦁🐄',1],
+ ['Mana hewan yang bisa membuat madu?','🐝','🐜🦋🐞',1],['Mana hewan yang punya delapan lengan?','🐙','🐟🐢🐬',1],['Mana hewan yang paling tinggi?','🦒','🐘🦁🐄',1],
  ['Mana hewan yang punya belalai?','🐘','🦒🦏🐄',1],['Mana hewan yang punya kantong di perutnya?','🦘','🐰🐻🐒',2],['Mana hewan yang bercahaya di malam hari?','🪲','🦋🐝🐜',3],
  ['Mana hewan yang punya enam kaki?','🐜🐞🐝','🕷️🐌🪱',2],['Mana hewan yang bertelur di pantai?','🐢','🐬🐳🦭',2],['Mana burung yang tidak bisa terbang?','🐧','🦅🦉🦜',2],
- ['Mana hewan yang hidup di Indonesia?','🦧🦎','🦘🐻‍❄️🐧',3],['Mana hewan yang bernapas dengan paru-paru?','🐬🐳','🐟🐠',3],['Bayi katak hidup di mana?','💧','🌳🏜️🧊',2]
+ ['Mana hewan yang hidup di Indonesia?','🦧🦎','🦓🐻‍❄️🐧',3],['Mana hewan yang bernapas dengan paru-paru?','🐬🐳','🐟🐠',3],['Bayi katak hidup di mana?','💧','🌳🏜️🧊',2]
 );
 SCI_FACTS.push(
  ['Laba-laba adalah serangga.',0,'🕷️',2],['Lebah membuat madu.',1,'🐝',1],['Kucing mendarat dengan kakinya.',1,'🐱',2],['Gigi hiu bisa tumbuh lagi.',1,'🦈',3],

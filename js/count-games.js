@@ -27,12 +27,12 @@ MATH_GAMES.push(
    const flash=()=>{clearTimeout(t);box.classList.remove('hide');t=setTimeout(()=>{if(box.isConnected&&!G.done)box.classList.add('hide');},ms);};
    const again=h('button','spk eye',ico('👀'));again.setAttribute('aria-label','Lihat lagi');again.onclick=()=>{if(!G.done){sfx.tap();flash();}};
    q.append(box,again);numBtns(st,api,q,n,numOpts(n,OPT[D.b],1,max,D.b>=2),()=>{clearTimeout(t);box.classList.remove('hide');});flash();}},
- {id:'mtoko',title:'Toko Buah',c:'sun',ins:'Bayar dengan koin sesuai harganya, lalu tekan Bayar.',art:ems(['🍎'])+chips(['3'])+'<span class="br"></span>'+chips(['1','2']),
+ {id:'mtoko',title:'Ayo Belanja',c:'sun',ins:'Bayar dengan koin sesuai harganya, lalu tekan Bayar.',art:ems(['🍎'])+chips(['3'])+'<span class="br"></span>'+chips(['1','2']),
   fn(st,api,D){const coins=[[1],[1,2],[1,2,5],[1,2,5],[1,2,5,10]][D.b],max=[5,7,10,10,20][D.b];let items;
    if(D.b<4){const p=takeNum(D,D.b>=2?3:1,max);items=[[...pick(GOODS),p]];}
    else{const g=sample(GOODS,2),p1=rint(2,10),p2=rint(1,Math.min(10,max-p1));items=[[...g[0],p1],[...g[1],p2]];}
    const total=items.reduce((t,x)=>t+x[2],0);
-   const say=[items.map(([nm,,p])=>`Harga ${nm} ${numW(p)}`).join(', ')+'. Ayo bayar!'];
+   const say=[items.map(([nm,,p])=>`Harga ${nm} ${numW(p)} koin`).join(', ')+'. Ayo bayar!'];
    const q=h('div','q'),shelf=h('div','shelf');items.forEach(([,e,p])=>shelf.append(h('div','good',`<span class="gpic">${ico(e)}</span><span class="tag">${p}</span>`)));
    const tray=h('div','tray');let paid=[];
    const sum=()=>paid.reduce((t,c)=>t+c,0);

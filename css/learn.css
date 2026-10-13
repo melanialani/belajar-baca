@@ -36,3 +36,4 @@
 @media (orientation:portrait){.content .qword{font-size:clamp(32px,9vw,96px)}.content .ex{font-size:clamp(24px,6.6vw,44px)}}
 /* a page taller than the screen scrolls instead of being cut off at the top */
 .content{justify-content:safe center;overflow-y:auto}
+@media (orientation:portrait){.lettercard{gap:6px}.lettercard .t{font-size:clamp(40px,12vw,180px)}}

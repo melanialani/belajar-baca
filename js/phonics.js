@@ -2,11 +2,12 @@
 const plainSyl=x=>!x.s.includes('_')&&!x.w.includes('-');
 
 /* --- short sentences: subject + action, the answer picture shows both --- */
-const SUBJ={ibu:'👩',ayah:'👨',adik:'🧒',kakak:'👧',kucing:'🐱',anjing:'🐶',monyet:'🐒',kelinci:'🐰',ayam:'🐔',sapi:'🐄'};
-const ACT={'makan roti':'🍞','makan pisang':'🍌','makan apel':'🍎','makan ikan':'🐟','makan wortel':'🥕','makan jagung':'🌽','makan rumput':'🌾','makan kue':'🍰',
+const SUBJ={ibu:'👩',ayah:'👨',adik:'👶',kakak:'👧',kucing:'🐱',anjing:'🐶',monyet:'🐒',kelinci:'🐰',ayam:'🐔',sapi:'🐄'};
+const ACT={'makan roti':'🍞','makan pisang':'🍌','makan apel':'🍎','makan ikan':'🐟','makan wortel':'🥕','makan jagung':'🌽','makan rumput':'🌱','makan kue':'🍰',
   'minum susu':'🥛','minum kopi':'☕','main bola':'⚽','main balon':'🎈','naik sepeda':'🚲','naik mobil':'🚗','naik kapal':'🚢','baca buku':'📖'};
-const PEOPLE_ACT=Object.keys(ACT).filter(a=>a!=='makan rumput');
-const CAN={ibu:PEOPLE_ACT,ayah:PEOPLE_ACT,adik:PEOPLE_ACT,kakak:PEOPLE_ACT,kucing:['makan ikan','minum susu','main bola','main balon'],anjing:['makan roti','main bola','main balon'],
+const PEOPLE_ACT=Object.keys(ACT).filter(a=>a!=='makan rumput'&&a!=='minum kopi');
+// coffee only for grown-ups; adik is a toddler (👶), so no bicycle; cats get no cow's milk
+const CAN={ibu:[...PEOPLE_ACT,'minum kopi'],ayah:[...PEOPLE_ACT,'minum kopi'],adik:PEOPLE_ACT.filter(a=>a!=='naik sepeda'),kakak:PEOPLE_ACT,kucing:['makan ikan','main bola','main balon'],anjing:['makan roti','main bola','main balon'],
   monyet:['makan pisang','makan apel','naik sepeda'],kelinci:['makan wortel','makan apel'],ayam:['makan jagung'],sapi:['makan rumput']};
 const SENT=Object.entries(CAN).flatMap(([s,acts])=>acts.map(a=>({s,a,t:s+' '+a})));
 // easy: people doing everyday things; later bands add animals and less common actions

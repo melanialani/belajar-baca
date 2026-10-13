@@ -9,7 +9,7 @@ MATH_GAMES.push(
    const ns=sample(range(lo,hi),k),order=[...ns].sort((x,y)=>down?y-x:x-y);let pos=0;
    const txt=down?'Ketuk dari angka yang paling besar.':'Ketuk dari angka yang paling kecil.';
    const q=h('div','q'),row=h('div','slots');order.forEach(()=>row.append(h('div','slot')));
-   q.append(mrow(h('div','chipw',down?'Besar → kecil':'Kecil → besar'),spkBtn(()=>TTS.say([txt]))),row);
+   q.append(mrow(h('div','chipw',caseUnit(down?'Besar → kecil':'Kecil → besar')),spkBtn(()=>TTS.say([txt]))),row);
    const box=h('div','balloons');
    shuffle(ns).forEach((n,i)=>{const b=h('button','balloon',`<span>${n}</span>`);b.style.setProperty('--bc',COL[i%6]);
      b.onclick=()=>{if(G.done||b.classList.contains('gone'))return;TTS.say([numW(n)]);
@@ -22,7 +22,7 @@ MATH_GAMES.push(
    const near=D.L>=11?shuffle(confusers(x).filter(n=>n>=lo&&n<=hi)):[];
    const list=shuffle([x,...[...near,...shuffle(range(lo,hi).filter(n=>n!==x&&!near.includes(n)))].slice(0,k-1)]),ans=Math.max(...list);
    const say=[`${list.map(numW).join(', ')}. Buaya mau angka yang ${k>2?'paling':'lebih'} besar.`];
-   const croc=h('div','gpic croc',ico('🐊')),q=h('div','q');q.append(croc,mrow(h('div','chipw',k>2?'Paling besar':'Lebih besar'),spkBtn(()=>TTS.say(say))));
+   const croc=h('div','gpic croc',ico('🐊')),q=h('div','q');q.append(croc,mrow(h('div','chipw',caseUnit(k>2?'Paling besar':'Lebih besar')),spkBtn(()=>TTS.say(say))));
    const a=h('div','a');a.append(optsEl(list,String,(n,b)=>{if(n===ans){b.classList.add('right');croc.classList.add('chomp');api.ok();}else{TTS.say([numW(n)]);api.bad(b);}}));
    st.append(q,a);return say;}},
  {id:'msusun',title:'Susun Angka',c:'rose',ins:'Dengarkan, lalu susun angkanya.',art:ems(['🔊'])+BR+chips(['2','1']),
@@ -44,7 +44,7 @@ MATH_GAMES.push(
    addR.onclick=()=>add(1,0,addR);addU.onclick=()=>add(0,1,addU);
    draw();q.append(tray,cur);
    const a=h('div','a');a.append(mrow(addR,addU),okBtn('Sudah',b=>{if(t*10+u===n)api.ok();else api.bad(b);}));st.append(q,a);return say;}},
- {id:'mteman',title:'Teman Sepuluh',c:'sky',ins:'Berapa lagi supaya penuh?',art:chips(['7','+','?'])+BR+chips(['10']),
+ {id:'mteman',title:'Teman Sepuluh',c:'sky',ins:'Berapa lagi supaya pas?',art:chips(['7','+','?'])+BR+chips(['10']),
   fn(st,api,D){const L=D.L,tot=L<=5?5:L<=20?10:20,a=takeNum(D,tot===20?10:1,tot-1),ans=tot-a;
    const fr=L<=15||L>=21?framesEl(a,0,{size:tot===5?5:10,frames:tot===20?2:1}):null;
    const say=[`Ada ${numW(a)}. Berapa lagi supaya jadi ${numW(tot)}?`];
