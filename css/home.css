@@ -52,13 +52,13 @@
 .daily.done{background:var(--mint);box-shadow:0 5px 0 #1A9F86}
 .homefoot{flex-wrap:wrap;justify-content:center}
 /* home: Belajar, Main, Stiker; the Belajar / Main hubs each show Baca, Hitung, Sains */
-.homebtns{display:grid;grid-template-columns:repeat(3,auto);grid-template-areas:"b m st";gap:clamp(12px,3vmin,28px)}
+.homebtns{display:grid;grid-template-columns:repeat(4,auto);grid-template-areas:"b m jd st";gap:clamp(12px,3vmin,28px)}
 #goBelajar{grid-area:b}
 #goMain{grid-area:m}
-#goStk{grid-area:st}
-.homebtns .hb,.hub .hb{width:clamp(130px,min(30vmin,22vw),260px);line-height:1.05;text-align:center}
+#goStk{grid-area:st}#goJaga{grid-area:jd}
+.homebtns .hb,.hub .hb{width:clamp(120px,min(30vmin,19vw),240px);line-height:1.05;text-align:center}
 .hub .hb{width:clamp(120px,min(30vmin,19vw),240px)}
 .hub{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:clamp(14px,4vmin,36px);padding:12px;overflow-y:auto}
-@media (orientation:portrait){.homebtns{grid-template-columns:repeat(2,1fr);grid-template-areas:"b m" "st st"}.homebtns .hb{justify-self:center;width:clamp(120px,min(40vw,22vh),270px)}.daily{font-size:clamp(17px,4.4vw,24px);padding:6px 14px}.homefoot{gap:10px}.homebtns #goStk{width:auto;justify-self:stretch;aspect-ratio:auto;flex-direction:row;gap:10px;padding:8px}.hub{flex-direction:column;flex-wrap:nowrap}.hub .hb{width:clamp(140px,min(56vw,22vh),280px)}}
+@media (orientation:portrait){.homebtns{grid-template-columns:repeat(2,1fr);grid-template-areas:"b m" "jd st"}.homebtns .hb{justify-self:center;width:clamp(120px,min(40vw,22vh),270px)}.daily{font-size:clamp(17px,4.4vw,24px);padding:6px 14px}.homefoot{gap:10px}.homebtns :is(#goStk,#goJaga){width:auto;justify-self:stretch;aspect-ratio:auto;flex-direction:row;gap:10px;padding:8px}.hub{flex-direction:column;flex-wrap:nowrap}.hub .hb{width:clamp(140px,min(56vw,22vh),280px)}}
 @media (orientation:landscape) and (max-height:500px){.homebtns .hb{width:clamp(90px,min(30vmin,15vw),160px);font-size:clamp(18px,4.6vmin,28px)}}
 @media (orientation:landscape) and (max-height:500px){.hub .hb{width:clamp(110px,min(40vmin,22vw),180px);font-size:clamp(20px,5vmin,30px)}}

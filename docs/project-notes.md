@@ -19,6 +19,7 @@ css/reading-games.css ← parade, blending train, drum, sentences, read aloud, w
 css/math.css        ← numbers, pictures, ten frames, blocks, counting games
 css/science.css     ← shapes, patterns, science topics, true/false
 css/experiments.css ← experiment pages
+css/safety.css      ← Jaga Diri badges, number cards, parent inputs
 js/emoji-index.js   ← EMO: Set of emoji that have an SVG file
 js/helpers.js       ← $, ico/emojify/preloadEmo, random, store (ayobaca2:), SET + case helpers, longPress
 js/tts.js           ← speech + sound effects
@@ -40,6 +41,8 @@ js/data/fakta-1.js, fakta-2.js ← 500 Tahukah Kamu? facts in 8 cards
 js/facts.js         ← Tahukah Kamu? group card
 js/data/eksperimen.js, eksperimen-2.js, eksperimen-3.js ← 300 experiments in 16 themes
 js/experiments.js   ← Eksperimen cards (materials, steps, what happens, why; page scrolls to the line being read)
+js/data/jaga-diri.js ← Jaga Diri content: rule cards, important numbers, Aman atau Bahaya? situations, Telepon Siapa? questions
+js/safety.js        ← Jaga Diri screen, number cards, family phone/address cards, two games
 tools/emoji_tool.py ← exports Fluent Emoji SVGs by code point (see its header)
 js/science.js       ← Sains: Warna/Hewan/Buah/Sayur stages, science category stages, Kuis Sains, Benar atau Salah (+ shapes/patterns pushed in by shapes.js)
 js/shapes.js        ← Bentuk & Pola: learn stages + Tebak Bentuk, Hitung Bentuk, Lanjutkan Pola
@@ -72,3 +75,4 @@ assets/emoji/*.svg  ← 488 Fluent Emoji SVGs, one file each (name = hex code po
 - 2026-10-12: Belajar hub gets a 4th button Eksperimen (100 safe experiments for TK/SD in 8 themes, each marked "Bersama orang tua"). Sains categories can now be split into smaller cards: Sains Hewan = 100 topics in 6 cards (Hewan di Rumah, Hewan Ternak, Serangga & Hewan Kecil, Burung, Hewan Laut, Hewan Liar); old stage id `sc-hewan` is now the group card. Emoji set grown 488 → 549 from the same Fluent Emoji art (Iconify `@iconify-json/fluent-emoji` 1.2.7, mapped to code points with emojibase labels; 1,563 icons available). Earlier picture substitutions (🌋, moon phases, 🪥, 🧲 …) restored. Plan: the other 5 science categories get 100 topics each, one at a time after review. Asset version `?v=2026-10-12i`.
 - 2026-10-13: Sains grown to 600 topics: Tubuh Kita, Sains Hewan, Tumbuhan, Air & Benda, Cuaca & Alam, Langit & Antariksa each 100 topics in 6–7 smaller cards. New Sains card "Tahukah Kamu?" with 500 short facts in 8 cards (Hewan, Laut, Dinosaurus, Tumbuhan, Tubuh, Bumi & Cuaca, Antariksa, Benda & Penemuan). Eksperimen grown to 300 in 16 themes (new: Tanah & Batu, Tubuh Kita, Gerak & Gaya, Larut & Campuran, Panas & Dingin, Cuaca, Hewan Kecil & Pengamatan, Mainan Sains). Kuis Sains 72 questions, Benar atau Salah 73 statements. Emoji 691 SVGs. Learn pages taller than the screen now scroll. Asset version `?v=2026-10-13a`.
 - Content rules for science / facts / experiments: Bahasa Indonesia for kids, numbers written as words (TTS), no digits, symbols, parentheses or emoji inside sentences; uncertain science says "para ilmuwan menduga"; experiments: no fire, sharp tools, hot water or strong chemicals handled by the child (parent does it, written "dipakai/dilakukan orang tua"), every experiment shows "Bersama orang tua".
+- 2026-10-13: new home button Jaga Diri 🛡️ (home: Belajar, Main, Jaga Diri, Stiker). Cards: Tubuhku Milikku (body safety: private parts, no undressing games, no bad secrets, say no, go, tell; never your fault), Berani Bilang Tidak (dangerous dares), Orang Asing (do not go along, shout "Tolong! Ini bukan ayah atau ibu saya!", family password, door, internet), Kalau Tersesat, Aman di Rumah & Jalan, Nomor Penting (112 darurat, 110 polisi, 113 pemadam, 119 ambulans, 129 SAPA; read digit by digit). Games: Aman atau Bahaya? (36 situations), Telepon Siapa? (112 is never a wrong choice). Mode Orang Tua: optional parent phone number and home address (SET.ph / SET.addr, this device only) shown and read in Nomor Penting for practice. Asset version `?v=2026-10-13b`.

@@ -37,7 +37,7 @@ function toast(msg,ms=3000){const t=h('div','toast',msg);document.body.append(t)
 const SET0=store.get('set',{});
 // one-time move of the old default break (15 min) to the new default (30 min); brkMig marks it as done
 if(!SET0.brkMig&&SET0.brk===15)SET0.brk=30;
-const SET=Object.assign({extra:false,slow:false,brk:30,case:'lower'},SET0,{brkMig:true});
+const SET=Object.assign({extra:false,slow:false,brk:30,case:'lower',ph:'',addr:''},SET0,{brkMig:true});
 if(!SET0.brkMig)store.set('set',SET);
 // letter case setting: 'lower' (default) | 'cap' (first letter of a word) | 'upper'
 const cap=s=>s?s[0].toUpperCase()+s.slice(1):s;

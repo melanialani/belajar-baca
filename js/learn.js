@@ -3,7 +3,7 @@ let L=null,G=null;
 function show(id){
   TTS.stop();if(L){L.auto=false;L.tok++;}if(G)G.tok++;rnd=Math.random;
   onScreen(id);['endov','gridov','parentov','practov'].forEach(o=>$('#'+o).classList.remove('on'));
-  if(id==='belajar')buildLearnCards();if(id==='bermain')buildGameCards();if(id==='stiker')buildStickers();if(id==='belhitung')buildMathLearnCards();if(id==='mainhitung')buildMathGameCards();if(id==='belsains')buildSciLearnCards();if(id==='mainsains')buildSciGameCards();if(id==='sciGroup')buildGroupCards();if(id==='beleksp')buildExpCards();if(id==='home')updateDaily();
+  if(id==='belajar')buildLearnCards();if(id==='bermain')buildGameCards();if(id==='stiker')buildStickers();if(id==='belhitung')buildMathLearnCards();if(id==='mainhitung')buildMathGameCards();if(id==='belsains')buildSciLearnCards();if(id==='mainsains')buildSciGameCards();if(id==='sciGroup')buildGroupCards();if(id==='beleksp')buildExpCards();if(id==='jagadiri')buildJdCards();if(id==='home')updateDaily();
   updateStars();}
 document.querySelectorAll('.back').forEach(b=>b.innerHTML=IC.back);
 // any [data-go] button opens that screen; data-say speaks its name (home and the Belajar / Main hubs)
