@@ -30,3 +30,11 @@
 .opts>.opt.tf:last-child{--oc:#FF7A6B}
 @media (orientation:portrait){.scipics{font-size:clamp(34px,10vw,80px)}.scil{font-size:clamp(15px,4.4vw,26px);padding:2px 6px}.sciq{font-size:clamp(20px,5.8vw,40px)}}
 @media (orientation:landscape) and (max-height:500px){.scipics{font-size:clamp(30px,9vmin,90px)}.scil{font-size:clamp(14px,3.6vmin,28px);padding:1px 8px}.sciq{font-size:clamp(20px,5vmin,46px)}}
+/* Tahukah Kamu? facts */
+.factq{font-family:var(--ui);font-weight:700;font-size:clamp(20px,4.6vmin,34px);color:#fff;background:var(--sun);box-shadow:0 4px 0 #E09E00;border-radius:999px;padding:2px 18px;transition:transform .2s}
+.factpics{font-size:clamp(56px,17vmin,140px)}
+.facttxt{font-family:var(--read);font-weight:700;font-size:clamp(22px,5.2vmin,44px);line-height:1.25;max-width:min(760px,92vw);color:var(--ink);transition:color .2s}
+.factq.hi{transform:scale(1.08)}.facttxt.hi{color:var(--pink)}
+@media (orientation:portrait){.factpics{font-size:clamp(48px,16vw,120px)}.facttxt{font-size:clamp(19px,5.6vw,40px)}}
+@media (orientation:landscape) and (max-height:500px){.factpics{font-size:clamp(40px,13vmin,140px)}.facttxt{font-size:clamp(18px,5vmin,44px)}}
+.sciq,.scil,.facttxt{overflow-wrap:anywhere}
