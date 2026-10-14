@@ -32,7 +32,7 @@ function buildStickers(){
   STICKERS.forEach((e,i)=>{const b=h('button','stk'+(i<n?'':' locked'),i<n?ico(e):'?');b.onclick=()=>{if(i<n){b.classList.remove('wiggle');void b.offsetWidth;b.classList.add('wiggle');sfx.ok();}else{sfx.no();TTS.say(['Kumpulkan bintang untuk membuka stiker ini']);}};g.append(b);});}
 
 /* ============ belajar ============ */
-$('#lprev').innerHTML=IC.back;$('#lnext').innerHTML=IC.next;$('#lgrid').innerHTML=IC.grid;$('#lsay').innerHTML=IC.spk;
+$('#lprev').innerHTML=$('#lprev2').innerHTML=IC.back;$('#lnext').innerHTML=$('#lnext2').innerHTML=IC.next;$('#lgrid').innerHTML=IC.grid;$('#lsay').innerHTML=IC.spk;
 function openStage(stage){const items=stage.items();
   L={stage,items,i:Math.min(store.get('li:'+stage.id,0),items.length-1),auto:false,tok:0,hl:[]};
   onScreen('learn');$('#learn .back').dataset.go=stage.home||'belajar';$('#lauto').hidden=!SET.extra;$('#lauto').classList.remove('on');
@@ -51,11 +51,11 @@ function renderItem(it,c){c.innerHTML='';if(it.render)return it.render(c);const 
     const s=h('div','syls tight'+(it.w.length>=9?' long':''));let n=0;
     it.s.forEach(x=>{if(x==='_'){s.append(h('span','gap'));return;}const sp=h('span','',casePart(x,n));sp.style.color=n%2?'#7CC62A':'#FF9A62';n++;s.append(sp);hl.push(sp);});c.append(s);}
   return hl;}
-// text-heavy cards hide the side arrows to free up width; the card is swiped left/right instead
+// text-heavy cards move the arrows next to the speaker to free up width; the card can also be swiped
 const SWIPE_K=new Set(['exp','jd','sci','fact']);
 function renderLearn(speak,dir){TTS.stop();const it=L.items[L.i],c=$('#lcontent');L.hl=renderItem(it,c);
-  $('#learn .viewer').classList.toggle('swipe',SWIPE_K.has(it.k));c.classList.remove('slin','slinb');if(dir){void c.offsetWidth;c.classList.add(dir>0?'slin':'slinb');}
-  const n=L.items.length;$('#progbar').style.width=((L.i+1)/n*100)+'%';$('#progtxt').textContent=(L.i+1)+'/'+n;$('#lprev').disabled=L.i===0;
+  $('#learn').classList.toggle('swipe',SWIPE_K.has(it.k));c.classList.remove('slin','slinb','back');c.style.transform='';if(dir){void c.offsetWidth;c.classList.add(dir>0?'slin':'slinb');}
+  const n=L.items.length;$('#progbar').style.width=((L.i+1)/n*100)+'%';$('#progtxt').textContent=(L.i+1)+'/'+n;$('#lprev').disabled=$('#lprev2').disabled=L.i===0;
   store.set('li:'+L.stage.id,L.i);if(L.i+1>store.get('lp:'+L.stage.id,0))store.set('lp:'+L.stage.id,L.i+1);
   const nx=L.items[L.i+1];if(nx)preloadEmo(nx.e,nx.ex&&nx.ex[1]);
   if(speak)sayItem();}
@@ -68,8 +68,8 @@ function go(i){const n=L.items.length;
   if(i>=n){if(L.auto){L.i=0;renderLearn(false);autoStep();return;}L.auto=false;sfx.win();confetti();if(L.stage.play.length)openPractice(L.stage,true);else show(L.stage.home);return;}
   const dir=i>L.i?1:-1;L.i=i;if(L.auto){renderLearn(false,dir);autoStep();}else renderLearn(true,dir);}
 function autoStep(){const tok=++L.tok;sayItem(()=>{if(!L.auto||tok!==L.tok)return;setTimeout(()=>{if(!L.auto||tok!==L.tok)return;go(L.i+1);},1400);});}
-$('#lprev').onclick=()=>{sfx.tap();go(L.i-1);};
-$('#lnext').onclick=()=>{sfx.tap();go(L.i+1);};
+$('#lprev').onclick=$('#lprev2').onclick=()=>{sfx.tap();go(L.i-1);};
+$('#lnext').onclick=$('#lnext2').onclick=()=>{sfx.tap();go(L.i+1);};
 $('#lsay').onclick=()=>{L.tok++;if(L.auto)autoStep();else sayItem();};
 $('#lcontent').onclick=()=>{if(swiped){swiped=false;return;}L.tok++;if(L.auto)autoStep();else sayItem();};
 $('#lauto').onclick=()=>{L.auto=!L.auto;$('#lauto').classList.toggle('on',L.auto);L.tok++;if(L.auto)autoStep();else TTS.stop();};
@@ -78,15 +78,19 @@ $('#lgrid').onclick=()=>{sfx.tap();TTS.stop();L.tok++;const box=$('#gridbox');bo
   $('#gridov').classList.add('on');const cur=box.querySelector('.cur');if(cur)cur.scrollIntoView({block:'center'});};
 $('#gridx').onclick=()=>$('#gridov').classList.remove('on');
 // swipe (touch) or drag (mouse) sideways to change card; a mostly vertical move is a scroll, not a swipe
-// while dragging, the card follows the finger and springs back if the move was too short
-let swX=null,swY=0,swiped=false;
+// the card follows the finger; a short drag or a quick flick is enough, then the card flies out to that side,
+// otherwise it springs back
+let swX=null,swY=0,swT=0,swiped=false,swBusy=false;
 const swCard=()=>$('#lcontent');
-const swStart=(x,y)=>{swX=x;swY=y;swiped=false;swCard().classList.remove('back');};
+const swStart=(x,y)=>{if(swBusy)return;swX=x;swY=y;swT=Date.now();swiped=false;swCard().classList.remove('back');};
 const swMove=(x,y)=>{if(swX==null)return;const dx=x-swX,dy=y-swY;
-  if(Math.abs(dx)>Math.abs(dy))swCard().style.transform=`translateX(${dx*.6}px) rotate(${dx/60}deg)`;};
-const swEnd=(x,y,e)=>{if(swX==null)return;const dx=x-swX,dy=y-swY,c=swCard();swX=null;
-  c.classList.add('back');c.style.transform='';
-  if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.5){swiped=true;e.preventDefault();c.classList.remove('back');go(L.i+(dx<0?1:-1));}};
+  if(Math.abs(dx)>Math.abs(dy))swCard().style.transform=`translateX(${dx}px) rotate(${dx/40}deg)`;};
+const swEnd=(x,y,e)=>{if(swX==null)return;const dx=x-swX,dy=y-swY,c=swCard(),fast=Math.abs(dx)/Math.max(1,Date.now()-swT)>.35;swX=null;
+  c.classList.add('back');
+  if((Math.abs(dx)>40||(fast&&Math.abs(dx)>20))&&Math.abs(dx)>Math.abs(dy)){swiped=true;e.preventDefault();
+    const d=dx<0?1:-1,to=L.i+d;if(to<0){c.style.transform='';return;}
+    swBusy=true;c.style.transform=`translateX(${-d*120}%) rotate(${-d*8}deg)`;setTimeout(()=>{swBusy=false;go(to);},160);}
+  else c.style.transform='';};
 $('#lcontent').addEventListener('touchstart',e=>swStart(e.touches[0].clientX,e.touches[0].clientY),{passive:true});
 $('#lcontent').addEventListener('touchmove',e=>swMove(e.touches[0].clientX,e.touches[0].clientY),{passive:true});
 $('#lcontent').addEventListener('touchend',e=>swEnd(e.changedTouches[0].clientX,e.changedTouches[0].clientY,e));

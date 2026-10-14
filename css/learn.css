@@ -37,17 +37,20 @@
 /* a page taller than the screen scrolls instead of being cut off at the top */
 .content{justify-content:safe center;overflow-y:auto}
 @media (orientation:portrait){.lettercard{gap:6px}.lettercard .t{font-size:clamp(40px,12vw,180px)}}
-/* text-heavy cards: no side arrows (swipe instead); the page is one big card that follows the finger
-   and slides in from the side it came from */
-.viewer.swipe .arrow{display:none}
-.viewer.swipe{padding-top:4px;padding-bottom:12px}
-.viewer.swipe .content{background:var(--card);border-radius:28px;box-shadow:0 8px 0 var(--bg2);padding:clamp(14px,3vmin,26px) clamp(12px,3vmin,26px);touch-action:pan-y;user-select:none;-webkit-user-select:none}
-.content.back{transition:transform .2s ease-out}
+/* text-heavy cards: the side arrows move next to the speaker button; the page is one big card that
+   follows the finger and slides in from the side it came from */
+.saybar{gap:clamp(18px,6vw,48px);align-items:center}
+.saybar .arrow{display:none;width:clamp(68px,13vmin,96px);box-shadow:0 0 0 6px var(--card),0 6px 0 6px var(--bg2)}
+.swipe .saybar .arrow{display:grid}
+.swipe .viewer .arrow{display:none}
+.swipe .viewer{padding-top:4px;padding-bottom:12px}
+.swipe .viewer .content{background:var(--card);border-radius:28px;box-shadow:0 8px 0 var(--bg2);padding:clamp(14px,3vmin,26px) clamp(12px,3vmin,26px);touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.content.back{transition:transform .16s ease-out}
 /* things inside the card that had the card color get the page color so they stay visible */
-.viewer.swipe .content :is(.ex,.expbadge,.jdnum),.viewer.swipe .content :is(.scil,.expsteps li,.expres).hi{background:var(--bg)}
-.content.slin{animation:slin .25s ease-out}
-.content.slinb{animation:slinb .25s ease-out}
-@keyframes slin{from{transform:translateX(40px);opacity:0}}
-@keyframes slinb{from{transform:translateX(-40px);opacity:0}}
+.swipe .viewer .content :is(.ex,.expbadge,.jdnum),.swipe .viewer .content :is(.scil,.expsteps li,.expres).hi{background:var(--bg)}
+.content.slin{animation:slin .25s cubic-bezier(.2,.8,.3,1)}
+.content.slinb{animation:slinb .25s cubic-bezier(.2,.8,.3,1)}
+@keyframes slin{from{transform:translateX(30%);opacity:0}}
+@keyframes slinb{from{transform:translateX(-30%);opacity:0}}
 /* on a phone the card is as wide as the screen, so the text can be bigger */
-@media (orientation:portrait){.viewer.swipe .content :is(.expsteps,.expres,.scil){font-size:clamp(17px,5vw,28px)}}
+@media (orientation:portrait){.swipe .viewer .content :is(.expsteps,.expres,.scil){font-size:clamp(17px,5vw,28px)}}
