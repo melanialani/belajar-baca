@@ -51,7 +51,10 @@ function renderItem(it,c){c.innerHTML='';if(it.render)return it.render(c);const 
     const s=h('div','syls tight'+(it.w.length>=9?' long':''));let n=0;
     it.s.forEach(x=>{if(x==='_'){s.append(h('span','gap'));return;}const sp=h('span','',casePart(x,n));sp.style.color=n%2?'#7CC62A':'#FF9A62';n++;s.append(sp);hl.push(sp);});c.append(s);}
   return hl;}
-function renderLearn(speak){TTS.stop();const it=L.items[L.i];L.hl=renderItem(it,$('#lcontent'));
+// text-heavy cards hide the side arrows to free up width; the card is swiped left/right instead
+const SWIPE_K=new Set(['exp','jd','sci','fact']);
+function renderLearn(speak,dir){TTS.stop();const it=L.items[L.i],c=$('#lcontent');L.hl=renderItem(it,c);
+  $('#learn .viewer').classList.toggle('swipe',SWIPE_K.has(it.k));c.classList.remove('slin','slinb');if(dir){void c.offsetWidth;c.classList.add(dir>0?'slin':'slinb');}
   const n=L.items.length;$('#progbar').style.width=((L.i+1)/n*100)+'%';$('#progtxt').textContent=(L.i+1)+'/'+n;$('#lprev').disabled=L.i===0;
   store.set('li:'+L.stage.id,L.i);if(L.i+1>store.get('lp:'+L.stage.id,0))store.set('lp:'+L.stage.id,L.i+1);
   const nx=L.items[L.i+1];if(nx)preloadEmo(nx.e,nx.ex&&nx.ex[1]);
@@ -63,20 +66,34 @@ function sayItem(after){const it=L.items[L.i],hl=L.hl;
 function go(i){const n=L.items.length;
   if(i<0)return;
   if(i>=n){if(L.auto){L.i=0;renderLearn(false);autoStep();return;}L.auto=false;sfx.win();confetti();if(L.stage.play.length)openPractice(L.stage,true);else show(L.stage.home);return;}
-  L.i=i;if(L.auto){renderLearn(false);autoStep();}else renderLearn(true);}
+  const dir=i>L.i?1:-1;L.i=i;if(L.auto){renderLearn(false,dir);autoStep();}else renderLearn(true,dir);}
 function autoStep(){const tok=++L.tok;sayItem(()=>{if(!L.auto||tok!==L.tok)return;setTimeout(()=>{if(!L.auto||tok!==L.tok)return;go(L.i+1);},1400);});}
 $('#lprev').onclick=()=>{sfx.tap();go(L.i-1);};
 $('#lnext').onclick=()=>{sfx.tap();go(L.i+1);};
 $('#lsay').onclick=()=>{L.tok++;if(L.auto)autoStep();else sayItem();};
-$('#lcontent').onclick=()=>{L.tok++;if(L.auto)autoStep();else sayItem();};
+$('#lcontent').onclick=()=>{if(swiped){swiped=false;return;}L.tok++;if(L.auto)autoStep();else sayItem();};
 $('#lauto').onclick=()=>{L.auto=!L.auto;$('#lauto').classList.toggle('on',L.auto);L.tok++;if(L.auto)autoStep();else TTS.stop();};
 $('#lgrid').onclick=()=>{sfx.tap();TTS.stop();L.tok++;const box=$('#gridbox');box.innerHTML='';
   L.items.forEach((it,i)=>{const b=h('button',i===L.i?'cur':'',it.label);b.onclick=()=>{sfx.tap();$('#gridov').classList.remove('on');go(i);};box.append(b);});
   $('#gridov').classList.add('on');const cur=box.querySelector('.cur');if(cur)cur.scrollIntoView({block:'center'});};
 $('#gridx').onclick=()=>$('#gridov').classList.remove('on');
-let touchX=null;
-$('#lcontent').addEventListener('touchstart',e=>{touchX=e.touches[0].clientX;},{passive:true});
-$('#lcontent').addEventListener('touchend',e=>{if(touchX==null)return;const dx=e.changedTouches[0].clientX-touchX;touchX=null;if(Math.abs(dx)>60){e.preventDefault();go(L.i+(dx<0?1:-1));}});
+// swipe (touch) or drag (mouse) sideways to change card; a mostly vertical move is a scroll, not a swipe
+// while dragging, the card follows the finger and springs back if the move was too short
+let swX=null,swY=0,swiped=false;
+const swCard=()=>$('#lcontent');
+const swStart=(x,y)=>{swX=x;swY=y;swiped=false;swCard().classList.remove('back');};
+const swMove=(x,y)=>{if(swX==null)return;const dx=x-swX,dy=y-swY;
+  if(Math.abs(dx)>Math.abs(dy))swCard().style.transform=`translateX(${dx*.6}px) rotate(${dx/60}deg)`;};
+const swEnd=(x,y,e)=>{if(swX==null)return;const dx=x-swX,dy=y-swY,c=swCard();swX=null;
+  c.classList.add('back');c.style.transform='';
+  if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.5){swiped=true;e.preventDefault();c.classList.remove('back');go(L.i+(dx<0?1:-1));}};
+$('#lcontent').addEventListener('touchstart',e=>swStart(e.touches[0].clientX,e.touches[0].clientY),{passive:true});
+$('#lcontent').addEventListener('touchmove',e=>swMove(e.touches[0].clientX,e.touches[0].clientY),{passive:true});
+$('#lcontent').addEventListener('touchend',e=>swEnd(e.changedTouches[0].clientX,e.changedTouches[0].clientY,e));
+$('#lcontent').addEventListener('mousedown',e=>swStart(e.clientX,e.clientY));
+$('#lcontent').addEventListener('mousemove',e=>swMove(e.clientX,e.clientY));
+$('#lcontent').addEventListener('mouseup',e=>swEnd(e.clientX,e.clientY,e));
+$('#lcontent').addEventListener('mouseleave',e=>swEnd(e.clientX,e.clientY,e));
 
 /* --- hubungan Belajar → Bermain --- */
 function openPractice(stage,finished){
