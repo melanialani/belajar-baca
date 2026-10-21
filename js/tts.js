@@ -18,7 +18,9 @@ const TTS={ok:'speechSynthesis' in window,voice:null,voiceEn:null,token:0,audio:
     const rec=parts.some(p=>!p.en&&VOICE.has(p.t.toLowerCase()));
     if(!this.ok&&!rec){parts.forEach((p,i)=>setTimeout(()=>{if(tok===this.token&&o.onPart)o.onPart(i);},i*700));clearTimeout(fb);setTimeout(fin,parts.length*700+300);return;}
     // with a recording: one part after the other (audio and voice cannot share the speech queue)
-    if(rec){const next=i=>{if(tok!==this.token)return;if(i>=parts.length){clearTimeout(fb);return fin();}const p=parts[i];o.onPart&&o.onPart(i);
+    // each part has its own safety timer, in case an audio or voice end event never comes
+    if(rec){let guard=null;const next=i=>{clearTimeout(guard);if(tok!==this.token)return;if(i>=parts.length)return fin();const p=parts[i];o.onPart&&o.onPart(i);
+        guard=setTimeout(()=>next(i+1),(1500+p.t.length*200)/rate);
         const url=!p.en&&VOICE.get(p.t.toLowerCase());
         if(url){const a=new Audio(url);this.audio=a;a.onended=a.onerror=()=>next(i+1);a.play().catch(()=>next(i+1));}
         else if(this.ok){const u=this.utter(p,rate);u.onend=u.onerror=()=>next(i+1);speechSynthesis.speak(u);}else setTimeout(()=>next(i+1),700);};

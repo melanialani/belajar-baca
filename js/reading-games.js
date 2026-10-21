@@ -8,7 +8,7 @@ function takeWord(D,f=()=>true,min=10){
     const cand=Object.entries(MISS).sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0])).map(([w])=>BYW[w]).filter(x=>x&&f(x)&&!D.used.has(x.w));
     if(cand.length){const w=cand[0];D.used.add(w.w);D.cur.push(w.w);D.review=true;return w;}}
   const p=pool(D,f,min).slice().sort(byDiff);const fr=p.filter(w=>!D.used.has(w.w));const arr=fr.length?fr:p;
-  const n=arr.length,a=Math.floor(D.q*n/QN),b=Math.max(a+1,Math.floor((D.q+1)*n/QN));
+  const N=D.qn||QN,n=arr.length,a=Math.floor(D.q*n/N),b=Math.max(a+1,Math.floor((D.q+1)*n/N));
   const w=arr[Math.min(n-1,a+(rnd()*(b-a)|0))];D.used.add(w.w);D.cur.push(w.w);return w;}
 const sim=(a,b)=>(a.w[0]===b.w[0]?2:0)+(a.s.length===b.s.length?1:0)+(a.w.slice(-1)===b.w.slice(-1)?1:0)+(Math.abs(a.w.length-b.w.length)<=1?1:0);
 function distract(w,n,D,f=()=>true){const okx=x=>f(x)&&x.w!==w.w&&!(w.e&&x.e===w.e);

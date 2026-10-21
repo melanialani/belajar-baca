@@ -21,13 +21,15 @@ function optsEl(list,render,onPick,cls='',isOk){const wrap=h('div','opts');list.
 const REDO=store.get('redo',{});
 const saveRedo=()=>store.set('redo',REDO);
 function redoAdd(gid,key,L){if(key==null||!gid)return;const m=REDO[gid]=REDO[gid]||{};m[key]={n:2,L};saveRedo();}
-// on question 2 and 4 of a level: a key missed in another level (ok = still fits this question type)
+// on question 2 and 4 of a level: a key missed in an earlier (easier) level (ok = still fits this question type)
 function redoPick(D,ok=()=>true){if(!(D.q===1||D.q===3)||D.rdTried||!D.gid)return null;D.rdTried=true;
-  const m=REDO[D.gid]||{},k=Object.keys(m).filter(k=>m[k].L!==D.L&&ok(k)).sort((a,b)=>m[a].n-m[b].n||a.localeCompare(b))[0];
+  const m=REDO[D.gid]||{},k=Object.keys(m).filter(k=>m[k].L<D.L&&ok(k)).sort((a,b)=>m[a].n-m[b].n||a.localeCompare(b))[0];
   if(k==null)return null;D.review=true;D.rkey=k;return k;}
 function redoDone(gid,key){const m=REDO[gid];if(!m||!m[key])return;if(--m[key].n<=0)delete m[key];saveRedo();}
 
-function openLevels(g){G={g,tok:0};onScreen('levels');$('#lvtitle').textContent=g.title;buildLevelGrid();TTS.say([g.title]);}
+// a new game keeps counting tokens, so a timer left from the previous game can never match
+const nextTok=()=>(G&&G.tok||0)+1;
+function openLevels(g){G={g,tok:nextTok()};onScreen('levels');$('#lvtitle').textContent=g.title;buildLevelGrid();TTS.say([g.title]);}
 // stars of the last try per level (lvl:) are shown; totals and stickers use the best try (lv:), so nothing earned is lost
 const lastStars=id=>store.get('lvl:'+id,[]);
 const maxLevel=()=>SET.tod?PAGEL:MAXL;
@@ -73,7 +75,7 @@ function nextQ(){
       if(G.g.test){G.done=true;G.g.answer(false);sfx.tap();showFb('skip','Tidak apa-apa');setTimeout(()=>{if(tok===G.tok){G.q++;nextQ();}},900);return;}
       G.err++;G.qerr++;sfx.no();
       const w=word||G.D.cur[0];if(w&&BYW[w]){MISS[w]=Math.min(5,(MISS[w]||0)+1);saveMiss();}
-      else if(G.D.key!=null)redoAdd(G.D.gid,String(G.D.key),G.D.L);
+      else if(word!=null||G.D.key!=null)redoAdd(G.D.gid,String(word!=null?word:G.D.key),G.D.L);
       if(el){el.classList.remove('shake');void el.offsetWidth;el.classList.add('shake');}
       if(!SET.tod){G.hearts--;drawHearts(G.hearts);}
       if(G.hearts<=0){G.done=true;const txt=pickM(GAMEOVER);showFb('out',txt);TTS.say([txt],{onEnd:()=>setTimeout(()=>{if(tok===G.tok)leaveGame();},400)});return;}

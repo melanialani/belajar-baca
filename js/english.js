@@ -25,7 +25,9 @@ const EN_STAGES=[...EN_CATS.slice(0,1).map(c=>({id:c.id,title:c.title,say:c.say,
 const enPool=D=>{const top=D.x?99:1+D.L*0.28;return EN_BANK.filter(x=>x.d<=top);};
 function enTake(D,f=()=>true){const p=enPool(D).filter(f),fr=p.filter(x=>!D.used.has(x.w));
   const rk=redoPick(D,k=>!D.used.has(k)&&p.some(x=>x.w===k));const x=rk?p.find(y=>y.w===rk):bySeg(D,(fr.length?fr:p).slice().sort((a,b)=>a.d-b.d));D.used.add(x.w);D.key=x.w;return x;}
-const enOthers=(x,n,D,f=()=>true)=>{const p=EN_BANK.filter(y=>y.w!==x.w&&y.id!==x.id&&y.e!==x.e&&f(y)),same=p.filter(y=>y.cat===x.cat);return sample(D.b>=2&&same.length>=n?same:p,n);};
+// wrong choices: other words, never two with the same picture
+const enOthers=(x,n,D,f=()=>true)=>{const p=EN_BANK.filter(y=>y.w!==x.w&&y.id!==x.id&&y.e!==x.e&&f(y)),same=p.filter(y=>y.cat===x.cat),out=[],es=new Set();
+  for(const y of shuffle(D.b>=2&&same.length>=n?same:p)){const k=y.e||y.w;if(es.has(k))continue;es.add(k);out.push(y);if(out.length===n)break;}return out;};
 const enPic=x=>x.e?ico(x.e):`<span class="ennum">${x.n}</span>`;
 const ENG_GAMES=[
  {id:'elisten',title:'Listen & Pick',c:'sky',ins:'Dengarkan kata bahasa Inggrisnya, lalu pilih gambarnya.',art:ems(['🔊'])+BR+ems(['🐱','🐶']),

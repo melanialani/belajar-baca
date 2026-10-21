@@ -16,5 +16,5 @@ const PLACE={id:'place',daily:true,test:true,title:'Tes Awal',qn:12,ins:'Ayo jaw
     store.set('place',{r,m,read:readStageOf(r),math:mathStageOf(m),at:Date.now()});
     const rs=STAGES.find(s=>s.id===readStageOf(r)),ms=MATH_STAGES.find(s=>s.id===mathStageOf(m));
     return [`Baca: mulai dari ${rs.title}, game level ${r}.`,`Hitung: mulai dari ${ms.say||ms.title}, game level ${m}.`];}};
-$('#tPlace').onclick=()=>{sfx.tap();$('#parentov').classList.remove('on');G={g:PLACE,tok:0};startLevel(1);};
+$('#tPlace').onclick=()=>{sfx.tap();$('#parentov').classList.remove('on');G={g:PLACE,tok:nextTok()};startLevel(1);};
 function placeParent(){const p=placeResult();$('#tPlaceRes').textContent=p?`Hasil terakhir: Baca level ${p.r}, Hitung level ${p.m}.`:'Belum pernah.';}

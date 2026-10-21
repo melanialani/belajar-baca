@@ -26,7 +26,7 @@ $('#tAddr').oninput=e=>{SET.addr=e.target.value.slice(0,120);saveSet();};
 $('#tExtra').onclick=()=>{SET.extra=!SET.extra;saveSet();$('#tExtra').classList.toggle('on',SET.extra);};
 $('#tSlow').onclick=()=>{SET.slow=!SET.slow;saveSet();$('#tSlow').classList.toggle('on',SET.slow);TTS.say(['Halo, ayo membaca']);};
 $('#tReset').onclick=()=>{const b=$('#tReset');if(b.textContent==='Hapus'){b.textContent='Yakin? Ketuk lagi';return;}
-  store.clear();saveSet();Object.keys(MISS).forEach(k=>delete MISS[k]);b.textContent='Terhapus ✓';updateStars();buildReport();};
+  store.clear();saveSet();Object.keys(MISS).forEach(k=>delete MISS[k]);Object.keys(REDO).forEach(k=>delete REDO[k]);b.textContent='Terhapus ✓';updateStars();buildReport();};
 let usedMs=0,lastTick=Date.now(),brkTimer=null,brkEnd=0;
 // screen time: only count while visible; cap each step so a frozen/sleeping page never adds its off time
 setInterval(()=>{const now=Date.now();if(document.visibilityState==='visible'&&!$('#breakov').classList.contains('on'))usedMs+=Math.min(now-lastTick,10000);lastTick=now;

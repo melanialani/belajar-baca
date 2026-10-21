@@ -19,4 +19,4 @@ const DAILY={id:'daily',daily:true,title:'Latihan Hari Ini',qn:10,ins:'Ayo latih
   finish(){const k=dayKey(new Date()),log=dailyLog();if(!log.includes(k)){log.push(k);store.set('daily',log.slice(-60));}return null;}};
 function updateDaily(){const done=dailyLog().includes(dayKey(new Date())),n=dailyStreak();
   $('#goDaily').classList.toggle('done',done);$('#dailyst').innerHTML=(done?'✓ ':'')+(n?`${ico('🔥')} ${n}`:'');}
-$('#goDaily').onclick=()=>{sfx.tap();G={g:DAILY,tok:0};startLevel(1);};
+$('#goDaily').onclick=()=>{sfx.tap();G={g:DAILY,tok:nextTok()};startLevel(1);};

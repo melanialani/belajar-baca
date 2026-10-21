@@ -33,7 +33,7 @@ function tracePad(chars,{guide=0,onDone}={}){
   svg.addEventListener('pointermove',e=>{if(!ink||finished)return;e.preventDefault();const P=pt(e);ink.setAttribute('points',ink.getAttribute('points')+' '+P.join(','));advance(P);});
   const up=()=>{ink=null;};svg.addEventListener('pointerup',up);svg.addEventListener('pointercancel',up);
   // keep the learn viewer from treating a drawing as a swipe
-  ['touchstart','touchmove','touchend','mousedown','mousemove','mouseup'].forEach(ev=>svg.addEventListener(ev,e=>e.stopPropagation()));
+  ['touchstart','touchmove','touchend','mousedown','mousemove','mouseup','click'].forEach(ev=>svg.addEventListener(ev,e=>e.stopPropagation()));
   showStart();wrap.append(svg);
   // shows how to write it: each stroke drawn in turn
   wrap.demo=()=>{svg.querySelectorAll('.tdemo').forEach(x=>x.remove());let t=0;

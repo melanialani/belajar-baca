@@ -166,7 +166,7 @@ MATH_GAMES.push(
      say=['Mana yang lebih besar?'];q.append(h('div','chipw',caseUnit('Lebih besar')));ans=a/b>c/d?`${a}/${b}`:`${c}/${d}`;
      list=[`${a}/${b}`,`${c}/${d}`];cls='pic';render=x=>{const [p,r]=x.split('/').map(Number);return fracEl(p,r,true,col).outerHTML+fracHtml(p,r);};}
    else{// a fraction of an amount
-     const n=b*rint(1,L<=88?3:5),r=n/b*a,e=pick(COUNTEMO);say=[`${caseUnit(fracW(a,b))} dari ${numW(n)} adalah berapa?`];
+     const n=b*rint(1,L<=88?3:5),r=n/b*a,e=pick(COUNTEMO);say=[`${fracW(a,b)} dari ${numW(n)} adalah berapa?`];
      q.append(objsEl(n,e,{cls:'sm',cols:b}),h('div','meq',`${fracHtml(a,b)} dari ${n} = <span class="blank">?</span>`),spkBtn(()=>TTS.say(say)));
      const cf=[r+1,r-1,n/b,n-r,r*2].filter(x=>x>0&&x!==r&&Number.isInteger(x));
      numBtns(st,api,q,r,shuffle([r,...shuffle([...new Set(cf)]).slice(0,optN(D)-1)]),()=>{q.querySelector('.blank').textContent=r;});D.key=null;return say;}
