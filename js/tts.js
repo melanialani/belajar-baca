@@ -12,6 +12,8 @@ const TTS={ok:'speechSynthesis' in window,voice:null,token:0,
     if(!this.ok){parts.forEach((p,i)=>setTimeout(()=>{if(tok===this.token&&o.onPart)o.onPart(i);},i*700));clearTimeout(fb);setTimeout(fin,parts.length*700+300);return;}
     const go=()=>{if(tok!==this.token)return;parts.forEach((p,i)=>{const u=new SpeechSynthesisUtterance(String(p));u.lang='id-ID';if(this.voice)u.voice=this.voice;u.rate=rate;u.pitch=1.15;
       u.onstart=()=>{if(tok===this.token&&o.onPart)o.onPart(i);};
+      // word boundaries (where the voice supports them) let a story light up the word being read
+      if(o.onBound)u.onboundary=ev=>{if(tok===this.token&&ev.name!=='sentence')o.onBound(i,ev.charIndex);};
       if(i===parts.length-1){u.onend=()=>{clearTimeout(fb);fin();};u.onerror=()=>{clearTimeout(fb);fin();};}
       speechSynthesis.speak(u);});};
     if(o.keep)go();else setTimeout(go,60);}};

@@ -1,6 +1,6 @@
 /* ============ daily practice: 10 mixed questions at the child's own level ============ */
 // quick question games only (no memory boards, no microphone); reading and counting take turns
-const DAILY_IDS=['tnama','tbenda','awal','akhir','lengkapi','bacaan','parade','kalimat','tepuk','mhitung','msuara','mbanyak','mtambah','mkurang','mkilat','mparade','murut','murutb','mbuaya','msusun','mteman','mkatak','mbentuk','mhbentuk','mpola','squiz','sbs'];
+const DAILY_IDS=['dikte','tnama','tbenda','awal','akhir','lengkapi','bacaan','parade','kalimat','tepuk','mhitung','msuara','mbanyak','mtambah','mkurang','mkilat','mparade','murut','murutb','mbuaya','msusun','mteman','mkatak','mbentuk','mhbentuk','mpola','squiz','sbs'];
 const dayKey=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
 const dailyLog=()=>store.get('daily',[]);
 function dailyStreak(){const log=new Set(dailyLog()),d=new Date();if(!log.has(dayKey(d)))d.setDate(d.getDate()-1);let n=0;while(log.has(dayKey(d))){n++;d.setDate(d.getDate()-1);}return n;}

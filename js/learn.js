@@ -63,9 +63,15 @@ function renderLearn(speak,dir){TTS.stop();const it=L.items[L.i],c=$('#lcontent'
   const nx=L.items[L.i+1];if(nx)preloadEmo(nx.e,nx.ex&&nx.ex[1]);
   if(speak)sayItem();}
 function sayItem(after){const it=L.items[L.i],hl=L.hl;
+  if(it.karaoke)return sayKaraoke(it,hl,after);
   TTS.say(it.say,{rate:it.k==='letter'?.8:.72,
     onPart:i=>{hl.forEach(x=>x.classList.remove('hi'));if(i<hl.length&&it.say.length>1&&it.k!=='big'){hl[i].classList.add('hi');if(it.k==='exp')hl[i].scrollIntoView({block:'nearest',behavior:'smooth'});}else hl.forEach(x=>x.classList.add('hi'));},
     onEnd:()=>{hl.forEach(x=>x.classList.remove('hi'));after&&after();}});}
+// story pages: the word being read lights up; voices without word boundaries are followed by an estimate from the text length
+function sayKaraoke(it,words,after){let got=false,timer=null;const txt=it.say[0],rate=.72*(SET.slow?.82:1);
+  const mark=ci=>words.forEach(w=>w.classList.toggle('hi',+w.dataset.s<=ci&&ci<+w.dataset.e+1));
+  TTS.say([txt],{rate:.72,onPart:()=>{const t0=Date.now(),msc=72/rate;clearInterval(timer);timer=setInterval(()=>{if(got)return clearInterval(timer);mark((Date.now()-t0)/msc);},100);},
+    onBound:(i,ci)=>{got=true;mark(ci);},onEnd:()=>{clearInterval(timer);words.forEach(w=>w.classList.remove('hi'));after&&after();}});}
 function go(i){const n=L.items.length;
   if(i<0)return;
   if(i>=n){if(L.auto){L.i=0;renderLearn(false);autoStep();return;}L.auto=false;sfx.win();confetti();if(L.stage.play.length)openPractice(L.stage,true);else show(L.stage.home);return;}
