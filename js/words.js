@@ -83,7 +83,7 @@ const STAGES=[
 /* ============ stiker ============ */
 const STICKERS=[...'🦄🌸👑🎀💖🌈🧁🍓🐱🐰🦋🌷⭐🍭🎠🧸🐼🦩🍩👗💎🌙🐬🐞🍒🌻🎈🎂🍰🐥🦊🐨🐹🌺🍬🧚🧜💐🎨🎵🏰🦢🐣🍉🍦🐧🐶🐻🐯🦁🐸🐵🦉🦜🐠🐳🦕🐢🌼🍀🍄🌵🌴🍎🍊🍋🍌🍇🍑🥝🥥🍪🍫🍿🧃🎁🎉🪀🪁⚽🎹🎸🥁🎤🚲🛴🚀🚂🛶🌟✨💫🦒🧩🦚🦔🦝🦦🐝🐙🦀☀️'.match(/\p{Extended_Pictographic}\uFE0F?/gu)].slice(0,100);
 // 200 more stickers (2026-10-21), taking turns: animals, food, nature & vehicles, toys & play
-STICKERS.push(...[...'🐒🍈🌱🎆🦍🍍🪴🎇🦧🥭🌲🎊🐕🍏🌳🎋🐩🍐🌾🎏🐈🫐🌿🎐🐅🍅☘🏆🐆🫒🍁🏅🐴🥑🍂🥇🦓🍆🍃⚾🦌🥔🪷🏀🐮🥕🌹🏐🐑🌽🪻🏈🐐🫑💮🎾🐪🥒🌍🏓🦙🥦🗺🏸🐘🧄🧭⛸🦣🥜🏔🎣🦏🌰🌋🛷🦛🍞🏕🎯🐭🥐🏖🎮🐇🥖🏝🎲🐿🥨🏞🪩🦫🥯🏠🪆🦥🥞🏡🎭🦨🧇🗼🖼🦘🧀🎡🧶🦡🍗🎢🪢🐾🍔🎪🎷🐓🍟🌅🎺🐤🍕🌄🎻🕊🌭🌃🪕🦆🥪🚃🪘🪿🌮🚄🪇🦤🌯🚌🎧🐊🥚🚑📷🦎🍳🚒🔭🐉🥘🚓🔬🦖🍲🚕🧪🐋🥣🚗🧲🦭🥗🚙🎒🐡🍱🚜🕶🦈🍙🏎👒🐚🍚🏍🎩🪼🍛🛵🎓🐛🍜⛵🧢🪲🍝🚤🛼🐌🍠🚢🛹🦗🍢✈🎳🐜🍣🚁🥏'.matchAll(/(?:\p{Extended_Pictographic}‍)*\p{Extended_Pictographic}️?/gu)].map(m=>m[0]));
+STICKERS.push(...[...'🐒🍈🌱🎆🦍🍍🪴🎇🦧🥭🌲🎊🐕🍏🌳🎋🐩🍐🌾🎏🐈🫐🌿🎐🐅🍅☘🏆🐆🫒🍁🏅🐴🥑🍂🥇🦓🍆🍃⚾🦌🥔🪷🏀🐮🥕🌹🏐🐑🌽🪻🏈🐐🫑💮🎾🐪🥒🌍🏓🦙🥦🗺🏸🐘🧄🧭⛸🦣🥜🏔🎣🦏🌰🌋🛷🦛🍞🏕🎯🐭🥐🏖🎮🐇🥖🏝🎲🐿🥨🏞🎑🦫🥯🏠🪆🦥🥞🏡🎭🦨🧇🗼🖼🦘🧀🎡🧶🦡🍗🎢🪢🐾🍔🎪🎷🐓🍟🌅🎺🐤🍕🌄🎻🕊🌭🌃🪕🦆🥪🚃🪘🪿🌮🚄🪇🦤🌯🚌🎧🐊🥚🚑📷🦎🍳🚒🔭🐉🥘🚓🔬🦖🍲🚕🧪🐋🥣🚗🧲🦭🥗🚙🎒🐡🍱🚜🕶🦈🍙🏎👒🐚🍚🏍🎩🪼🍛🛵🎓🐛🍜⛵🧢🪲🍝🚤🛼🐌🍠🚢🛹🦗🍢✈🎳🐜🍣🚁🥏'.matchAll(/(?:\p{Extended_Pictographic}‍)*\p{Extended_Pictographic}️?/gu)].map(m=>m[0]));
 // stars needed for sticker k: the first 100 as before (earned stickers never change), then 40 stars each
 const stkNeed=k=>k<=100?Math.round(3*k+.06*k*k):900+40*(k-100);
 const stkCount=stars=>{let k=0;while(k<STICKERS.length&&stars>=stkNeed(k+1))k++;return k;};

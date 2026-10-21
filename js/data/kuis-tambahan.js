@@ -4,7 +4,7 @@ SCI_QUIZ.push(
  // tubuh
  ['Mana untuk merasakan makanan?','👅','👀👂👃',1],['Pakai apa untuk berjalan?','🦶','👂👃👀',1],['Mana yang membantu kita berpikir?','🧠','🦶🦵💪',2],
  ['Mana yang bekerja saat kita bernapas?','🫁','🦴🦷👂',3],['Mana yang memompa darah?','❤️','🫁🦷🧠',2],['Apa yang menopang tubuh kita?','🦴','💧🎈🧸',2],
- ['Mana minuman yang paling sehat?','💧🥛','🥤🧃',2],['Kalau bersin, tutup dengan apa?','💪','👟🧸🍬',2],['Mana yang dipakai saat batuk supaya tidak menular?','😷','🎩🧢👓',2],
+ ['Mana minuman yang paling sehat?','💧🥛','🥤🧃',2],['Kalau bersin, tutup mulut dengan apa?','🧻','👟🧸🍬',2],['Mana yang dipakai saat batuk supaya tidak menular?','😷','🎩🧢👓',2],
  ['Mana makanan yang membuat tulang kuat?','🥛🧀','🍬🍭🥤',2],['Apa yang kita lakukan sebelum makan?','🧼','📺🎮🛏️',1],['Mana yang membantu kita melihat jauh lebih jelas?','👓','🧢🧤🧣',2],
  // hewan
  ['Mana hewan yang punya belang hitam putih?','🦓','🐘🦒🐫',1],['Mana hewan yang hidup di kutub yang dingin?','🐧🐻‍❄️','🐫🦒🦓',2],['Mana hewan yang tidur di siang hari dan bangun di malam hari?','🦉🦇','🐔🐄🐝',2],
@@ -16,7 +16,7 @@ SCI_QUIZ.push(
  // tumbuhan
 ['Mana buah yang tumbuh di pohon kelapa?','🥥','🍉🍓🍇',1],['Mana yang tumbuh dari biji?','🌻🌳','🪨🧊🧸',1],
  ['Mana tanaman yang hidup di gurun?','🌵','🌷🌻🍄',2],['Mana sayur yang tumbuh di dalam tanah?','🥕🥔','🍆🌽🍅',2],['Mana bunga yang mengikuti arah matahari?','🌻','🌷🌹🌸',3],
- ['Apa yang dibutuhkan biji supaya tumbuh?','💧','🍬🧸🎈',1],['Daun gugur jatuh ke mana?','🍂','☁️🌙⭐',1],['Mana yang bukan tumbuhan?','🪨','🌳🌵🌷',2],
+ ['Apa yang dibutuhkan biji supaya tumbuh?','💧','🍬🧸🎈',1],['Mana daun yang sudah gugur?','🍂','🌸⭐☁️',1],['Mana yang bukan tumbuhan?','🪨','🌳🌵🌷',2],
  // benda dan air
  ['Mana yang meleleh kalau kena panas?','🧊🍫','🪨🔑',2],['Mana yang tenggelam di air?','🪨🔑','🦆🛶🎈',2],['Mana yang terbuat dari kayu?','🪑🪵','🥛🧦',2],
  ['Mana yang dipakai untuk memotong kertas?','✂️','🥄🧽🖍️',1],['Mana yang memakai listrik?','💡📺','🪨🧸🪵',2],['Mana yang membuat bayangan saat disinari senter?','🧸','💨🔊',3],
@@ -24,23 +24,23 @@ SCI_QUIZ.push(
  ['Mana alat untuk mengukur suhu badan?','🌡️','📏⏰🧲',2],['Mana alat untuk melihat benda yang sangat kecil?','🔬','🔭📷📺',3],['Mana alat untuk melihat bintang yang jauh?','🔭','🔬🧲📏',3],
  ['Air dipanaskan lama-lama menjadi apa?','💨','🧊🪨🌱',3],['Mana yang bisa menyala dan panas?','🔥☀️','🧊💧',2],['Mana yang membuat bunyi?','🥁🔔','🧸🪨',1],
  // cuaca dan alam
- ['Pakai apa saat hujan?','☂️','🕶️🧢👙',1],['Pakai apa saat cuaca panas di pantai?','🕶️🧢','🧣🧤',2],['Mana yang turun saat musim dingin di negara lain?','❄️','🌸🍂☀️',2],
+ ['Pakai apa saat hujan?','☂️','🕶️🧢🧤',1],['Pakai apa saat cuaca panas di pantai?','🕶️🧢','🧣🧤',2],['Mana yang turun saat musim dingin di negara lain?','❄️','🌸🍂☀️',2],
  ['Mana gunung yang bisa mengeluarkan lava?','🌋','⛰️🏔️',2],['Mana yang terjadi saat angin sangat kencang dan berputar?','🌪️','🌈☀️',3],['Mana yang ada di langit saat mendung?','☁️','☀️🌈',1],
  ['Air laut asin karena ada apa?','🧂','🍬🍯',3],['Mana tempat yang banyak pasir dan sangat panas?','🏜️','🏔️🌊',2],['Mana yang mengalir dari gunung ke laut?','🏞️','🏜️🏔️',3],
  // langit
- ['Mana yang terlihat di langit pada siang hari?','☀️','🌙⭐',1],['Mana planet yang punya cincin?','🪐','🌍☀️',2],['Mana kendaraan untuk ke bulan?','🚀','🚂🚢✈️',1],
- ['Apa yang dipakai astronaut di luar angkasa?','🧑‍🚀','🧑‍🍳🧑‍🌾',2],['Benda langit apa yang punya ekor terang?','☄️','🌍🌙',3],['Mana yang mengelilingi bumi?','🌙','☀️⭐',3]
+ ['Mana yang membuat siang hari terang?','☀️','🌙⭐',1],['Mana planet yang punya cincin?','🪐','🌍☀️',2],['Mana kendaraan untuk ke bulan?','🚀','🚂🚢✈️',1],
+ ['Siapa yang pergi ke luar angkasa?','🧑‍🚀','🧑‍🍳🧑‍🌾',2],['Benda langit apa yang punya ekor terang?','☄️','🌍🌙',3],['Mana yang mengelilingi bumi?','🌙','☀️⭐',3]
 );
 SCI_FACTS.push(
  ['Hidung untuk mencium bau.',1,'👃',1],['Kita mendengar dengan mata.',0,'👀',1],['Tulang membuat tubuh bisa berdiri tegak.',1,'🦴',2],['Gigi susu nanti diganti gigi baru.',1,'🦷',2],
  ['Kita perlu tidur supaya tubuh segar.',1,'🛏️',1],['Minum air putih baik untuk tubuh.',1,'💧',1],['Mencuci tangan membuang kuman.',1,'🧼',1],['Paru-paru dipakai untuk bernapas.',1,'🫁',2],
  ['Otak ada di dalam kepala.',1,'🧠',2],['Jantung ada di kaki.',0,'❤️',2],['Sayur membuat tubuh sehat.',1,'🥦',1],['Bermain di luar membuat tubuh bergerak.',1,'⚽',1],
- ['Kita punya sepuluh jari tangan.',1,'🖐️',1],['Kuku tidak bisa tumbuh.',0,'💅',2],['Rambut terus tumbuh panjang.',1,'💇',2],['Darah kita berwarna hijau.',0,'🩸',2],
+ ['Kita punya sepuluh jari tangan.',1,'🖐️',1],['Kuku tidak bisa tumbuh.',0,'🖐️',2],['Rambut terus tumbuh panjang.',1,'💇',2],['Darah kita berwarna hijau.',0,'🩸',2],
  ['Burung punya bulu.',1,'🐦',1],['Ikan hidup di pohon.',0,'🐟',1],['Kupu-kupu berasal dari ulat.',1,'🦋',1],['Gajah punya belalai.',1,'🐘',1],
  ['Kura-kura membawa rumahnya di punggung.',1,'🐢',1],['Ular punya kaki.',0,'🐍',1],['Kelelawar bisa terbang.',1,'🦇',2],['Ayam bisa berenang di laut.',0,'🐔',2],
  ['Burung hantu banyak bangun di malam hari.',1,'🦉',2],['Semut bekerja sama.',1,'🐜',2],['Singa makan rumput.',0,'🦁',2],['Jerapah punya leher yang panjang.',1,'🦒',1],
- ['Bunglon bisa berubah warna.',1,'🦎',2],['Kuda laut adalah hewan laut.',1,'🌊',3],['Lumba-lumba bernapas dengan paru-paru.',1,'🐬',3],['Kelinci bertelur.',0,'🐰',2],
- ['Paus adalah hewan terbesar di dunia.',1,'🐳',3],['Bintang laut adalah ikan.',0,'⭐',3],['Laba-laba membuat jaring.',1,'🕸️',2],['Hiu punya tulang dari tulang rawan.',1,'🦈',3],
+ ['Bunglon bisa berubah warna.',1,'🦎',2],['Kuda laut adalah sejenis ikan.',1,'🌊',3],['Lumba-lumba bernapas dengan paru-paru.',1,'🐬',3],['Kelinci bertelur.',0,'🐰',2],
+ ['Paus biru adalah hewan terbesar di dunia.',1,'🐳',3],['Bintang laut adalah ikan.',0,'⭐',3],['Laba-laba membuat jaring.',1,'🕸️',2],['Tulang hiu terbuat dari tulang rawan.',1,'🦈',3],
  ['Pohon membuat udara segar.',1,'🌳',2],['Kaktus bisa hidup di gurun.',1,'🌵',2],['Bunga tidak butuh air.',0,'🌷',1],['Daun bisa berubah warna sebelum gugur.',1,'🍂',2],
  ['Biji bisa tumbuh menjadi pohon.',1,'🌱',1],['Jamur adalah hewan.',0,'🍄',3],['Wortel tumbuh di dalam tanah.',1,'🥕',2],['Kelapa tumbuh di pohon.',1,'🥥',1],
  ['Pisang tumbuh di dalam laut.',0,'🍌',1],['Tumbuhan butuh cahaya matahari.',1,'☀️',2],['Akar menyerap air dari tanah.',1,'🌱',2],['Padi menghasilkan beras.',1,'🌾',2],
@@ -63,13 +63,13 @@ JD_SCEN.push(
  ['Berteduh di dalam rumah saat ada petir.',1,'⚡',2],['Berenang di sungai sendirian.',0,'🏞️',2],['Memberi tahu guru kalau ada teman yang terluka.',1,'🧑‍🏫',2],
  ['Memberikan alamat rumah kepada orang asing di internet.',0,'💻',2],['Memakai pelampung saat naik perahu.',1,'🛶',2],['Bermain layang-layang di dekat kabel listrik.',0,'🪁',2],
  ['Masuk ke mobil orang yang tidak dikenal.',0,'🚗',2],['Tetap di tempat dan menunggu saat tersesat.',1,'🧍',2],['Menyentuh hewan liar yang tidak dikenal.',0,'🐍',2],
- ['Bilang kepada ibu kalau ada yang mengirim pesan aneh.',1,'📱',2],['Bermain petasan sendirian.',0,'🧨',2],['Memakai helm saat naik motor bersama ayah.',1,'🪖',2],
+ ['Bilang kepada ibu kalau ada yang mengirim pesan aneh.',1,'📱',2],['Bermain petasan.',0,'🧨',2],['Memakai helm saat naik motor bersama ayah.',1,'🪖',2],
  ['Menjauh dari jendela saat ada angin sangat kencang.',1,'🌪️',2],['Menyalakan api untuk bermain.',0,'🔥',2],
  ['Saat gempa, berlindung di bawah meja yang kuat.',1,'🫨',3],['Menyimpan rahasia yang membuatmu takut atau sedih.',0,'🤫',3],['Menolak saat orang dewasa minta difoto tanpa baju.',1,'📷',3],
  ['Pergi bertemu teman dari internet tanpa orang tua.',0,'💻',3],['Saat ada kebakaran, keluar rumah dan tidak kembali mengambil mainan.',1,'🔥',3],
  ['Mengikuti orang yang bilang dia disuruh ibumu tapi tidak tahu kata rahasia keluarga.',0,'🔑',3],['Berlari ke tempat tinggi saat air laut tiba-tiba surut di pantai.',1,'🌊',3],
  ['Memberi tahu orang dewasa yang kamu percaya kalau ada yang menyentuh tubuhmu dengan tidak baik.',1,'🗣️',3],['Menyentuh kabel listrik yang terkelupas.',0,'🔌',3],
- ['Menelepon nomor darurat untuk bercanda.',0,'📞',3],['Menjauh dan memanggil orang dewasa saat melihat anjing galak.',1,'🐕',3],['Memakan jamur liar yang ditemukan di kebun.',0,'🍄',3]
+ ['Menelepon nomor darurat untuk bercanda.',0,'📞',3],['Menjauh pelan-pelan tanpa berlari saat ada anjing galak, lalu panggil orang dewasa.',1,'🐕',3],['Memakan jamur liar yang ditemukan di kebun.',0,'🍄',3]
 );
 JD_CALL.push(
  ['Ada pohon tumbang menimpa rumah dan ada orang terluka. Telepon nomor berapa?','119','🌳',2,['112','113']],
@@ -82,6 +82,6 @@ JD_CALL.push(
  ['Kebun di belakang rumah terbakar. Telepon nomor berapa?','113','🌿',2,['112']],
  ['Ada bahaya tapi kamu lupa nomor yang lain. Telepon nomor berapa?','112','🆘',1],
  ['Adik terjatuh dari tangga dan tidak bangun. Telepon nomor berapa?','119','🪜',3,['112']],
- ['Ada kucing terjebak di atas pohon tinggi dan tidak bisa turun. Telepon nomor berapa?','113','🐱',3,['112']],
+ ['Ada asap tebal keluar dari rumah tetangga. Telepon nomor berapa?','113','💨',2,['112']],
  ['Ada orang dewasa yang terus mengganggu dan mengikutimu. Telepon nomor berapa?','110','🚶',3,['112','129']]
 );
