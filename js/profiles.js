@@ -34,7 +34,7 @@ function buildProfList(){const box=$('#tProfs');box.innerHTML='';
 
 $('#tTod').onclick=()=>{SET.tod=!SET.tod;saveSet();$('#tTod').classList.toggle('on',SET.tod);updateKecil();};
 // called by openParent (parent.js)
-function parentExtras(){$('#tTod').classList.toggle('on',!!SET.tod);buildProfList();}
+function parentExtras(){$('#tTod').classList.toggle('on',!!SET.tod);buildProfList();voiceParent();placeParent();}
 // Si Kecil button: always there, highlighted in Mode Balita
 function updateKecil(){$('#goKecil').classList.toggle('tod',!!SET.tod);}
 updateProfChip();updateKecil();

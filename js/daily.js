@@ -16,7 +16,7 @@ const DAILY={id:'daily',daily:true,title:'Latihan Hari Ini',qn:10,ins:'Ayo latih
     Object.assign(sub,{q:Math.min(sub.qn-1,G.q>>1),cur:[],review:false,revTried:false,rdTried:false,rkey:null,key:null});
     const auto=g.fn(st,api,sub)||[];Object.assign(D,{cur:sub.cur,review:sub.review,key:sub.key,rkey:sub.rkey,gid:sub.gid});
     return [g.ins,...auto];},
-  finish(){const k=dayKey(new Date()),log=dailyLog();if(!log.includes(k)){log.push(k);store.set('daily',log.slice(-60));}}};
+  finish(){const k=dayKey(new Date()),log=dailyLog();if(!log.includes(k)){log.push(k);store.set('daily',log.slice(-60));}return null;}};
 function updateDaily(){const done=dailyLog().includes(dayKey(new Date())),n=dailyStreak();
   $('#goDaily').classList.toggle('done',done);$('#dailyst').innerHTML=(done?'✓ ':'')+(n?`${ico('🔥')} ${n}`:'');}
 $('#goDaily').onclick=()=>{sfx.tap();G={g:DAILY,tok:0};startLevel(1);};

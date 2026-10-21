@@ -51,3 +51,8 @@
 @keyframes slinb{from{transform:translateX(-30%);opacity:0}}
 /* on a phone the card is as wide as the screen, so the text can be bigger */
 @media (orientation:portrait){.viewer .content :is(.expsteps,.expres,.scil){font-size:clamp(17px,5vw,28px)}}
+/* parent voice recording button (Mode Orang Tua › Rekam suara) */
+.lrec{width:clamp(52px,11vmin,70px);height:clamp(52px,11vmin,70px);border-radius:50%;background:var(--card);box-shadow:0 5px 0 var(--bg2);font-size:clamp(26px,6vmin,36px);display:grid;place-items:center;flex:none}
+.lrec[hidden]{display:none}
+.lrec.has{box-shadow:0 5px 0 var(--bg2),0 0 0 4px var(--mint)}
+.lrec.on{background:#FF6B6B;animation:pop .8s infinite}

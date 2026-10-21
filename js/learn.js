@@ -3,7 +3,7 @@ let L=null,G=null;
 function show(id){
   TTS.stop();if(L){L.auto=false;L.tok++;}if(G)G.tok++;rnd=Math.random;
   onScreen(id);['endov','gridov','parentov','practov'].forEach(o=>$('#'+o).classList.remove('on'));
-  if(id==='belajar')buildLearnCards();if(id==='bermain')buildGameCards();if(id==='stiker')buildStickers();if(id==='belhitung')buildMathLearnCards();if(id==='mainhitung')buildMathGameCards();if(id==='belsains')buildSciLearnCards();if(id==='mainsains')buildSciGameCards();if(id==='sciGroup')buildGroupCards();if(id==='beleksp')buildExpCards();if(id==='jagadiri')buildJdCards();if(id==='sikecil')buildKecilCards();if(id==='home')updateDaily();
+  if(id==='belajar')buildLearnCards();if(id==='bermain')buildGameCards();if(id==='stiker')buildStickers();if(id==='belhitung')buildMathLearnCards();if(id==='mainhitung')buildMathGameCards();if(id==='belsains')buildSciLearnCards();if(id==='mainsains')buildSciGameCards();if(id==='sciGroup')buildGroupCards();if(id==='beleksp')buildExpCards();if(id==='jagadiri')buildJdCards();if(id==='sikecil')buildKecilCards();if(id==='belen'){buildEnLearnCards();$('#enNote').hidden=!TTS.ok||!!TTS.voiceEn;}if(id==='mainen')buildEnGameCards();if(id==='home')updateDaily();
   updateStars();}
 document.querySelectorAll('.back').forEach(b=>b.innerHTML=IC.back);
 // any [data-go] button opens that screen; data-say speaks its name (home and the Belajar / Main hubs)
@@ -22,8 +22,10 @@ const stageProg=m=>m.sub?m.sub.map(stageProg).reduce((a,b)=>[a[0]+b[0],a[1]+b[1]
 let GRP=null;
 function openGroup(g){GRP=g;show('sciGroup');TTS.say([g.say||g.title]);}
 function buildGroupCards(){if(!GRP)return show('belsains');$('#grpTitle').textContent=GRP.title;$('#sciGroup .back').dataset.go=GRP.home;buildLearnCards($('#grpCards'),GRP.sub);}
-function buildLearnCards(el=$('#learnCards'),list=STAGES){buildCards(el,list,m=>m.sub?openGroup(m):openStage(m),(m,i)=>{const [got,tot]=stageProg(m);
-  return `<span class="num">${i+1}</span>`+(got>=tot?'<span class="badge">✓</span>':got>0?`<span class="badge">${got}/${tot}</span>`:'');});}
+function buildLearnCards(el=$('#learnCards'),list=STAGES){const pl=store.get('place',null);buildCards(el,list,m=>m.sub?openGroup(m):openStage(m),(m,i)=>{const [got,tot]=stageProg(m);
+  // the card suggested by Tes Awal
+  return `<span class="num">${i+1}</span>`+(pl&&(pl.read===m.id||pl.math===m.id)?'<span class="start">Mulai di sini</span>':'')+(got>=tot?'<span class="badge">✓</span>':got>0?`<span class="badge">${got}/${tot}</span>`:'');});
+  const sg=el.querySelector('.start');if(sg)sg.closest('.card').scrollIntoView({block:'center'});}
 function buildStickers(page){
   const s=totalStars(),n=stkCount(s);$('#stkcount').textContent=`${n}/${STICKERS.length}`;
   const prev=n?stkNeed(n):0,nxt=n<STICKERS.length?stkNeed(n+1):prev;$('#stkbar').style.width=(n>=STICKERS.length?100:Math.round((s-prev)/(nxt-prev)*100))+'%';
@@ -61,6 +63,7 @@ function renderLearn(speak,dir){TTS.stop();const it=L.items[L.i],c=$('#lcontent'
   const n=L.items.length;$('#progbar').style.width=((L.i+1)/n*100)+'%';$('#progtxt').textContent=(L.i+1)+'/'+n;$('#lprev').disabled=L.i===0;
   store.set('li:'+L.stage.id,L.i);if(L.i+1>store.get('lp:'+L.stage.id,0))store.set('lp:'+L.stage.id,L.i+1);
   const nx=L.items[L.i+1];if(nx)preloadEmo(nx.e,nx.ex&&nx.ex[1]);
+  if(typeof updateRecBtn==='function')updateRecBtn();
   if(speak)sayItem();}
 function sayItem(after){const it=L.items[L.i],hl=L.hl;
   if(it.karaoke)return sayKaraoke(it,hl,after);

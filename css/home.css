@@ -68,3 +68,11 @@
 @media (orientation:portrait){.homebtns{grid-template-columns:repeat(2,1fr);grid-template-areas:"b m" "jd st"}.homebtns .hb{justify-self:center;width:clamp(120px,min(40vw,22vh),270px)}.daily{font-size:clamp(17px,4.4vw,24px);padding:6px 14px}.homefoot{gap:10px}.homebtns :is(#goStk,#goJaga){width:auto;justify-self:stretch;aspect-ratio:auto;flex-direction:row;gap:10px;padding:8px}.hub{flex-direction:column;flex-wrap:nowrap}.hub .hb{width:clamp(140px,min(56vw,22vh),280px)}}
 @media (orientation:landscape) and (max-height:500px){.homebtns .hb{width:clamp(90px,min(30vmin,15vw),160px);font-size:clamp(18px,4.6vmin,28px)}}
 @media (orientation:landscape) and (max-height:500px){.hub .hb{width:clamp(110px,min(40vmin,22vw),180px);font-size:clamp(20px,5vmin,30px)}}
+/* English words */
+.qword.enw{color:#E85A98}
+.enid{font-size:clamp(24px,5vmin,36px);font-weight:700;color:var(--ink2)}
+.ennum{font-family:var(--read);font-weight:700;font-size:1.2em;color:var(--ink)}
+/* five subjects: two columns on a phone held upright */
+@media (orientation:portrait){.hub{flex-direction:row;flex-wrap:wrap;align-content:center}.hub .hb{width:clamp(120px,40vw,220px)}}
+/* card suggested by Tes Awal */
+.card .start{position:absolute;bottom:calc(2.6em + 22px);left:50%;transform:translateX(-50%);background:#FFD84D;color:#7A5200;border-radius:999px;padding:3px 12px;font-size:18px;font-weight:700;white-space:nowrap;box-shadow:0 3px 0 rgba(0,0,0,.15)}

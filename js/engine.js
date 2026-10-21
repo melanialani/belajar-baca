@@ -44,9 +44,9 @@ function buildLevelGrid(page){const g=G.g,best=levelStars(g.id),last=lastStars(g
   box.scrollTop=0;}
 function startLevel(L){rnd=G.g.daily?Math.random:mulberry32(hashStr(G.g.id)+L*7919);Object.assign(G,{L,q:0,err:0,hearts:HEARTS,D:Object.assign(makeD(L),{gid:G.g.id}),stars0:totalStars()});
   onScreen('game');$('#endov').classList.remove('on');$('#gtitle').textContent=G.g.daily?'Latihan':'Level '+L;drawHearts();nextQ();}
-function drawHearts(lost){$('#ghearts').hidden=!!SET.tod;$('#ghearts').innerHTML=Array.from({length:HEARTS},(_,i)=>`<span class="${i<G.hearts?'':'lost'}${i===lost?' pop':''}">${ico('❤️')}</span>`).join('');}
+function drawHearts(lost){$('#ghearts').hidden=!!SET.tod||!!G.g.test;$('#ghearts').innerHTML=Array.from({length:HEARTS},(_,i)=>`<span class="${i<G.hearts?'':'lost'}${i===lost?' pop':''}">${ico('❤️')}</span>`).join('');}
 // big feedback layer over the game; it also blocks taps while shown
-function showFb(kind,text){const f=$('#gfb');f.className='gfb on '+kind;f.querySelector('.fbx').innerHTML=kind==='ok'?'':IC.bigx;f.querySelector('.fbt').textContent=text;}
+function showFb(kind,text){const f=$('#gfb');f.className='gfb on '+kind;f.querySelector('.fbx').innerHTML=kind==='no'||kind==='out'?IC.bigx:'';f.querySelector('.fbt').textContent=text;}
 const hideFb=()=>{$('#gfb').className='gfb';};
 const qnOf=()=>G.g.qn||G.D.qn||QN;
 function dots(){const d=$('#gdots');d.innerHTML='';for(let i=0;i<qnOf();i++)d.append(h('i',i<G.q?'done':i===G.q?'now':''));}
@@ -64,11 +64,14 @@ function nextQ(){
     ans(say,show){G.ansSay=say==null?null:[].concat(say);G.reveal=show||null;},
     // multi-step games give a way to solve the question (used by the automated checks only)
     solve(fn){G.solve=fn;},
-    ok(){if(G.done||tok!==G.tok)return;G.done=true;
+    ok(){if(G.done||tok!==G.tok)return;G.done=true;if(G.g.test)G.g.answer(true);
       if(!G.qerr){let ch=false;G.D.cur.forEach(w=>{if(MISS[w]){MISS[w]--;if(MISS[w]<=0)delete MISS[w];ch=true;}});if(ch)saveMiss();if(G.D.rkey!=null)redoDone(G.D.gid,G.D.rkey);}
       sfx.ok();confetti();const t0=Date.now(),txt=pickM(PRAISE);showFb('ok',txt);
       TTS.say([txt],{keep:true,onEnd:()=>setTimeout(()=>{if(tok===G.tok){G.q++;nextQ();}},Math.max(150,1000-(Date.now()-t0)))});},
-    bad(el,word){if(G.done||tok!==G.tok)return;G.err++;G.qerr++;sfx.no();
+    bad(el,word){if(G.done||tok!==G.tok)return;
+      // Tes Awal: a wrong answer just moves on (no heart, no answer shown)
+      if(G.g.test){G.done=true;G.g.answer(false);sfx.tap();showFb('skip','Tidak apa-apa');setTimeout(()=>{if(tok===G.tok){G.q++;nextQ();}},900);return;}
+      G.err++;G.qerr++;sfx.no();
       const w=word||G.D.cur[0];if(w&&BYW[w]){MISS[w]=Math.min(5,(MISS[w]||0)+1);saveMiss();}
       else if(G.D.key!=null)redoAdd(G.D.gid,String(G.D.key),G.D.L);
       if(el){el.classList.remove('shake');void el.offsetWidth;el.classList.add('shake');}
@@ -84,12 +87,12 @@ function nextQ(){
   if(intro.length||auto.length)TTS.say([...intro,...auto]);}
 function endLevel(){
   rnd=Math.random;const g=G.g,L=G.L;const s=G.err===0?3:G.err<=2?2:1;
-  if(g.daily)g.finish();else{const arr=levelStars(g.id);arr[L-1]=Math.max(arr[L-1]||0,s);store.set('lv:'+g.id,arr);const la=lastStars(g.id);la[L-1]=s;store.set('lvl:'+g.id,la);}updateStars();
+  const fin=g.daily?g.finish():null;if(!g.daily){const arr=levelStars(g.id);arr[L-1]=Math.max(arr[L-1]||0,s);store.set('lv:'+g.id,arr);const la=lastStars(g.id);la[L-1]=s;store.set('lvl:'+g.id,la);}updateStars();
   $('#endstars').innerHTML=[0,1,2].map(i=>`<span class="${i<s?'':'dim'}">⭐</span>`).join('');
-  const msg=s===3?'Hebat sekali!':s===2?'Bagus!':'Selesai! Ayo coba lagi.';
-  $('#endmsg').textContent=msg;$('#eNext').style.visibility=!g.daily&&L<maxLevel()?'visible':'hidden';
+  const msg=fin?'Selesai!':s===3?'Hebat sekali!':s===2?'Bagus!':'Selesai! Ayo coba lagi.';
+  $('#endmsg').innerHTML=fin?[msg,...fin].map(x=>`<span>${x}</span>`).join('<br>'):msg;$('#endstars').hidden=!!(fin&&g.test);$('#eNext').style.visibility=!g.daily&&L<maxLevel()?'visible':'hidden';
   $('#eMap').innerHTML=g.daily?`<b>${ico('🏠')}</b>Rumah`:`<b>${ico('🗺️')}</b>Level`;
-  const before=stkCount(G.stars0),after=stkCount(totalStars());const sp=[msg,s+' bintang'];
+  const before=stkCount(G.stars0),after=stkCount(totalStars());const sp=fin&&g.test?[msg,...fin]:[msg,s+' bintang'];
   if(after>before){const nw=STICKERS.slice(before,after);$('#endstk').innerHTML=`<b>${nw.slice(-3).map(ico).join('')}</b><span>${nw.length>3?'+'+(nw.length-3)+' ':''}Stiker baru!</span>`;$('#endstk').hidden=false;sp.push('Hore! Kamu dapat stiker baru!');}
   else $('#endstk').hidden=true;
   $('#endov').classList.add('on');sfx.win();confetti();TTS.say(sp);}

@@ -86,6 +86,7 @@ Ilustrasi benda khas Indonesia: dibuat khusus untuk Ayo Baca.
       <button class="hb" style="--c:#2EC4A6;--d:#1A9F86" data-go="belhitung" data-say="Belajar hitung"><b>🧮</b>Hitung</button>
       <button class="hb" style="--c:#FF9A62;--d:#EC7436" data-go="belsains" data-say="Belajar sains"><b>🌍</b>Sains</button>
       <button class="hb" style="--c:#4FB3FF;--d:#2B90DE" data-go="beleksp" data-say="Eksperimen"><b>🧪</b>Eksperimen</button>
+      <button class="hb" style="--c:#FF7EB6;--d:#E85A98" data-go="belen" data-say="Bahasa Inggris"><b>💬</b>English</button>
     </div>
   </section>
 
@@ -99,6 +100,7 @@ Ilustrasi benda khas Indonesia: dibuat khusus untuk Ayo Baca.
       <button class="hb" style="--c:#FF5FA2;--d:#E0407F" data-go="bermain" data-say="Game baca"><b>🧩</b>Baca</button>
       <button class="hb" style="--c:#4FB3FF;--d:#2B90DE" data-go="mainhitung" data-say="Game hitung"><b>🎲</b>Hitung</button>
       <button class="hb" style="--c:#FF7A6B;--d:#E2513F" data-go="mainsains" data-say="Game sains"><b>🌈</b>Sains</button>
+      <button class="hb" style="--c:#FF7EB6;--d:#E85A98" data-go="mainen" data-say="Game bahasa Inggris"><b>💬</b>English</button>
     </div>
   </section>
 
@@ -118,6 +120,25 @@ Ilustrasi benda khas Indonesia: dibuat khusus untuk Ayo Baca.
       <div class="starpill js-stars">⭐ 0</div>
     </div>
     <div class="cards" id="jdCards"></div>
+  </section>
+
+  <section class="screen" id="belen">
+    <div class="top">
+      <button class="back" data-go="hubLearn" aria-label="Kembali"></button>
+      <div class="spacer"></div><div class="title" style="background:#FF7EB6;box-shadow:0 5px 0 #E85A98">English</div><div class="spacer"></div>
+      <div style="width:clamp(64px,13vmin,88px)"></div>
+    </div>
+    <p class="note" id="enNote" hidden>Suara bahasa Inggris belum terpasang di perangkat ini, jadi pengucapannya bisa kurang tepat.</p>
+    <div class="cards" id="enLearnCards"></div>
+  </section>
+
+  <section class="screen" id="mainen">
+    <div class="top">
+      <button class="back" data-go="hubPlay" aria-label="Kembali"></button>
+      <div class="spacer"></div><div class="title" style="background:#FF7EB6;box-shadow:0 5px 0 #E85A98">Game English</div><div class="spacer"></div>
+      <div class="starpill js-stars">⭐ 0</div>
+    </div>
+    <div class="cards" id="enGameCards"></div>
   </section>
 
   <section class="screen" id="sciGroup">
@@ -205,7 +226,7 @@ Ilustrasi benda khas Indonesia: dibuat khusus untuk Ayo Baca.
     <div class="viewer">
       <div class="content" id="lcontent"></div>
     </div>
-    <div class="saybar"><button class="arrow" id="lprev" aria-label="Sebelumnya"></button><button class="saybig" id="lsay" aria-label="Dengarkan"></button><button class="arrow" id="lnext" aria-label="Berikutnya"></button></div>
+    <div class="saybar"><button class="arrow" id="lprev" aria-label="Sebelumnya"></button><button class="saybig" id="lsay" aria-label="Dengarkan"></button><button class="arrow" id="lnext" aria-label="Berikutnya"></button><button class="lrec" id="lrec" aria-label="Rekam suara orang tua" hidden></button></div>
   </section>
 
   <section class="screen" id="sikecil">
@@ -282,9 +303,12 @@ Ilustrasi benda khas Indonesia: dibuat khusus untuk Ayo Baca.
     <div class="setrow"><span>Pengingat istirahat (menit)</span><div class="seg" id="tBreak"></div></div>
     <div class="setrow"><span>Bentuk huruf</span><div class="seg" id="tCase"></div></div>
     <div class="setrow"><span>Mode Balita<small class="sub">Tanpa hati, tanpa kalah, level 1–25, pilihan jawaban lebih sedikit</small></span><button class="tog" id="tTod" aria-label="Mode Balita"></button></div>
+    <div class="setrow"><span>Rekam suara ayah/ibu<small class="sub">Tombol 🎙️ di halaman Belajar: rekam kata itu dengan suara sendiri (<b id="tRecN">0</b> rekaman)</small></span><span style="display:flex;gap:8px;align-items:center"><button class="danger" id="tRecDel">Hapus</button><button class="tog" id="tRec" aria-label="Rekam suara"></button></span></div>
+    <div class="setrow"><span>Tes Awal<small class="sub" id="tPlaceRes"></small><small class="sub">Dua belas soal baca dan hitung untuk mencari level yang pas. Hasilnya ditandai "Mulai di sini".</small></span><button class="puse" id="tPlace">Mulai tes</button></div>
     <div class="setrow profrow"><span>Anak<small class="sub">Setiap anak punya bintang, stiker dan progres sendiri</small></span><div class="proflist" id="tProfs"></div></div>
     <div class="setrow"><span>Nomor HP orang tua (untuk latihan di Jaga Diri)</span><input class="tin" id="tPhone" type="tel" inputmode="tel" autocomplete="off" placeholder="mis. 0812 3456 7890"></div>
     <div class="setrow"><span>Alamat rumah (untuk latihan di Jaga Diri)</span><input class="tin" id="tAddr" type="text" autocomplete="off" placeholder="mis. Jalan Melati nomor lima, Surabaya"></div>
+    <div class="setrow"><span>Lembar kerja untuk dicetak<small class="sub">Dibuat dari level dan kesalahan anak ini: menebalkan huruf, suku kata, hitung, berhitung</small></span><button class="puse" id="tSheet">Buat lembar kerja</button></div>
     <div class="rep" id="report"></div>
     <div class="setrow"><span>Hapus semua bintang, stiker &amp; progres</span><button class="danger" id="tReset">Hapus</button></div>
     <div class="setrow" style="font-size:15px;color:var(--ink2);font-weight:500">Gambar: Microsoft Fluent Emoji (lisensi MIT, © Microsoft Corporation) + ilustrasi khusus Ayo Baca.</div>
@@ -327,6 +351,10 @@ Ilustrasi benda khas Indonesia: dibuat khusus untuk Ayo Baca.
 <script src="js/data/cerita.js?v=2026-10-14c"></script>
 <script src="js/stories.js?v=2026-10-14c"></script>
 <script src="js/math-sd.js?v=2026-10-14c"></script>
+<script src="js/english.js?v=2026-10-14c"></script>
+<script src="js/voice.js?v=2026-10-14c"></script>
+<script src="js/placement.js?v=2026-10-14c"></script>
+<script src="js/worksheet.js?v=2026-10-14c"></script>
 <script src="js/science-data.js?v=2026-10-14c"></script>
 <script src="js/data/sains-hewan.js?v=2026-10-14c"></script>
 <script src="js/data/sains-tubuh.js?v=2026-10-14c"></script>
