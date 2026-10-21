@@ -5,7 +5,7 @@ const QN=5,OPT=[2,3,3,4,4],HEARTS=5,MAXL=100,PAGEL=25;
 function makeD(L){const t=3+(Math.min(L,25)-1)*10/24,x=L>25?Math.ceil((L-25)/5):0;const hi=L>25?Math.min(MAXT,13+Math.ceil((L-25)/15)):Math.round(t);
   return {L,b:Math.min(4,(L-1)/5|0),x,qn:L>75?7:L>50?6:QN,hi,lo:L>25?Math.max(3,hi-2):Math.max(3,hi-1),used:new Set(),q:0,cur:[],review:false,revTried:false};}
 // number of answer choices: 2–4 in levels 1–25, 4 up to level 50, then 5
-const optN=D=>D.x?(D.L>50?5:4):OPT[D.b];
+const optN=D=>SET.tod?Math.min(3,OPT[D.b]):D.x?(D.L>50?5:4):OPT[D.b];
 // per-band value: a = the five values of levels 1–25, x = values for levels 26–100 (indexed by D.x-1, last one repeats)
 const bv=(D,a,x)=>D.x&&x?x[Math.min(x.length,D.x)-1]:a[Math.min(4,D.b)];
 function bySeg(D,arr){const N=D.qn||QN,n=arr.length,a=Math.floor(D.q*n/N),b=Math.max(a+1,Math.floor((D.q+1)*n/N));return arr[Math.min(n-1,a+(rnd()*(b-a)|0))];}
@@ -74,7 +74,7 @@ function nextQ(){
       if(el){el.classList.remove('shake');void el.offsetWidth;el.classList.add('shake');}
       if(!SET.tod){G.hearts--;drawHearts(G.hearts);}
       if(G.hearts<=0){G.done=true;const txt=pickM(GAMEOVER);showFb('out',txt);TTS.say([txt],{onEnd:()=>setTimeout(()=>{if(tok===G.tok)leaveGame();},400)});return;}
-      const txt=pickM(OOPS);showFb('no',txt);
+      const txt=SET.tod?'Ayo lihat yang benar':pickM(OOPS);showFb('no',txt);
       // memory cards and the microphone game keep the board: a mismatch there is not guessing
       if(G.g.keep||G.D.keep){TTS.say([txt]);setTimeout(()=>{if(tok===G.tok&&!G.done)hideFb();},900);return;}
       G.done=true;const t0=Date.now();TTS.say([txt],{onEnd:()=>setTimeout(()=>revealAnswer(tok),Math.max(0,900-(Date.now()-t0)))});}};

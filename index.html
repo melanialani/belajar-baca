@@ -30,6 +30,12 @@ Ilustrasi benda khas Indonesia: dibuat khusus untuk Ayo Baca.
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Ayo Baca! – Belajar Membaca untuk Anak TK</title>
+<meta name="theme-color" content="#FF5FA2">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="assets/icons/icon-192.png">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Andika:wght@400;700&family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet">
@@ -43,10 +49,12 @@ Ilustrasi benda khas Indonesia: dibuat khusus untuk Ayo Baca.
 <link rel="stylesheet" href="css/science.css?v=2026-10-14c">
 <link rel="stylesheet" href="css/experiments.css?v=2026-10-14c">
 <link rel="stylesheet" href="css/safety.css?v=2026-10-14c">
+<link rel="stylesheet" href="css/toddler.css?v=2026-10-14c">
 </head>
 <body>
 <div id="app">
   <section class="screen on" id="home">
+    <button class="profchip" id="profchip" hidden></button>
     <div class="logowrap" aria-label="Ayo Baca">
       <div class="logo"><span style="background:#FF5FA2">A</span><span style="background:#A47CFF">y</span><span style="background:#FF9A62">o</span><span class="bow">🎀</span></div>
       <div class="logo"><span style="background:#2EC4A6">B</span><span style="background:#4FB3FF">a</span><span style="background:#FFBE1A">c</span><span style="background:#FF7EB6">a</span></div>
@@ -59,6 +67,7 @@ Ilustrasi benda khas Indonesia: dibuat khusus untuk Ayo Baca.
     </div>
     <div class="homefoot">
       <button class="daily" id="goDaily"><b>⭐</b>Latihan Hari Ini<span id="dailyst"></span></button>
+      <button class="daily kecil" id="goKecil" data-go="sikecil" data-say="Si kecil"><b>🧸</b>Si Kecil</button>
       <div class="starpill js-stars">⭐ 0</div>
       <button class="lock" id="lock" aria-label="Mode orang tua, tekan tahan 3 detik"><i></i>🔒</button>
     </div>
@@ -198,6 +207,24 @@ Ilustrasi benda khas Indonesia: dibuat khusus untuk Ayo Baca.
     <div class="saybar"><button class="arrow" id="lprev" aria-label="Sebelumnya"></button><button class="saybig" id="lsay" aria-label="Dengarkan"></button><button class="arrow" id="lnext" aria-label="Berikutnya"></button></div>
   </section>
 
+  <section class="screen" id="sikecil">
+    <div class="top">
+      <button class="back" data-go="home" aria-label="Kembali"></button>
+      <div class="spacer"></div><div class="title" style="background:#FF9A62;box-shadow:0 5px 0 #EC7436">Si Kecil</div><div class="spacer"></div>
+      <div style="width:clamp(64px,13vmin,88px)"></div>
+    </div>
+    <div class="cards" id="kecilCards"></div>
+  </section>
+
+  <section class="screen" id="kecil">
+    <div class="top">
+      <button class="back" data-go="sikecil" aria-label="Kembali"></button>
+      <div class="spacer"></div><div class="title" id="kecilTitle" style="background:#FF9A62;box-shadow:0 5px 0 #EC7436">Si Kecil</div><div class="spacer"></div>
+      <div style="width:clamp(64px,13vmin,88px)"></div>
+    </div>
+    <div class="kstage" id="kstage"></div>
+  </section>
+
   <section class="screen" id="levels">
     <div class="top">
       <button class="back" data-go="bermain" aria-label="Kembali"></button>
@@ -253,13 +280,21 @@ Ilustrasi benda khas Indonesia: dibuat khusus untuk Ayo Baca.
     <div class="setrow"><span>Suara lebih pelan</span><button class="tog" id="tSlow" aria-label="Suara pelan"></button></div>
     <div class="setrow"><span>Pengingat istirahat (menit)</span><div class="seg" id="tBreak"></div></div>
     <div class="setrow"><span>Bentuk huruf</span><div class="seg" id="tCase"></div></div>
+    <div class="setrow"><span>Mode Balita<small class="sub">Tanpa hati, tanpa kalah, level 1–25, pilihan jawaban lebih sedikit</small></span><button class="tog" id="tTod" aria-label="Mode Balita"></button></div>
+    <div class="setrow profrow"><span>Anak<small class="sub">Setiap anak punya bintang, stiker dan progres sendiri</small></span><div class="proflist" id="tProfs"></div></div>
     <div class="setrow"><span>Nomor HP orang tua (untuk latihan di Jaga Diri)</span><input class="tin" id="tPhone" type="tel" inputmode="tel" autocomplete="off" placeholder="mis. 0812 3456 7890"></div>
     <div class="setrow"><span>Alamat rumah (untuk latihan di Jaga Diri)</span><input class="tin" id="tAddr" type="text" autocomplete="off" placeholder="mis. Jalan Melati nomor lima, Surabaya"></div>
     <div class="rep" id="report"></div>
     <div class="setrow"><span>Hapus semua bintang, stiker &amp; progres</span><button class="danger" id="tReset">Hapus</button></div>
     <div class="setrow" style="font-size:15px;color:var(--ink2);font-weight:500">Gambar: Microsoft Fluent Emoji (lisensi MIT, © Microsoft Corporation) + ilustrasi khusus Ayo Baca.</div>
     <div class="setrow" style="font-size:15px;color:var(--ink2);font-weight:500">Progres tersimpan di browser perangkat ini saja. Menghapus data browser akan menghapus progres.</div>
+    <div class="setrow" style="font-size:15px;color:var(--ink2);font-weight:500">Bisa dipakai tanpa internet setelah dibuka sekali dengan internet. Di HP: menu browser › "Tambahkan ke layar utama" supaya muncul seperti aplikasi.</div>
   </div></div></div>
+
+<div class="overlay" id="profov"><div class="panel profpanel">
+  <div class="ph"><span>Siapa yang main?</span><button class="x" id="profx" aria-label="Tutup">✕</button></div>
+  <div class="profpick" id="profpick"></div>
+</div></div>
 
 <div class="overlay" id="breakov"><div class="panel brk">
   <div class="big">🌳 👀 🧃</div>
@@ -276,6 +311,7 @@ Ilustrasi benda khas Indonesia: dibuat khusus untuk Ayo Baca.
 <script src="js/words.js?v=2026-10-14c"></script>
 <script src="js/learn.js?v=2026-10-14c"></script>
 <script src="js/parent.js?v=2026-10-14c"></script>
+<script src="js/profiles.js?v=2026-10-14c"></script>
 <script src="js/engine.js?v=2026-10-14c"></script>
 <script src="js/reading-games.js?v=2026-10-14c"></script>
 <script src="js/math.js?v=2026-10-14c"></script>
@@ -305,6 +341,7 @@ Ilustrasi benda khas Indonesia: dibuat khusus untuk Ayo Baca.
 <script src="js/data/kuis-tambahan.js?v=2026-10-14c"></script>
 <script src="js/safety.js?v=2026-10-14c"></script>
 <script src="js/daily.js?v=2026-10-14c"></script>
+<script src="js/toddler.js?v=2026-10-14c"></script>
 <script src="js/main.js?v=2026-10-14c"></script>
 </body>
 </html>

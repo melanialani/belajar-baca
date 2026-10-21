@@ -4,11 +4,11 @@ const saveMiss=()=>store.set('miss',MISS);
 longPress($('#lock'),3000,openParent,()=>toast('Tekan tahan 3 detik untuk Mode Orang Tua'));
 function openParent(){sfx.ok();$('#tExtra').classList.toggle('on',SET.extra);$('#tSlow').classList.toggle('on',SET.slow);$('#tReset').textContent='Hapus';
   const seg=$('#tBreak');seg.innerHTML='';[0,10,15,20,30].forEach(m=>{const b=h('button',SET.brk===m?'on':'',m?String(m):'Mati');
-    b.onclick=()=>{SET.brk=m;store.set('set',SET);usedMs=0;[...seg.children].forEach(x=>x.classList.toggle('on',x===b));};seg.append(b);});
+    b.onclick=()=>{SET.brk=m;saveSet();usedMs=0;[...seg.children].forEach(x=>x.classList.toggle('on',x===b));};seg.append(b);});
   const cs=$('#tCase');cs.innerHTML='';[['lower','abc'],['cap','Abc'],['upper','ABC']].forEach(([v,t])=>{const b=h('button',SET.case===v?'on':'',t);
-    b.onclick=()=>{SET.case=v;store.set('set',SET);[...cs.children].forEach(x=>x.classList.toggle('on',x===b));};cs.append(b);});
+    b.onclick=()=>{SET.case=v;saveSet();[...cs.children].forEach(x=>x.classList.toggle('on',x===b));};cs.append(b);});
   $('#tPhone').value=SET.ph;$('#tAddr').value=SET.addr;
-  buildReport();$('#parentov').classList.add('on');}
+  buildReport();parentExtras();$('#parentov').classList.add('on');}
 function buildReport(){
   const r=$('#report');const st=[...STAGES,...MATH_STAGES,...SCI_STAGES,...EXP_STAGES,...JD_STAGES].flatMap(s=>s.sub||[s]).map(s=>{const tot=s.items().length,got=Math.min(tot,store.get('lp:'+s.id,0));
     return `<div class="rrow"><span>${s.title}</span><div class="bar"><i style="width:${Math.round(got/tot*100)}%"></i></div><span>${got}/${tot}</span></div>`;}).join('');
@@ -20,12 +20,12 @@ function buildReport(){
    <p style="margin:10px 0 0;color:var(--ink2)">Stiker: ${stkCount(totalStars())}/${STICKERS.length} · Kata yang sering salah akan muncul lagi di game sampai dijawab benar.</p>`;}
 $('#parentx').onclick=()=>$('#parentov').classList.remove('on');
 // family phone and address for Jaga Diri practice; stored on this device only
-$('#tPhone').oninput=e=>{SET.ph=e.target.value.replace(/[^\d ]/g,'').slice(0,20);store.set('set',SET);};
-$('#tAddr').oninput=e=>{SET.addr=e.target.value.slice(0,120);store.set('set',SET);};
-$('#tExtra').onclick=()=>{SET.extra=!SET.extra;store.set('set',SET);$('#tExtra').classList.toggle('on',SET.extra);};
-$('#tSlow').onclick=()=>{SET.slow=!SET.slow;store.set('set',SET);$('#tSlow').classList.toggle('on',SET.slow);TTS.say(['Halo, ayo membaca']);};
+$('#tPhone').oninput=e=>{SET.ph=e.target.value.replace(/[^\d ]/g,'').slice(0,20);saveSet();};
+$('#tAddr').oninput=e=>{SET.addr=e.target.value.slice(0,120);saveSet();};
+$('#tExtra').onclick=()=>{SET.extra=!SET.extra;saveSet();$('#tExtra').classList.toggle('on',SET.extra);};
+$('#tSlow').onclick=()=>{SET.slow=!SET.slow;saveSet();$('#tSlow').classList.toggle('on',SET.slow);TTS.say(['Halo, ayo membaca']);};
 $('#tReset').onclick=()=>{const b=$('#tReset');if(b.textContent==='Hapus'){b.textContent='Yakin? Ketuk lagi';return;}
-  store.clear();store.set('set',SET);Object.keys(MISS).forEach(k=>delete MISS[k]);b.textContent='Terhapus ✓';updateStars();buildReport();};
+  store.clear();saveSet();Object.keys(MISS).forEach(k=>delete MISS[k]);b.textContent='Terhapus ✓';updateStars();buildReport();};
 let usedMs=0,lastTick=Date.now(),brkTimer=null,brkEnd=0;
 // screen time: only count while visible; cap each step so a frozen/sleeping page never adds its off time
 setInterval(()=>{const now=Date.now();if(document.visibilityState==='visible'&&!$('#breakov').classList.contains('on'))usedMs+=Math.min(now-lastTick,10000);lastTick=now;

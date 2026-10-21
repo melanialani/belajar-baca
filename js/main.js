@@ -19,3 +19,6 @@ document.addEventListener('pointerdown',function unlock(){try{if(TTS.ok){const u
 setTimeout(()=>{const n=$('#voiceNote');
   if(!TTS.ok){n.textContent='Browser ini tidak mendukung suara. Coba pakai Chrome atau Safari terbaru.';n.hidden=false;}
   else if(!TTS.voice){n.textContent='Suara bahasa Indonesia belum terpasang di perangkat ini, jadi logatnya bisa terdengar asing. Pasang lewat Pengaturan › Text-to-Speech.';n.hidden=false;}},1800);
+// offline: the service worker keeps the app files; emoji pictures are saved in the background
+if('serviceWorker' in navigator&&location.protocol.startsWith('http'))
+  navigator.serviceWorker.register('sw.js').then(()=>navigator.serviceWorker.ready).then(r=>{if(r.active)r.active.postMessage({emoji:[...EMO].map(emoUrl)});}).catch(()=>{});

@@ -18,9 +18,19 @@ const shuffle=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=rnd()*(i+1)|0;[
 const pick=a=>a[rnd()*a.length|0];
 const sample=(a,n)=>shuffle(a).slice(0,Math.max(0,n));
 const pickM=a=>a[Math.random()*a.length|0];
-const store={get(k,d){try{const v=localStorage.getItem('ayobaca2:'+k);return v==null?d:JSON.parse(v);}catch(e){return d;}},
-  set(k,v){try{localStorage.setItem('ayobaca2:'+k,JSON.stringify(v));}catch(e){}},
-  clear(){try{Object.keys(localStorage).filter(k=>k.startsWith('ayobaca2:')).forEach(k=>localStorage.removeItem(k));}catch(e){}}};
+// child profiles: profile 1 keeps the original keys (nothing to migrate); profile n stores its keys under "ayobaca2:p<n>:"
+// shared by all children: the profile list, the active profile and the parent settings ('set'); everything else is per child
+const BASEP='ayobaca2:',GLOBALK=['profiles','prof','set'];
+const rawGet=(k,d)=>{try{const v=localStorage.getItem(BASEP+k);return v==null?d:JSON.parse(v);}catch(e){return d;}};
+const rawSet=(k,v)=>{try{localStorage.setItem(BASEP+k,JSON.stringify(v));}catch(e){}};
+const PROFILES=rawGet('profiles',[{id:1,name:'',av:'🧒'}]);
+let PROF=rawGet('prof',1);if(!PROFILES.some(p=>p.id===PROF))PROF=PROFILES[0].id;
+const pkey=k=>GLOBALK.includes(k)||PROF===1?k:`p${PROF}:${k}`;
+const ownKey=(r,id=PROF)=>!GLOBALK.includes(r)&&(id===1?!/^p\d+:/.test(r):r.startsWith(`p${id}:`));
+const dropProfile=id=>{try{Object.keys(localStorage).filter(k=>k.startsWith(BASEP)&&ownKey(k.slice(BASEP.length),id)).forEach(k=>localStorage.removeItem(k));}catch(e){}};
+const store={get:(k,d)=>rawGet(pkey(k),d),set:(k,v)=>rawSet(pkey(k),v),
+  // removes the data of the active child only
+  clear(){try{Object.keys(localStorage).filter(k=>k.startsWith(BASEP)&&ownKey(k.slice(BASEP.length))).forEach(k=>localStorage.removeItem(k));}catch(e){}}};
 const COL=['#FF5FA2','#2EC4A6','#FF9A62','#A47CFF','#4FB3FF','#FFBE1A'];
 const PAL={pink:['#FF5FA2','#E0407F'],lilac:['#A47CFF','#8257E6'],mint:['#2EC4A6','#1A9F86'],sun:['#FFBE1A','#E09E00'],
   peach:['#FF9A62','#EC7436'],sky:['#4FB3FF','#2B90DE'],rose:['#FF7EB6','#E85A98'],berry:['#E0457B','#BC2C5E'],grape:['#8E6CF0','#6B4AD0'],coral:['#FF7A6B','#E2513F']};
@@ -37,8 +47,11 @@ function toast(msg,ms=3000){const t=h('div','toast',msg);document.body.append(t)
 const SET0=store.get('set',{});
 // one-time move of the old default break (15 min) to the new default (30 min); brkMig marks it as done
 if(!SET0.brkMig&&SET0.brk===15)SET0.brk=30;
-const SET=Object.assign({extra:false,slow:false,brk:30,case:'lower',ph:'',addr:''},SET0,{brkMig:true});
-if(!SET0.brkMig)store.set('set',SET);
+// letter case and Mode Balita belong to each child ('pset'); the first child takes the case chosen before profiles existed
+const SET=Object.assign({extra:false,slow:false,brk:30,case:'lower',tod:false,ph:'',addr:''},SET0,PROF===1?{}:{case:'lower'},store.get('pset',{}),{brkMig:true});
+function saveSet(){store.set('set',SET);store.set('pset',{case:SET.case,tod:SET.tod});}
+if(!SET0.brkMig)saveSet();
+if(PROF===1&&!store.get('pset'))store.set('pset',{case:SET.case,tod:SET.tod});
 // letter case setting: 'lower' (default) | 'cap' (first letter of a word) | 'upper'
 const cap=s=>s?s[0].toUpperCase()+s.slice(1):s;
 const caseWord=s=>SET.case==='upper'?s.toUpperCase():SET.case==='cap'?cap(s):s;
