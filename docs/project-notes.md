@@ -47,7 +47,22 @@ tools/emoji_tool.py ← exports Fluent Emoji SVGs by code point (see its header)
 js/science.js       ← Sains: Warna/Hewan/Buah/Sayur stages, science category stages, Kuis Sains, Benar atau Salah (+ shapes/patterns pushed in by shapes.js)
 js/shapes.js        ← Bentuk & Pola: learn stages + Tebak Bentuk, Hitung Bentuk, Lanjutkan Pola
 js/daily.js         ← Latihan Hari Ini (10 mixed questions, streak)
-js/main.js          ← builds ALLGAMES, startup
+js/profiles.js      ← child profiles (switch, add, rename, delete) + Mode Balita switch
+js/data/tulis.js    ← stroke paths of a–z, A–Z, 0–9 for tracing
+js/writing.js       ← tracePad() (finger tracing), Menulis learn cards, Tulis Huruf + Dikte games
+js/data/cerita.js   ← 40 picture stories (5 levels) with questions
+js/stories.js       ← Buku Cerita (read-along, word highlight) + Baca Cerita game
+js/math-sd.js       ← SD counting: Perkalian, Pembagian, Ratusan & Ribuan, Jam, Uang, Pecahan (learn + games)
+js/english.js       ← English words (learn cards) + 4 games, English voice
+js/voice.js         ← parent voice recordings (IndexedDB), mic button on learn pages
+js/placement.js     ← Tes Awal (adaptive placement, "Mulai di sini" card)
+js/worksheet.js     ← printable worksheet + "soal yang akan diulang" report
+js/data/perasaan.js ← Perasaanku cards + Tebak Perasaan situations
+js/data/kuis-tambahan.js ← extra Kuis Sains, Benar atau Salah, Aman atau Bahaya, Telepon Siapa questions
+js/toddler.js       ← Si Kecil: Suara Hewan, Cilukba, Piano Warna, Pecah Gelembung
+js/main.js          ← builds ALLGAMES, startup, service worker registration
+sw.js, manifest.webmanifest, assets/icons/ ← installable app, works offline (app files precached, emoji cached in the background)
+tools/playtest.js   ← automated play-through of every game (see its header)
 assets/emoji/*.svg  ← 488 Fluent Emoji SVGs, one file each (name = hex code points joined by "-")
 ```
 
@@ -77,3 +92,12 @@ assets/emoji/*.svg  ← 488 Fluent Emoji SVGs, one file each (name = hex code po
 - Content rules for science / facts / experiments: Bahasa Indonesia for kids, numbers written as words (TTS), no digits, symbols, parentheses or emoji inside sentences; uncertain science says "para ilmuwan menduga"; experiments: no fire, sharp tools, hot water or strong chemicals handled by the child (parent does it, written "dipakai/dilakukan orang tua"), every experiment shows "Bersama orang tua".
 - 2026-10-13: new home button Jaga Diri 🛡️ (home: Belajar, Main, Jaga Diri, Stiker). Cards: Tubuhku Milikku (body safety: private parts, no undressing games, no bad secrets, say no, go, tell; never your fault), Berani Bilang Tidak (dangerous dares), Orang Asing (do not go along, shout "Tolong! Ini bukan ayah atau ibu saya!", family password, door, internet), Kalau Tersesat, Aman di Rumah & Jalan, Nomor Penting (112 darurat, 110 polisi, 113 pemadam, 119 ambulans, 129 SAPA; read digit by digit). Games: Aman atau Bahaya? (36 situations), Telepon Siapa? (112 is never a wrong choice). Mode Orang Tua: optional parent phone number and home address (SET.ph / SET.addr, this device only) shown and read in Nomor Penting for practice. Asset version `?v=2026-10-13b`.
 - 2026-10-13: full content review (7 reviewers: reading words, 6 science files, facts, experiments, Jaga Diri + UI text) and fixes. Must-fix items fixed: gelas picture (was a liquor glass), kembar picture (👯), "adik/kakak minum kopi", experiment magnets (now large magnets, put away by the parent), effervescent tablets (parent handles, "bukan permen"), tadpoles (parent fetches, child stays away from water, hand washing, feeding), tsunami advice (strong quake at the beach = go to high ground at once). Also: penyihir, lipstik, 🔮 sticker, 🎃 removed; abstract words lost misleading pictures; ha-us/ka-us/sa-us split per KBBI; myths fixed (morning sun vitamin D, flowers hold honey, koala eats kayu putih, keys stick to magnets, kangaroo not in Indonesia); Jaga Diri softened for children who already had a bad experience, getting-lost steps made consistent, Telepon Siapa never marks a defensible number wrong; stage titles with digits or "&" get a spoken `say`; experiments speak "Lakukan bersama orang tua, ya."; Toko Buah renamed Ayo Belanja; custom #ketupat picture. Asset version `?v=2026-10-13c`.
+- 2026-10-21: big update after the parent's observation that KB/TK children tap every option until one fits (branch `claude-2njqzj`, PR #1).
+  - Wrong answer: heart lost, the right answer is shown and spoken, then a new question; the missed question returns in later levels until answered right twice (words: `MISS`, other games: redo list). Kartu Memori, Baca Keras and Tulis Huruf keep their board.
+  - 100 levels per game (pages of 25); levels 1–25 unchanged (checked: same first question per level, except four games whose question pools grew), 26–100 harder (word tiers 14–18, numbers to 9 999, carrying/borrowing, more choices, more questions). Level grid shows the last try's stars, totals use the best.
+  - 300 stickers in albums of 50 (first 100 thresholds unchanged). +100 quiz, +100 true/false, +38 safety situations, +12 phone questions.
+  - Child profiles (up to 6), Mode Balita, Si Kecil toddler games, installable/offline app.
+  - Tulis Huruf (finger tracing with stroke order) and Dikte; Buku Cerita (40 read-along stories) and Baca Cerita (comprehension); Perasaanku + Tebak Perasaan.
+  - SD counting: multiplication, division, place value, clock (Indonesian time words), rupiah, fractions.
+  - English (8 word cards, 4 games), parent voice recordings, Tes Awal placement, "soal yang akan diulang" report, printable worksheet.
+  - Verified with an automated play-through (every game at levels 1–100 ends with 3 stars, no single/duplicate options, no page errors), every learn page rendered, offline reload, profile isolation, recording with a fake microphone. Asset version `?v=2026-10-21a`.

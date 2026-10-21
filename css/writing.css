@@ -25,7 +25,7 @@
 .kbd.full .key{min-width:clamp(38px,8.4vmin,60px);min-height:clamp(44px,9.4vmin,64px);font-size:clamp(22px,5vmin,36px)}
 .slots.tight .slot{min-width:clamp(30px,6.4vmin,52px);font-size:clamp(24px,5.6vmin,44px)}
 .revealed .key{opacity:.5}
-@media (orientation:landscape) and (max-height:500px){.tpad{width:min(100%,calc(var(--tw,1) * 42vh))}.kbd.full .key{min-height:40px;min-width:34px}}
+@media (orientation:landscape) and (max-height:500px){.tpad{width:min(100%,calc(var(--tw,1) * 60vh))}.kbd.full .key{min-height:40px;min-width:34px}}
 /* ============ Buku Cerita + Baca Cerita ============ */
 .spics{display:flex;gap:8px;justify-content:center;font-size:clamp(56px,13vmin,110px);line-height:1}
 .stxt{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 10px;max-width:min(760px,92vw);font-family:var(--read);font-weight:700;font-size:clamp(30px,6.6vmin,52px)}
