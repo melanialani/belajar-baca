@@ -21,19 +21,21 @@ const sciStage=(g,c)=>({id:g.id,title:g.title,c,art:ems(emoList(g.art)),play:[['
 SCI_STAGES.push(...SCI_CATS.map(cat=>cat.groups?{id:cat.id,title:cat.title,c:cat.c,art:ems(emoList(cat.art)),sub:cat.groups.map((g,i)=>sciStage(g,SUBPAL[i%SUBPAL.length]))}:sciStage(cat,cat.c)));
 
 // questions of the allowed difficulty for the band, easiest first, no repeats within a level
-function sciTake(D,list){const maxd=[1,1,2,2,3][D.b],pool=list.filter(x=>x[3]<=maxd).sort((a,b)=>a[3]-b[3]),fresh=pool.filter(x=>!D.used.has(x[0]));
-  const it=bySeg(D,fresh.length?fresh:pool);D.used.add(it[0]);return it;}
+// levels 26–100: all questions, the harder ones (difficulty 2–3) more often; questions missed earlier come back first
+function sciTake(D,list){const maxd=[1,1,2,2,3][D.b],pool=list.filter(x=>x[3]<=maxd&&(!D.x||D.x<4||x[3]>=2||rnd()<.35)).sort((a,b)=>a[3]-b[3]),fresh=pool.filter(x=>!D.used.has(x[0]));
+  const rk=redoPick(D,k=>!D.used.has(k)&&list.some(x=>x[0]===k));
+  const it=rk?list.find(x=>x[0]===rk):bySeg(D,fresh.length?fresh:pool.length?pool:list);D.used.add(it[0]);D.key=it[0];return it;}
 SCI_GAMES.push(
  {id:'squiz',title:'Kuis Sains',c:'sky',ins:'Dengarkan pertanyaannya, lalu pilih gambarnya.',art:chips(['?'])+BR+ems(['🐔','🐱']),
   fn(st,api,D){const [qs,right,wrong]=sciTake(D,SCI_QUIZ),ans=pick(emoList(right)),no=emoList(wrong);
    const q=h('div','q');q.append(h('div','sciq',caseUnit(qs)),spkBtn(()=>TTS.say([qs])));
-   const a=h('div','a');a.append(optsEl(shuffle([ans,...sample(no,Math.min(no.length,OPT[D.b]-1))]),ico,(e,b)=>{if(e===ans){b.classList.add('right');api.ok();}else api.bad(b);},'pic'));
-   st.append(q,a);return [qs];}},
+   const a=h('div','a');a.append(optsEl(shuffle([ans,...sample(no,Math.min(no.length,optN(D)-1))]),ico,(e,b)=>{if(e===ans){b.classList.add('right');api.ok();}else api.bad(b);},'pic',e=>e===ans));
+   api.ans(null);st.append(q,a);return [qs];}},
  {id:'sbs',title:'Benar atau Salah',c:'coral',ins:'Dengarkan, lalu pilih benar atau salah.',art:ems(['🐟'])+BR+chips(['Benar','Salah']),
   fn(st,api,D){const [t,ok,e]=sciTake(D,SCI_FACTS);
    const q=h('div','q');q.append(P(e),h('div','sciq',caseUnit(t)),spkBtn(()=>TTS.say([t])));
-   const a=h('div','a');a.append(optsEl([1,0],v=>v?`${IC.ok}Benar`:`${IC.no}Salah`,(v,b)=>{if(v===ok){b.classList.add('right');api.ok();}else api.bad(b);},'tf'));
-   st.append(q,a);return [t];}}
+   const a=h('div','a');a.append(optsEl([1,0],v=>v?`${IC.ok}Benar`:`${IC.no}Salah`,(v,b)=>{if(v===ok){b.classList.add('right');api.ok();}else api.bad(b);},'tf',v=>v===ok));
+   api.ans([ok?'benar':'salah']);st.append(q,a);return [t];}}
 );
 const buildSciLearnCards=()=>buildLearnCards($('#sciLearnCards'),SCI_STAGES);
 const buildSciGameCards=()=>buildCards($('#sciGameCards'),SCI_GAMES,openLevels,starBadge);

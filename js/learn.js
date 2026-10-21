@@ -12,7 +12,7 @@ $('#goStk').onclick=()=>{sfx.tap();show('stiker');TTS.say(['Stiker']);};
 const levelStars=id=>store.get('lv:'+id,[]);
 const gameStars=id=>levelStars(id).reduce((a,b)=>a+(b||0),0);
 const totalStars=()=>ALLGAMES.reduce((t,g)=>t+gameStars(g.id),0);
-const starBadge=g=>{const s=gameStars(g.id);return s?`<span class="badge">⭐ ${s}/75</span>`:'';};
+const starBadge=g=>{const s=gameStars(g.id);return s?`<span class="badge">⭐ ${s}/${maxLevel()*3}</span>`:'';};
 function updateStars(){const t='⭐ '+totalStars();document.querySelectorAll('.js-stars').forEach(e=>e.textContent=t);}
 function buildCards(el,list,onPick,extra){el.innerHTML='';
   list.forEach((m,i)=>{const [c,d]=PAL[m.c];const b=h('button','card');b.style.setProperty('--c',c);b.style.setProperty('--d',d);
@@ -24,12 +24,16 @@ function openGroup(g){GRP=g;show('sciGroup');TTS.say([g.say||g.title]);}
 function buildGroupCards(){if(!GRP)return show('belsains');$('#grpTitle').textContent=GRP.title;$('#sciGroup .back').dataset.go=GRP.home;buildLearnCards($('#grpCards'),GRP.sub);}
 function buildLearnCards(el=$('#learnCards'),list=STAGES){buildCards(el,list,m=>m.sub?openGroup(m):openStage(m),(m,i)=>{const [got,tot]=stageProg(m);
   return `<span class="num">${i+1}</span>`+(got>=tot?'<span class="badge">✓</span>':got>0?`<span class="badge">${got}/${tot}</span>`:'');});}
-function buildStickers(){
+function buildStickers(page){
   const s=totalStars(),n=stkCount(s);$('#stkcount').textContent=`${n}/${STICKERS.length}`;
   const prev=n?stkNeed(n):0,nxt=n<STICKERS.length?stkNeed(n+1):prev;$('#stkbar').style.width=(n>=STICKERS.length?100:Math.round((s-prev)/(nxt-prev)*100))+'%';
   $('#stknext').textContent=n<STICKERS.length?`${nxt-s}⭐ lagi`:'Lengkap!';
-  const g=$('#stkgrid');g.innerHTML='';
-  STICKERS.forEach((e,i)=>{const b=h('button','stk'+(i<n?'':' locked'),i<n?ico(e):'?');b.onclick=()=>{if(i<n){b.classList.remove('wiggle');void b.offsetWidth;b.classList.add('wiggle');sfx.ok();}else{sfx.no();TTS.say(['Kumpulkan bintang untuk membuka stiker ini']);}};g.append(b);});}
+  // albums of 50; the album with the next sticker to earn opens first
+  const per=50,pages=Math.ceil(STICKERS.length/per),tabs=$('#stktabs');if(page==null)page=Math.min(pages-1,Math.floor(n/per));tabs.innerHTML='';
+  for(let p=0;p<pages;p++){const t=h('button',p===page?'on':'',ico(STICKERS[p*per])+' '+(p+1)),got=Math.max(0,Math.min(per,n-p*per));if(got)t.append(h('small','',got===per?'✓':String(got)));
+    t.onclick=()=>{sfx.tap();buildStickers(p);};tabs.append(t);}
+  const g=$('#stkgrid');g.innerHTML='';g.scrollTop=0;
+  STICKERS.forEach((e,i)=>{if(i<page*per||i>=(page+1)*per)return;const b=h('button','stk'+(i<n?'':' locked'),i<n?ico(e):'?');b.onclick=()=>{if(i<n){b.classList.remove('wiggle');void b.offsetWidth;b.classList.add('wiggle');sfx.ok();}else{sfx.no();TTS.say(['Kumpulkan bintang untuk membuka stiker ini']);}};g.append(b);});}
 
 /* ============ belajar ============ */
 $('#lprev').innerHTML=IC.back;$('#lnext').innerHTML=IC.next;$('#lgrid').innerHTML=IC.grid;$('#lsay').innerHTML=IC.spk;

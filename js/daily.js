@@ -11,10 +11,10 @@ const DAILY={id:'daily',daily:true,title:'Latihan Hari Ini',qn:10,ins:'Ayo latih
     const math=G.q%2===1,pool=DAILY_IDS.map(id=>ALLGAMES.find(g=>g.id===id)).filter(g=>g&&!GAMES.includes(g)===math&&g.id!==D.prev);
     // most review value first: games the child already plays, plus one fresh pick now and then
     const played=pool.filter(g=>topLevel(g.id)),g=played.length&&Math.random()<.7?pickM(played):pickM(pool);D.prev=g.id;
-    const L=Math.max(1,Math.min(25,topLevel(g.id)+(G.q>=6?1:0)));
-    const sub=D.by[g.id]=D.by[g.id]&&D.by[g.id].L===L?D.by[g.id]:makeD(L);
-    Object.assign(sub,{q:Math.min(4,G.q>>1),cur:[],review:false,revTried:false});
-    const auto=g.fn(st,api,sub)||[];D.cur=sub.cur;D.review=sub.review;
+    const L=Math.max(1,Math.min(maxLevel(),topLevel(g.id)+(G.q>=6?1:0)));
+    const sub=D.by[g.id]=D.by[g.id]&&D.by[g.id].L===L?D.by[g.id]:Object.assign(makeD(L),{gid:g.id});
+    Object.assign(sub,{q:Math.min(sub.qn-1,G.q>>1),cur:[],review:false,revTried:false,rdTried:false,rkey:null,key:null});
+    const auto=g.fn(st,api,sub)||[];Object.assign(D,{cur:sub.cur,review:sub.review,key:sub.key,rkey:sub.rkey,gid:sub.gid});
     return [g.ins,...auto];},
   finish(){const k=dayKey(new Date()),log=dailyLog();if(!log.includes(k)){log.push(k);store.set('daily',log.slice(-60));}}};
 function updateDaily(){const done=dailyLog().includes(dayKey(new Date())),n=dailyStreak();

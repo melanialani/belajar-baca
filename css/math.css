@@ -112,3 +112,12 @@
 @media (orientation:landscape) and (max-height:500px){.content .blocks{--u:clamp(9px,2.5vmin,26px)}.content .glab>span{font-size:clamp(18px,4.4vmin,40px)}.content .cgrp .objs{font-size:clamp(26px,7.4vmin,84px)}.cgrp{padding:6px 12px}.cgrp .mnum.sm{font-size:clamp(40px,11vmin,100px)}.mt .blocks{--u:clamp(4px,1.3vmin,11px)}.btray{min-height:0;padding:4px}.btray .blocks{--u:clamp(8px,2.4vmin,20px)}}
 /* phone portrait: the learn viewer is narrow between the arrows, so counting pictures follow the width */
 @media (orientation:portrait){.content .objs{font-size:clamp(26px,8vw,84px)}.content .objs.many{font-size:clamp(18px,5.2vw,52px)}.content .cgrp .objs{font-size:clamp(20px,6vw,60px)}.cgrp{padding:6px 8px}.content .blocks{--u:clamp(8px,2.5vw,26px)}}
+/* levels 26–100: thousands digit, bigger coins, hundreds flats */
+.d4{color:var(--mint)}
+.coin.c20{background:radial-gradient(circle at 35% 30%,#D9E8FF,#4FB3FF 60%,#2B90DE);box-shadow:0 6px 0 #1F6FB0,inset 0 0 0 5px rgba(255,255,255,.3);color:#fff}
+.coin.c50{background:radial-gradient(circle at 35% 30%,#F1E2FF,#A47CFF 60%,#8257E6);box-shadow:0 6px 0 #6141BD,inset 0 0 0 5px rgba(255,255,255,.3);color:#fff}
+.flats{display:flex;flex-wrap:wrap;gap:calc(var(--u)*.4);max-width:calc(var(--u)*34);align-items:flex-end}
+.flat{width:calc(var(--u)*10 + 11px);aspect-ratio:1;border-radius:4px;background:#2B90DE;flex:none;
+  background-image:linear-gradient(90deg,rgba(255,255,255,.35) 1px,transparent 1px),linear-gradient(rgba(255,255,255,.35) 1px,transparent 1px);background-size:calc(10% + .1px) calc(10% + .1px)}
+.blocks .flats+.rods{margin-left:calc(var(--u)*.6)}
+.flat.mini{--u:clamp(3px,.9vmin,5px);display:inline-block;vertical-align:middle;margin:0 2px}

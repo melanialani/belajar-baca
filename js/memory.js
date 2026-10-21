@@ -1,6 +1,6 @@
 /* ============ memory cards: flip two cards, find the pairs ============ */
 // a mismatch only costs a heart when the child had already seen the partner card (a real memory slip, not a first look)
-function memoryGame(st,api,keys,front,back,say){
+function memoryGame(st,api,keys,front,back,say){G.D.keep=true;
   const cards=shuffle(keys.flatMap(k=>[{k,s:0},{k,s:1}])),seen=new Set();let open=[],pairs=0,busy=false;
   const grid=h('div','mem');grid.style.setProperty('--cols',Math.ceil(cards.length/2));
   const partner=c=>cards.find(x=>x.k===c.k&&x!==c);
@@ -13,14 +13,15 @@ function memoryGame(st,api,keys,front,back,say){
       if(slip)api.bad(y.b);else sfx.no();
       setTimeout(()=>{[x,y].forEach(z=>{z.b.classList.remove('up');z.b.innerHTML='<span class="mcq">?</span>';});busy=false;},900);};
     grid.append(c.b);});
+  api.solve(()=>{keys.forEach(k=>cards.filter(c=>c.k===k&&!c.b.classList.contains('ok')).forEach(c=>c.b.click()));});
   st.append(grid);}
-const MEMN=[2,2,3,3,4];
+const MEMN=[2,2,3,3,4],memN=D=>bv(D,MEMN,[4,4,5,5,6]);
 
 GAMES.push(
  {id:'memori',title:'Kartu Memori',c:'grape',ins:'Buka dua kartu. Cari gambar dan katanya yang sama.',art:'<span class="chip" style="color:#8E6CF0">?</span>'+ems(['🐱'])+'<span class="br"></span>'+chips(['kucing','?']),
-  fn(st,api,D){const ws=pickDistinct(D,MEMN[D.b],x=>HASE(x)&&x.w.length<=8);memoryGame(st,api,ws,w=>`<span class="mcw">${caseWord(w.w)}</span>`,w=>ico(w.e),w=>w.w);}});
+  fn(st,api,D){const ws=pickDistinct(D,memN(D),x=>HASE(x)&&x.w.length<=8);memoryGame(st,api,ws,w=>`<span class="mcw">${caseWord(w.w)}</span>`,w=>ico(w.e),w=>w.w);}});
 
 MATH_GAMES.push(
  {id:'mmemori',title:'Kartu Memori Angka',c:'grape',ins:'Buka dua kartu. Cari gambar dan angkanya yang sama.',art:chips(['3','?'])+'<span class="br"></span>'+ems(['🍓','🍓','🍓']),
-  fn(st,api,D){const e=pick(COUNTEMO),[lo,hi]=qtyRange(D),ns=sample(range(lo,hi),MEMN[D.b]);
+  fn(st,api,D){const e=pick(COUNTEMO),[lo,hi]=qtyRange(D),ns=sample(range(lo,hi),memN(D));
    memoryGame(st,api,ns,n=>`<span class="mcw">${n}</span>`,n=>qtyEl(n,e,true).outerHTML,numW);}});

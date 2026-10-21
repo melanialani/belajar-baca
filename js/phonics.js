@@ -26,7 +26,7 @@ const heardWord=(alts,w)=>alts.map(normSpeech).some(t=>t.replace(/ /g,'')===w||t
 
 GAMES.push(
  {id:'kereta',title:'Kereta Bunyi',c:'peach',ins:'Ketuk gerbongnya satu per satu, lalu pilih gambarnya.',art:ems(['🚂'])+chips(['ba','ju'])+'<span class="br"></span>'+ems(['👕']),
-  fn(st,api,D){const w=takeWord(D,x=>HASE(x)&&plainSyl(x)&&x.s.length>=[2,2,2,3,3][D.b]&&x.s.length<=[2,2,3,3,4][D.b]);
+  fn(st,api,D){const w=takeWord(D,x=>HASE(x)&&plainSyl(x)&&x.s.length>=bv(D,[2,2,2,3,3],[3,3,3,4])&&x.s.length<=bv(D,[2,2,3,3,4],[4,4,5,5,6]));
    const q=h('div','q'),train=h('div','btrain');train.append(h('div','loco',ico('🚂')));let pos=0;
    const a=h('div','a');
    w.s.forEach((s,i)=>{const c=h('button','bcar',`<span>${casePart(s,i)}</span>`);
@@ -36,28 +36,33 @@ GAMES.push(
        if(pos<w.s.length){TTS.say([s],{rate:.7});return;}
        // all cars tapped: they roll together while the syllables blend into the word, then the child picks the picture
        train.classList.add('join');TTS.say([...w.s,w.w],{rate:.6});
-       a.append(optsEl(shuffle([w,...distract(w,OPT[D.b]-1,D,HASE)]),x=>ico(x.e),(x,b)=>{if(x===w){b.classList.add('right');api.ok();}else{TTS.say([x.w]);api.bad(b);}},'pic'));};
+       a.append(optsEl(shuffle([w,...distract(w,optN(D)-1,D,HASE)]),x=>ico(x.e),(x,b)=>{if(x===w){b.classList.add('right');api.ok();}else{TTS.say([x.w]);api.bad(b);}},'pic',x=>x===w));};
      train.append(c);});
+   api.solve(()=>{train.querySelectorAll('.bcar').forEach(c=>c.click());a.querySelector('[data-ok]').click();});
+   api.ans([w.w],()=>{train.querySelectorAll('.bcar').forEach(c=>c.classList.add('lit'));if(!a.children.length)a.append(P(w.e));});
    preloadEmo(w.e);q.append(train);st.append(q,a);}},
  {id:'tepuk',title:'Tepuk Suku Kata',c:'lilac',ins:'Pukul drumnya satu kali untuk setiap suku kata, lalu tekan Sudah.',art:ems(['🥁'])+'<span class="br"></span>'+chips(['ga','jah']),
-  fn(st,api,D){const w=takeWord(D,x=>HASE(x)&&plainSyl(x)&&x.s.length<=[2,3,3,4,4][D.b]);let n=0;
+  fn(st,api,D){const w=takeWord(D,x=>HASE(x)&&plainSyl(x)&&x.s.length<=bv(D,[2,3,3,4,4],[4,5,5,6]));let n=0;
    const q=h('div','q');q.append(P(w.e));const word=h('div','qword');q.append(word,spkBtn(()=>TTS.say([w.w])));
    const dotsEl=h('div','tdots'),drum=h('button','drum',ico('🥁'));
    drum.onclick=()=>{if(G.done||n>=6)return;n++;tone([160,110],.14,'sine',.04,.3);drum.classList.remove('pop');void drum.offsetWidth;drum.classList.add('pop');dotsEl.append(h('i',''));};
-   const ok=okBtn('Sudah',b=>{if(n===w.s.length){word.innerHTML=w.s.map((s,i)=>`<span style="color:${COL[i%6]}">${casePart(s,i)}</span>`).join(' ');api.ok();}
+   const split=()=>{word.innerHTML=w.s.map((s,i)=>`<span style="color:${COL[i%6]}">${casePart(s,i)}</span>`).join(' ');};
+   const ok=okBtn('Sudah',b=>{if(n===w.s.length){split();api.ok();}
      else{api.bad(b);n=0;dotsEl.innerHTML='';}});
+   api.solve(()=>{n=0;dotsEl.innerHTML='';w.s.forEach(()=>drum.click());ok.click();});
+   api.ans([...w.s,numW(w.s.length)+' suku kata'],()=>{split();dotsEl.innerHTML='<i></i>'.repeat(w.s.length);});
    const a=h('div','a');a.append(dotsEl,mrow(drum,ok));st.append(q,a);return [w.w];}},
  {id:'kalimat',title:'Kalimat Pendek',c:'mint',ins:'Baca kalimatnya, lalu pilih gambarnya. Ketuk kata kalau mau dengar.',art:chips(['ibu','makan','roti'])+'<span class="br"></span>'+ems(['👩','🍞']),
-  fn(st,api,D){const fr=SENT_SORTED.filter(x=>!D.used.has(x.t));const x=bySeg(D,fr.length?fr:SENT_SORTED);D.used.add(x.t);
+  fn(st,api,D){const fr=SENT_SORTED.filter(x=>!D.used.has(x.t));const rk=redoPick(D,k=>!D.used.has(k)&&SENT.some(y=>y.t===k));const x=rk?SENT.find(y=>y.t===rk):bySeg(D,fr.length?fr:SENT_SORTED);D.used.add(x.t);D.key=x.t;
    const near=D.b>=2;let c=SENT.filter(y=>y.t!==x.t&&(near?(y.s===x.s)!==(y.a===x.a):y.s!==x.s&&y.a!==x.a));
-   if(c.length<OPT[D.b]-1)c=SENT.filter(y=>y.t!==x.t&&ACT[y.a]!==ACT[x.a]);
-   const dis=[],seen=new Set([sentPic(x)]);for(const y of shuffle(c)){if(seen.has(sentPic(y)))continue;seen.add(sentPic(y));dis.push(y);if(dis.length===OPT[D.b]-1)break;}
+   if(c.length<optN(D)-1)c=SENT.filter(y=>y.t!==x.t&&ACT[y.a]!==ACT[x.a]);
+   const dis=[],seen=new Set([sentPic(x)]);for(const y of shuffle(c)){if(seen.has(sentPic(y)))continue;seen.add(sentPic(y));dis.push(y);if(dis.length===optN(D)-1)break;}
    const q=h('div','q'),sent=h('div','sent');x.t.split(' ').forEach((t,i)=>{const b=h('button','sw',casePart(t,i));b.onclick=()=>{sfx.tap();TTS.say([t]);};sent.append(b);});q.append(sent);
-   const a=h('div','a');a.append(optsEl(shuffle([x,...dis]),sentPic,(y,b)=>{if(y===x){b.classList.add('right');api.ok();}else api.bad(b);},'pic sentpic'));st.append(q,a);}}
+   const a=h('div','a');a.append(optsEl(shuffle([x,...dis]),sentPic,(y,b)=>{if(y===x){b.classList.add('right');api.ok();}else api.bad(b);},'pic sentpic',y=>y===x));api.ans([x.t]);st.append(q,a);}}
 );
 if(SpeechRec)GAMES.push(
  {id:'keras',title:'Baca Keras',c:'coral',ins:'Tekan mikrofon, lalu baca katanya dengan suara keras.',art:chips(['sapi'])+'<span class="br"></span>'+ems(['🎤']),
-  fn(st,api,D){const w=takeWord(D,x=>HASE(x)&&LET(x));let miss=0;preloadEmo(w.e);
+  fn(st,api,D){D.keep=true;const w=takeWord(D,x=>HASE(x)&&LET(x));let miss=0;preloadEmo(w.e);api.solve(()=>api.ok());
    const q=h('div','q'),pic=h('div','gpic','❓'),word=h('div','qword'+(w.w.length>9?' long':''),caseWord(w.w)),heard=h('div','heard','');q.append(pic,word);
    const mic=h('button','spk big mic',ico('🎤'));mic.setAttribute('aria-label','Mikrofon');
    const help=spkBtn(()=>TTS.say([w.w]));help.hidden=true;
