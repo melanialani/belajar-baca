@@ -25,20 +25,29 @@ const JD_STAGES=[...JD_CATS.map(c=>({id:c.id,title:c.title,say:c.say,c:c.c,art:e
   items:()=>[...JD_NUMS.map(([n,name,p,lines])=>numCard(n,name,p,`${name}: ${digitsSay(n)}`,lines)),
    jdItem(['Cara menelepon','Bagaimana cara menelepon nomor darurat?','📱',['Tekan nomornya, lalu tekan tombol hijau.','Sebutkan namamu, apa yang terjadi, dan di mana kamu berada.','Jangan menutup telepon sampai petugas bilang selesai.'],'tip']),...familyItems()]}];
 
+// Tebak Perasaan items in the sciTake shape: [situation, feeling, picture, difficulty, also right]
+const FEEL_ITEMS=FEEL_Q.map(([t,f,d,a])=>[t,f,FEELS[f],d,a||[]]);
+const feelHtml=f=>`<span class="aem">${ico(FEELS[f])}</span>${caseUnit(f)}`;
 const JD_GAMES=[
  {id:'jaman',title:'Aman atau Bahaya?',c:'mint',ins:'Dengarkan, lalu pilih aman atau bahaya.',art:ems(['✅'])+BR+ems(['⚠️']),
   fn(st,api,D){const [t,ok,e]=sciTake(D,JD_SCEN);
    const q=h('div','q');q.append(P(e),h('div','sciq',caseUnit(t)),spkBtn(()=>TTS.say([t])));
-   const a=h('div','a');a.append(optsEl([1,0],v=>v?`${IC.ok}Aman`:`${IC.no}Bahaya`,(v,b)=>{if(v===ok){b.classList.add('right');api.ok();}else api.bad(b);},'tf'));
-   st.append(q,a);return [t];}},
+   const a=h('div','a');a.append(optsEl([1,0],v=>v?`${IC.ok}Aman`:`${IC.no}Bahaya`,(v,b)=>{if(v===ok){b.classList.add('right');api.ok();}else api.bad(b);},'tf',v=>v===ok));
+   api.ans([ok?'aman':'bahaya']);st.append(q,a);return [t];}},
  {id:'jnomor',title:'Telepon Siapa?',c:'coral',ins:'Dengarkan, lalu pilih nomor teleponnya.',art:ems(['📞'])+BR+chips(['112','113']),
   fn(st,api,D){const [t,num,e,,alsoOk=[]]=sciTake(D,JD_CALL),icon=n=>JD_NUMS.find(x=>x[0]===n)[2];
    // 112 also works for every emergency, so it is never offered as a wrong choice; neither is any other number that would also be right
    const others=JD_NUMS.map(x=>x[0]).filter(n=>n!==num&&(num==='112'||n!=='112')&&!alsoOk.includes(n));
-   const list=shuffle([num,...sample(others,[2,2,3,3,3][D.b]-1)]);
+   const list=shuffle([num,...sample(others,bv(D,[2,2,3,3,3],[3,4])-1)]);
    const q=h('div','q');q.append(P(e),h('div','sciq',caseUnit(t)),spkBtn(()=>TTS.say([t])));
-   const a=h('div','a');a.append(optsEl(list,n=>(D.b<2?ico(icon(n))+' ':'')+n,(n,b)=>{if(n===num){b.classList.add('right');api.ok();}else{TTS.say([digitsSay(n)]);api.bad(b);}}));
-   st.append(q,a);return [t];}}
+   const a=h('div','a');a.append(optsEl(list,n=>(D.b<2?ico(icon(n))+' ':'')+n,(n,b)=>{if(n===num){b.classList.add('right');api.ok();}else{TTS.say([digitsSay(n)]);api.bad(b);}},'',n=>n===num));
+   api.ans([digitsSay(num)]);st.append(q,a);return [t];}},
+ {id:'jrasa',title:'Tebak Perasaan',c:'rose',ins:'Dengarkan ceritanya. Bagaimana perasaannya?',art:ems(['😊','😢'])+BR+ems(['😠','😨']),
+  fn(st,api,D){const [t,f,,,also]=sciTake(D,FEEL_ITEMS),others=Object.keys(FEELS).filter(x=>x!==f&&!also.includes(x));
+   const list=shuffle([f,...sample(others,bv(D,[2,2,3,3,3],[3,4])-1)]);
+   const q=h('div','q');q.append(h('div','sciq',caseUnit(t)),spkBtn(()=>TTS.say([t])));
+   const a=h('div','a');a.append(optsEl(list,feelHtml,(x,b)=>{if(x===f){b.classList.add('right');api.ok();}else{TTS.say([x]);api.bad(b);}},'txt',x=>x===f));
+   api.ans([f]);st.append(q,a);return [t,'Bagaimana perasaanmu?'];}}
 ];
 // learn cards first, then the games (marked with a controller icon)
 function buildJdCards(){const el=$('#jdCards'),games=h('div');buildLearnCards(el,JD_STAGES);

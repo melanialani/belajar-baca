@@ -11,8 +11,15 @@ const TIERS={
 10:'ke-lin-ci 🐰,pe-sa-wat ✈️,ke-pi-ting 🦀,ma-ka-nan 🍱,se-la-mat,sa-yu-ran 🥦,be-la-jar,me-na-ri 💃,ba-ta-gor #batagor,je-ra-pah 🦒,se-mang-ka 🍉,al-pu-kat 🥑,mah-ko-ta 👑,sem-bi-lan 9️⃣,ram-bu-tan #rambutan,ber-ma-in,be-ru-ang 🐻,pe-ngu-in 🐧,ke-ran-jang 🧺,se-ko-lah 🏫,mi-nu-man 🥤,se-pu-luh 🔟,ten-ta-ra 🪖,ber-ja-lan 🚶,ber-la-ri 🏃,ter-ta-wa 😂,kom-pu-ter 💻,sa-te-lit 🛰️,pe-ra-wat 🧑‍⚕️,pa-ra-sut 🪂,pe-li-kan #pelikan,kang-gu-ru 🦘,te-le-pon ☎️,ke-ru-puk #kerupuk,men-te-ga 🧈,la-ya-ngan 🪁,ka-len-der 📅,ke-le-reng #kelereng,te-rom-pet 🎺,ge-lem-bung 🫧,be-lim-bing #belimbing,co-ke-lat 🍫,bis-ku-it 🍪,pa-ne-kuk 🥞,be-ron-dong 🍿,peng-ga-ris 📏,per-ma-ta 💎,jen-de-la 🪟,kur-ca-ci #kurcaci,du-ri-an #durian,se-li-mut #selimut,se-lan-car 🏄,be-re-nang 🏊,se-ra-gam #seragam',
 11:'pan-tai 🏖️,pu-lau 🏝️,ker-bau 🐃,ca-bai 🌶️,ha-ri-mau 🐯,pi-sau 🔪,su-ngai 🏞️,gu-lai 🍛,san-tai,sam-pai,hi-jau 🟢,ko-boi 🤠,ran-tai ⛓️,pan-dai,pa-kai,tu-pai 🐿️,ke-le-dai 🫏,ba-te-rai 🔋,ba-ngau #bangau,lan-tai,da-nau 🏞️,pe-tai #petai',
 12:'truk 🚚,drum 🥁,blus 👚,pu-tri 👸,stro-be-ri 🍓,bro-ko-li 🥦,ze-bra 🦓,pla-net 🪐,trak-tor 🚜,plas-tik #plastik,fla-mi-ngo 🦩,kris-tal 💎,sti-ker #stiker,dra-ma 🎭,klak-son,pra-mu-ka,jang-krik 🦗,lob-ster 🦞,ham-ster 🐹,kra-yon 🖍️,sku-ter 🛴,klip 📎,sta-si-un 🚉,sta-di-on 🏟️,spons 🧽,tram-po-lin #trampolin',
-13:'ma-ta-ha-ri ☀️,ka-ca-ma-ta 👓,ku-pu=ku-pu 🦋,se-ri-ga-la 🐺,pi-ra-mi-da 🔺,te-le-vi-si 📺,ma-te-ma-ti-ka ➗,hi-po-po-ta-mus 🦛,di-no-sau-rus 🦕,a-ku-a-ri-um 🐠,ma-ka-ro-ni 🍝,ka-ka-tu-a 🦜,ku-ra=ku-ra 🐢,lum-ba=lum-ba 🐬,ke-lu-ar-ga 🫂,per-pus-ta-ka-an 📚,la-ba=la-ba 🕷️,ke-le-la-war 🦇,he-li-kop-ter 🚁,be-rang=be-rang 🦦,ter-mo-me-ter 🌡️,u-bur=u-bur 🪼,ku-nang=ku-nang #kunang'
+13:'ma-ta-ha-ri ☀️,ka-ca-ma-ta 👓,ku-pu=ku-pu 🦋,se-ri-ga-la 🐺,pi-ra-mi-da 🔺,te-le-vi-si 📺,ma-te-ma-ti-ka ➗,hi-po-po-ta-mus 🦛,di-no-sau-rus 🦕,a-ku-a-ri-um 🐠,ma-ka-ro-ni 🍝,ka-ka-tu-a 🦜,ku-ra=ku-ra 🐢,lum-ba=lum-ba 🐬,ke-lu-ar-ga 🫂,per-pus-ta-ka-an 📚,la-ba=la-ba 🕷️,ke-le-la-war 🦇,he-li-kop-ter 🚁,be-rang=be-rang 🦦,ter-mo-me-ter 🌡️,u-bur=u-bur 🪼,ku-nang=ku-nang #kunang',
+// levels 26–100: harder words, step by step (affixes, four syllables, kh/sy and consonant clusters, repeated words, long words)
+14:'me-nu-lis ✍️,mem-ba-ca 📚,me-nyi-ram 🪴,me-ma-sak 🍳,me-nya-nyi 🎤,me-lu-kis 🎨,me-na-nam 🌱,me-man-cing 🎣,me-nge-cat 🖌️,me-nga-yuh 🚣,meng-gam-bar 🖍️,mem-ban-tu 🤝,ber-se-pe-da 🚴,ber-ke-mah ⛺,ber-do-a 🙏,ber-sin 🤧,ber-sa-ma,ber-te-man,ber-ba-gi,ter-bang 🕊️,ter-ti-dur 😴,ter-se-nyum 😊,ter-ja-tuh,di-pe-luk 🤗,ma-in-an 🧸,ja-lan-an 🛣️,pe-lu-kis 🧑‍🎨,pe-na-ri 💃,pe-nya-nyi 🧑‍🎤,pe-ma-dam 🧑‍🚒,pe-num-pang 🧳,sa-ra-pan 🥣',
+15:'ka-la-jeng-king 🦂,ka-me-le-on 🦎,a-na-kon-da 🐍,sa-la-man-der,cen-dra-wa-sih,ka-su-a-ri,ka-pi-ba-ra,pa-ra-bo-la 📡,kal-ku-la-tor 🧮,ka-ra-o-ke 🎤,ki-lo-me-ter,su-per-mar-ket 🏬,pe-la-buh-an ⚓,as-te-ro-id ☄️,fo-to-ko-pi,ka-li-gra-fi,a-kor-de-on 🪗,har-mo-ni-ka,e-le-va-tor 🛗,es-ka-la-tor,sa-mu-dra 🌊,ke-ra-jin-an,ke-ber-sih-an 🧹,ma-ri-o-net',
+16:'a-khir,khu-sus,kha-yal,makh-luk,sya-rat,syu-kur 🙏,a-syik 😄,i-sya-rat 👋,mu-sya-wa-rah 🗣️,struk 🧾,stra-te-gi,stem-pel,prang-ko 📮,pro-gram,gra-fik 📊,tra-di-si,kla-ri-net,flu 🤧,ples-ter 🩹,pro-yek-tor 📽️,spi-ral 🌀,kli-nik 🏥,krim,blok 🧱,trem 🚋,pri-a 👨,bung-lon 🦎',
+17:'a-nak=a-nak 👧,ka-nak=ka-nak,ja-lan=ja-lan 🚶,te-ka=te-ki 🧩,war-na=war-ni 🌈,co-rat=co-ret ✏️,bo-lak=ba-lik 🔄,mo-bil=mo-bil-an 🚗,bu-ah=bu-ah-an 🍎,sa-yur=sa-yur-an 🥦,ba-tu=ba-tu-an 🪨,tum-buh=tum-buh-an 🌿,pu-ra=pu-ra 🎭,ha-ti=ha-ti ⚠️,pe-lan=pe-lan 🐢,bi-ri=bi-ri 🐑,cu-mi=cu-mi 🦑,pa-ru=pa-ru 🫁,ga-do=ga-do 🥗,on-del=on-del,mem-ber-sih-kan 🧹,me-ra-pi-kan,me-no-long,ber-ke-bun 🧑‍🌾,ber-o-lah-ra-ga 🏃',
+18:'ti-ra-no-sau-rus 🦖,pa-ri-wi-sa-ta,per-sa-ha-bat-an 🤝,ke-be-ra-ni-an,pla-ne-ta-ri-um 🔭,kha-tu-lis-ti-wa 🌍,ke-se-la-mat-an 🦺,ke-se-hat-an 🩺,per-ma-in-an 🎲,pe-nge-ta-hu-an 📚,ke-ce-pat-an 🏎️,ma-ha-sis-wa 🧑‍🎓,ke-mer-de-ka-an,ke-se-nang-an 😊,ke-ba-ha-gi-a-an 😄,ber-sem-bu-nyi 🙈,ar-ke-o-lo-gi,te-ra-ri-um,ber-te-ri-ak 🗣️,pe-ne-mu-an 💡,ke-ju-jur-an,ke-sa-bar-an'
 };
+const MAXT=18;
 const BANK=Object.entries(TIERS).flatMap(([t,s])=>parse(s,+t));
 const BYW={};BANK.forEach(w=>BYW[w.w]=w);
 /* skor kesulitan: makin besar makin sulit */
@@ -30,7 +37,8 @@ function wordScore(x){const sy=x.s.filter(y=>y!=='_');return sy.reduce((t,y,i)=>
 const byDiff=(a,b)=>wordScore(a)-wordScore(b)||a.w.localeCompare(b.w);
 const easyFirst=list=>[...list].sort(byDiff);
 const tierWords=t=>easyFirst(BANK.filter(w=>w.t===t));
-const ALLSYL=[...new Set(BANK.flatMap(x=>x.s))];
+// syllable distractors come from the tiers of levels 1–25
+const ALLSYL=[...new Set(BANK.filter(x=>x.t<=13).flatMap(x=>x.s))];
 const VOW=['a','i','u','e','o'];
 const VC={a:'#FF9A62',i:'#4FB3FF',u:'#8BD12F',e:'#A47CFF',o:'#FFBE1A'};
 const CV='bcdfghjklmnprstwyz'.split('');
@@ -74,6 +82,9 @@ const STAGES=[
 
 /* ============ stiker ============ */
 const STICKERS=[...'🦄🌸👑🎀💖🌈🧁🍓🐱🐰🦋🌷⭐🍭🎠🧸🐼🦩🍩👗💎🌙🐬🐞🍒🌻🎈🎂🍰🐥🦊🐨🐹🌺🍬🧚🧜💐🎨🎵🏰🦢🐣🍉🍦🐧🐶🐻🐯🦁🐸🐵🦉🦜🐠🐳🦕🐢🌼🍀🍄🌵🌴🍎🍊🍋🍌🍇🍑🥝🥥🍪🍫🍿🧃🎁🎉🪀🪁⚽🎹🎸🥁🎤🚲🛴🚀🚂🛶🌟✨💫🦒🧩🦚🦔🦝🦦🐝🐙🦀☀️'.match(/\p{Extended_Pictographic}\uFE0F?/gu)].slice(0,100);
-const stkNeed=k=>Math.round(3*k+.06*k*k);
+// 200 more stickers (2026-10-21), taking turns: animals, food, nature & vehicles, toys & play
+STICKERS.push(...[...'🐒🍈🌱🎆🦍🍍🪴🎇🦧🥭🌲🎊🐕🍏🌳🎋🐩🍐🌾🎏🐈🫐🌿🎐🐅🍅☘🏆🐆🫒🍁🏅🐴🥑🍂🥇🦓🍆🍃⚾🦌🥔🪷🏀🐮🥕🌹🏐🐑🌽🪻🏈🐐🫑💮🎾🐪🥒🌍🏓🦙🥦🗺🏸🐘🧄🧭⛸🦣🥜🏔🎣🦏🌰🌋🛷🦛🍞🏕🎯🐭🥐🏖🎮🐇🥖🏝🎲🐿🥨🏞🎑🦫🥯🏠🪆🦥🥞🏡🎭🦨🧇🗼🖼🦘🧀🎡🧶🦡🍗🎢🪢🐾🍔🎪🎷🐓🍟🌅🎺🐤🍕🌄🎻🕊🌭🌃🪕🦆🥪🚃🪘🪿🌮🚄🪇🦤🌯🚌🎧🐊🥚🚑📷🦎🍳🚒🔭🐉🥘🚓🔬🦖🍲🚕🧪🐋🥣🚗🧲🦭🥗🚙🎒🐡🍱🚜🕶🦈🍙🏎👒🐚🍚🏍🎩🪼🍛🛵🎓🐛🍜⛵🧢🪲🍝🚤🛼🐌🍠🚢🛹🦗🍢✈🎳🐜🍣🚁🥏'.matchAll(/(?:\p{Extended_Pictographic}‍)*\p{Extended_Pictographic}️?/gu)].map(m=>m[0]));
+// stars needed for sticker k: the first 100 as before (earned stickers never change), then 40 stars each
+const stkNeed=k=>k<=100?Math.round(3*k+.06*k*k):900+40*(k-100);
 const stkCount=stars=>{let k=0;while(k<STICKERS.length&&stars>=stkNeed(k+1))k++;return k;};
 

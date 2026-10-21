@@ -1,0 +1,44 @@
+/* ============ Tulis Huruf (tracing) and Dikte (keyboard) ============ */
+.tpad{width:min(100%,calc(var(--tw,1) * min(52vh,340px)));max-width:96vw;background:var(--card);border-radius:28px;box-shadow:0 6px 0 var(--bg2);padding:6px;touch-action:none}
+.tsvg{display:block;width:100%;height:auto;touch-action:none;user-select:none;-webkit-user-select:none}
+.tline{stroke:#E9DDF0;stroke-width:1.2}
+.tline.mid{stroke-dasharray:4 4}
+.tg{fill:none;stroke:#E4DAEC;stroke-width:13;stroke-linecap:round;stroke-linejoin:round}
+.tg.dash{stroke:#D3C4DE;stroke-width:4;stroke-dasharray:2 7}
+.tg.hide{display:none}
+.tdone{fill:none;stroke:var(--mint);stroke-width:11;stroke-linecap:round;stroke-linejoin:round}
+.tink{fill:none;stroke:#FF5FA2;stroke-width:8;stroke-linecap:round;stroke-linejoin:round;opacity:.85}
+.tstart{fill:#2EC4A6;stroke:#fff;stroke-width:3;animation:tblink 1s ease-in-out infinite alternate}
+.tnum{font:700 12px var(--read);fill:#1A9F86}
+.tdemo{fill:none;stroke:#FFBE1A;stroke-width:9;stroke-linecap:round;stroke-linejoin:round;transition:opacity .6s}
+.tdemo.fade{opacity:0}
+@keyframes tblink{from{r:6}to{r:9}}
+.tchar{font-family:var(--read);font-weight:700;font-size:clamp(56px,13vmin,110px);color:var(--pink);line-height:1;min-width:1em;text-align:center}
+.tchar.sm{font-size:clamp(40px,9vmin,72px)}
+.tdemob{flex:none;font-size:clamp(34px,7vmin,52px)}
+.tbox{display:flex;justify-content:center;width:100%}
+.q.tq{flex-direction:row;flex-wrap:wrap;justify-content:center;align-items:center;gap:12px}
+.a.ta{width:100%;align-items:center}
+/* Dikte keyboard */
+.kbd{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-width:min(640px,96vw)}
+.key{min-width:clamp(48px,10vmin,72px);min-height:clamp(52px,11vmin,76px);border-radius:16px;background:var(--card);box-shadow:0 5px 0 var(--bg2),inset 0 0 0 3px var(--bg2);font-family:var(--read);font-weight:700;font-size:clamp(28px,6.4vmin,46px);color:var(--ink)}
+.kbd.full .key{min-width:clamp(38px,8.4vmin,60px);min-height:clamp(44px,9.4vmin,64px);font-size:clamp(22px,5vmin,36px)}
+.slots.tight .slot{min-width:clamp(30px,6.4vmin,52px);font-size:clamp(24px,5.6vmin,44px)}
+.revealed .key{opacity:.5}
+@media (orientation:landscape) and (max-height:500px){.tpad{width:min(100%,calc(var(--tw,1) * 60vh))}.kbd.full .key{min-height:40px;min-width:34px}}
+/* ============ Buku Cerita + Baca Cerita ============ */
+.spics{display:flex;gap:8px;justify-content:center;font-size:clamp(56px,13vmin,110px);line-height:1}
+.stxt{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 10px;max-width:min(760px,92vw);font-family:var(--read);font-weight:700;font-size:clamp(30px,6.6vmin,52px)}
+.stxt .sw{background:none;box-shadow:none;padding:2px 6px;border-radius:12px;font:inherit;color:var(--ink);transition:background .15s}
+.stxt .sw.hi{background:#FFE58A;color:#7A4A00}
+.scover{font-size:clamp(90px,24vmin,180px);line-height:1}
+.stitle{font-family:var(--read);font-weight:700;font-size:clamp(34px,7.6vmin,60px);color:var(--pink);text-align:center}
+.stitle.sm{font-size:clamp(22px,4.4vmin,32px)}
+.q.sq{width:min(820px,96vw);gap:8px}
+.sbox{background:var(--card);border-radius:22px;box-shadow:0 5px 0 var(--bg2);padding:10px 16px;max-height:min(38vh,320px);overflow-y:auto;width:100%;text-align:left}
+.srow{display:flex;align-items:center;gap:10px;padding:3px 0}
+.srow .spics{font-size:clamp(26px,5vmin,40px);flex:none;gap:2px}
+.srow p{margin:0;font-family:var(--read);font-weight:600;font-size:clamp(20px,4.2vmin,30px);line-height:1.3}
+.opt.txt{font-size:clamp(20px,4.4vmin,32px);padding:8px 16px;min-height:56px;display:inline-flex;align-items:center;gap:8px;max-width:min(420px,90vw)}
+.opt.txt .aem{font-size:1.4em;line-height:1}
+@media (orientation:landscape) and (max-height:500px){.sbox{max-height:30vh}.srow p{font-size:18px}.opt.txt{min-height:44px;font-size:18px}}

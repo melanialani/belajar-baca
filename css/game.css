@@ -74,3 +74,14 @@
 /* shared confirm button (Sudah / Bayar) */
 .okb{min-height:var(--tap);padding:4px 26px;border-radius:26px;background:var(--mint);box-shadow:0 7px 0 #1A9F86;color:#fff;font-family:var(--ui);font-weight:700;font-size:clamp(28px,6.4vmin,46px)}
 .slot{transition:transform .2s}
+/* after a wrong answer: the right answer glows, the others fade, then a new question comes */
+.revealed .opt:not(.reveal),.revealed .tile:not(.gone),.revealed .pvi:not(.reveal),.revealed .balloon:not(.reveal){opacity:.35}
+.reveal{animation:revealPulse .8s ease-in-out infinite alternate}
+.revealed .reveal{opacity:1!important}
+.slot.shown{border-color:#FFD84D;background:#FFF6CC;animation:pop .35s}
+.mt.shown{animation:pop .35s}
+@keyframes revealPulse{from{transform:scale(1)}to{transform:scale(1.1)}}
+@media (prefers-reduced-motion:reduce){.reveal{animation:none}}
+/* Tes Awal: a wrong answer just moves on */
+.gfb.skip{--fbc:#8257E6}
+.endmsg span,#endmsg span{display:inline-block;font-size:.7em;margin-top:4px}
