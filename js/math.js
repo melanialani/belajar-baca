@@ -1,8 +1,8 @@
 /* ============ hitung: number words, visuals, shared question helpers, number games ============ */
 const NUMW=['nol','satu','dua','tiga','empat','lima','enam','tujuh','delapan','sembilan','sepuluh','sebelas'];
-// number as Indonesian words (0–9 999), so TTS never depends on the voice reading digits
+// number as Indonesian words (0–999 999), so TTS never depends on the voice reading digits
 const numW=n=>n<12?NUMW[n]:n<20?NUMW[n-10]+' belas':n<100?NUMW[n/10|0]+' puluh'+(n%10?' '+NUMW[n%10]:'')
-  :n<1000?(n<200?'seratus':NUMW[n/100|0]+' ratus')+(n%100?' '+numW(n%100):''):(n<2000?'seribu':NUMW[n/1000|0]+' ribu')+(n%1000?' '+numW(n%1000):'');
+  :n<1000?(n<200?'seratus':NUMW[n/100|0]+' ratus')+(n%100?' '+numW(n%100):''):(n<2000?'seribu':numW(Math.floor(n/1000))+' ribu')+(n%1000?' '+numW(n%1000):'');
 const COUNTEMO=['🍎','🍊','🍌','🍓','🍒','🐟','🐥','⭐','🎈','🌸','🐞','🦋','🧁','🐱','🚗','🐶','🍩','🦆'].filter(e=>EMO.has(nk(e)));
 const range=(a,b)=>Array.from({length:b-a+1},(_,i)=>a+i);
 const rint=(a,b)=>a+(rnd()*(b-a+1)|0);

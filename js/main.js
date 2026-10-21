@@ -2,10 +2,10 @@
 // card order per menu, easiest first
 const byIds=(arr,ids)=>arr.sort((a,b)=>ids.indexOf(a.id)-ids.indexOf(b.id));
 byIds(STAGES,['s1','s1b','k1','tulis1','s2','s3','s4','s5','tulis2','tulis3','s6','s7','cerita','s8a','s8b','s9','s10','s11','s12','s13']);
-byIds(MATH_STAGES,['m1','m1b','mcmp','m3','m4','m2','mt10','mk10','mteman','mtens','mbaca','m20','m21','m51','mopt']);
+byIds(MATH_STAGES,['m1','m1b','mcmp','m3','m4','m2','mt10','mk10','mteman','mtens','mbaca','m20','m21','m51','mopt','mratus','mkali','mbagi','mjamb','muangb','mpecb']);
 byIds(SCI_STAGES,['k5','mbentuk','k2','k4','k3','sc-fakta','sc-tubuh','sc-hewan','mpola','sc-tumbuhan','sc-benda','sc-alam','sc-langit']);
 byIds(GAMES,['tepuk','awal','tulis','tsuku','urutk','kereta','hitung','akhir','jumlah','memori','sambung','tbenda','pasang','parade','tnama','bacaan','lengkapi','pzsuku','puzzle','uruth','dikte','cari','kalimat','bcerita','keras']);
-byIds(MATH_GAMES,['mhitung','msuara','mmakan','mkilat','mbanyak','mpasang','mmemori','mbuaya','murutb','murut','mtambah','mkurang','mkatak','mparade','mteman','mtoko','msusun','mbangun']);
+byIds(MATH_GAMES,['mhitung','msuara','mmakan','mkilat','mbanyak','mpasang','mmemori','mbuaya','murutb','murut','mtambah','mkurang','mkatak','mparade','mteman','mtoko','msusun','mbangun','mnilai','mjam','muang','mkali','mbagi','mpecahan']);
 byIds(EXP_STAGES,['ex-air','ex-warna','ex-tumbuhan','ex-udara','ex-tubuh','ex-amati','ex-tanah','ex-cahaya','ex-suara','ex-panas','ex-cuaca','ex-gerak','ex-campur','ex-magnet','ex-dapur','ex-mainan']);
 byIds(SCI_GAMES,['mbentuk','squiz','mhbentuk','mpola','sbs']);
 const ALLGAMES=[...GAMES,...MATH_GAMES,...SCI_GAMES,...JD_GAMES];
