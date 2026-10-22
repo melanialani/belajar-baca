@@ -8,6 +8,10 @@
 .seg{display:flex;border-radius:999px;overflow:hidden;background:#C6BED1}
 .seg button{padding:8px 14px;font-size:18px;font-weight:700;color:#fff;min-width:52px;min-height:44px}
 .seg button.on{background:var(--pink)}
+.vhelp{flex-basis:100%;font-size:16px;font-weight:500;color:var(--ink2)}
+.vhelp summary{cursor:pointer;font-weight:700;color:var(--ink);padding:4px 0}
+.vhelp p{margin:6px 0}
+.vhelp ol{margin:4px 0 10px;padding-left:22px}
 .danger{background:#FF6B6B;color:#fff;border-radius:999px;padding:10px 18px;font-weight:700;font-size:18px}
 .rep{padding:10px 18px 16px;border-top:2px solid var(--bg2);font-size:17px}
 .rep h3{margin:6px 0 8px;font-size:20px}
