@@ -1,10 +1,12 @@
 /* ============ suara ============ */
 // parent recordings: spoken text → audio URL (filled from IndexedDB by js/voice.js); a recorded word plays instead of the voice
 const VOICE=new Map();
-const TTS={ok:'speechSynthesis' in window,voice:null,voiceEn:null,token:0,audio:null,
+// onCap(text|null) shows the spoken text as a subtitle (js/ui.js); onVoices runs when the device voices are known
+const TTS={ok:'speechSynthesis' in window,voice:null,voiceEn:null,token:0,audio:null,onCap:null,onVoices:null,capT:null,
+  capOn(t){clearTimeout(this.capT);if(this.onCap)this.onCap(t);},capOff(ms=1200){clearTimeout(this.capT);this.capT=setTimeout(()=>{if(this.onCap)this.onCap(null);},ms);},
   init(){if(!this.ok)return;const choose=()=>{const vs=speechSynthesis.getVoices();this.voice=vs.find(v=>/^id([-_]|$)/i.test(v.lang))||vs.find(v=>/indones/i.test(v.name))||null;
-    this.voiceEn=vs.find(v=>/^en[-_]US/i.test(v.lang))||vs.find(v=>/^en([-_]|$)/i.test(v.lang))||null;};choose();speechSynthesis.onvoiceschanged=choose;},
-  stop(){this.token++;if(this.ok)speechSynthesis.cancel();if(this.audio){this.audio.pause();this.audio=null;}},
+    this.voiceEn=vs.find(v=>/^en[-_]US/i.test(v.lang))||vs.find(v=>/^en([-_]|$)/i.test(v.lang))||null;if(this.onVoices)this.onVoices();};choose();speechSynthesis.onvoiceschanged=choose;},
+  stop(){this.token++;if(this.ok)speechSynthesis.cancel();if(this.audio){this.audio.pause();this.audio=null;}this.capOff(300);},
   // a part is text (Indonesian) or {t:text, en:true} for English
   utter(p,rate){const u=new SpeechSynthesisUtterance(p.t);if(p.en){u.lang='en-US';if(this.voiceEn)u.voice=this.voiceEn;u.rate=rate*1.1;u.pitch=1.1;}
     else{u.lang='id-ID';if(this.voice)u.voice=this.voice;u.rate=rate;u.pitch=1.15;}return u;},
@@ -12,21 +14,21 @@ const TTS={ok:'speechSynthesis' in window,voice:null,voiceEn:null,token:0,audio:
     if(!o.keep)this.stop();
     const tok=this.token;parts=(parts||[]).filter(p=>p!=null&&p!=='').map(p=>typeof p==='object'?p:{t:String(p)});
     let ended=false;const rate=(o.rate||.8)*(SET.slow?.82:1);
-    const fin=()=>{if(ended||tok!==this.token)return;ended=true;o.onEnd&&o.onEnd();};
+    const fin=()=>{if(ended||tok!==this.token)return;ended=true;this.capOff();o.onEnd&&o.onEnd();};
     if(!parts.length){setTimeout(fin,50);return;}
     const est=parts.reduce((t,p)=>t+900+p.t.length*160,400)/rate;const fb=setTimeout(fin,est+1500);
     const rec=parts.some(p=>!p.en&&VOICE.has(p.t.toLowerCase()));
-    if(!this.ok&&!rec){parts.forEach((p,i)=>setTimeout(()=>{if(tok===this.token&&o.onPart)o.onPart(i);},i*700));clearTimeout(fb);setTimeout(fin,parts.length*700+300);return;}
+    if(!this.ok&&!rec){parts.forEach((p,i)=>setTimeout(()=>{if(tok!==this.token)return;this.capOn(p.t);if(o.onPart)o.onPart(i);},i*700));clearTimeout(fb);setTimeout(fin,parts.length*700+300);return;}
     // with a recording: one part after the other (audio and voice cannot share the speech queue)
     // each part has its own safety timer, in case an audio or voice end event never comes
-    if(rec){let guard=null;const next=i=>{clearTimeout(guard);if(tok!==this.token)return;if(i>=parts.length)return fin();const p=parts[i];o.onPart&&o.onPart(i);
+    if(rec){let guard=null;const next=i=>{clearTimeout(guard);if(tok!==this.token)return;if(i>=parts.length)return fin();const p=parts[i];this.capOn(p.t);o.onPart&&o.onPart(i);
         guard=setTimeout(()=>next(i+1),(1500+p.t.length*200)/rate);
         const url=!p.en&&VOICE.get(p.t.toLowerCase());
         if(url){const a=new Audio(url);this.audio=a;a.onended=a.onerror=()=>next(i+1);a.play().catch(()=>next(i+1));}
         else if(this.ok){const u=this.utter(p,rate);u.onend=u.onerror=()=>next(i+1);speechSynthesis.speak(u);}else setTimeout(()=>next(i+1),700);};
       clearTimeout(fb);setTimeout(()=>next(0),o.keep?0:60);return;}
-    const go=()=>{if(tok!==this.token)return;parts.forEach((p,i)=>{const u=this.utter(p,rate);
-      u.onstart=()=>{if(tok===this.token&&o.onPart)o.onPart(i);};
+    const go=()=>{if(tok!==this.token)return;this.capOn(parts[0].t);parts.forEach((p,i)=>{const u=this.utter(p,rate);
+      u.onstart=()=>{if(tok!==this.token)return;this.capOn(p.t);if(o.onPart)o.onPart(i);};
       // word boundaries (where the voice supports them) let a story light up the word being read
       if(o.onBound)u.onboundary=ev=>{if(tok===this.token&&ev.name!=='sentence')o.onBound(i,ev.charIndex);};
       if(i===parts.length-1){u.onend=()=>{clearTimeout(fb);fin();};u.onerror=()=>{clearTimeout(fb);fin();};}

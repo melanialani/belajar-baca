@@ -2,7 +2,7 @@
 const MISS=store.get('miss',{});
 const saveMiss=()=>store.set('miss',MISS);
 longPress($('#lock'),3000,openParent,()=>toast('Tekan tahan 3 detik untuk Mode Orang Tua'));
-function openParent(){sfx.ok();$('#tExtra').classList.toggle('on',SET.extra);$('#tSlow').classList.toggle('on',SET.slow);$('#tReset').textContent='Hapus';
+function openParent(){sfx.ok();$('#parentov .pbody').scrollTop=0;$('#tExtra').classList.toggle('on',SET.extra);$('#tSlow').classList.toggle('on',SET.slow);$('#tReset').textContent='Hapus';
   const seg=$('#tBreak');seg.innerHTML='';[0,10,15,20,30].forEach(m=>{const b=h('button',SET.brk===m?'on':'',m?String(m):'Mati');
     b.onclick=()=>{SET.brk=m;saveSet();usedMs=0;[...seg.children].forEach(x=>x.classList.toggle('on',x===b));};seg.append(b);});
   const cs=$('#tCase');cs.innerHTML='';[['lower','abc'],['cap','Abc'],['upper','ABC']].forEach(([v,t])=>{const b=h('button',SET.case===v?'on':'',t);
@@ -20,12 +20,12 @@ function buildReport(){
    <h3>🔁 Kata yang sering salah</h3><div class="miss">${ms.length?ms.map(([w,c])=>`<span>${w} ×${c}</span>`).join(''):'<i>Belum ada. Hebat!</i>'}</div>
    <p style="margin:10px 0 0;color:var(--ink2)">Stiker: ${stkCount(totalStars())}/${STICKERS.length} · Kata dan soal yang salah akan muncul lagi di level berikutnya sampai dijawab benar dua kali.</p>`;}
 // shows whether the device has an Indonesian voice; voices can load late, so check again a few times
-function voiceCheck(n=0){const r=$('#tVoiceRes'),help=$('#tVoiceHelp');
-  if(!TTS.ok){r.textContent='⚠️ Browser ini tidak bisa bersuara. Pakai Chrome (Android) atau Safari (iPad).';help.open=true;return;}
+function voiceCheck(n=0){const r=$('#tVoiceRes');
+  if(!TTS.ok){r.textContent='⚠️ Browser ini tidak bisa bersuara. Ketuk Panduan.';return;}
   const vs=speechSynthesis.getVoices();if(!vs.length&&n<4){r.textContent='Memeriksa…';setTimeout(()=>voiceCheck(n+1),700);return;}
   if(!TTS.voice)TTS.init();
-  if(TTS.voice){r.textContent=`✓ Terpasang: ${TTS.voice.name}${TTS.voice.localService===false?' (butuh internet)':''}`;help.open=false;}
-  else{r.textContent='⚠️ Belum ada suara Bahasa Indonesia. Kata-kata dibaca dengan logat asing. Lihat cara memasang di bawah.';help.open=true;}}
+  if(TTS.voice)r.textContent=`✓ Terpasang: ${TTS.voice.name}${TTS.voice.localService===false?' (butuh internet)':''}`;
+  else r.textContent='⚠️ Belum ada suara Bahasa Indonesia, kata-kata dibaca dengan logat asing. Ketuk Panduan untuk cara memasang.';}
 $('#tVoiceTest').onclick=()=>{TTS.say(['Halo, ayo kita membaca bersama!']);voiceCheck();};
 $('#parentx').onclick=()=>$('#parentov').classList.remove('on');
 // family phone and address for Jaga Diri practice; stored on this device only

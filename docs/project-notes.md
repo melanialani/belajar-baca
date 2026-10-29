@@ -47,7 +47,8 @@ tools/emoji_tool.py ← exports Fluent Emoji SVGs by code point (see its header)
 js/science.js       ← Sains: Warna/Hewan/Buah/Sayur stages, science category stages, Kuis Sains, Benar atau Salah (+ shapes/patterns pushed in by shapes.js)
 js/shapes.js        ← Bentuk & Pola: learn stages + Tebak Bentuk, Hitung Bentuk, Lanjutkan Pola
 js/daily.js         ← Latihan Hari Ini (10 mixed questions, streak)
-js/profiles.js      ← child profiles (switch, add, rename, delete) + Mode Balita switch
+js/profiles.js      ← child profiles (switch, add, rename, delete), "Siapa yang main?" (child + Main sendiri / Didampingi) + Mode Balita switch
+js/ui.js            ← theme (auto/light/dark), Mode Didampingi, subtitles (TTS.onCap), today summary, Panduan Suara (steps per phone brand + troubleshooting)
 js/data/tulis.js    ← stroke paths of a–z, A–Z, 0–9 for tracing
 js/writing.js       ← tracePad() (finger tracing), Menulis learn cards, Tulis Huruf + Dikte games
 js/data/cerita.js   ← 40 picture stories (5 levels) with questions
@@ -77,6 +78,7 @@ assets/emoji/*.svg  ← 488 Fluent Emoji SVGs, one file each (name = hex code po
 - 2026-10-08: parent setting "Bentuk huruf" (abc / Abc / ABC) added on branch `feature/letter-case-setting`; default stays lowercase.
 - 2026-10-09: split index.html into css/js/assets files (branch `claude`, includes the letter-case setting); behavior verified identical against the single-file version.
 - 2026-10-09: emoji moved from one JSON to one SVG file per emoji, loaded on demand.
+- 2026-10-29: redesign (branch `claude-2njqzj`): new palette and design tokens, light/dark theme, soft shadows instead of 3D blocks, new home (child chip, greeting, tiles, daily banner), tinted cards and level tiles, grouped settings, Mode Didampingi, subtitles, Panduan Suara. Mockup: https://claude.ai/artifact/8bxYrwb9MkHjEGWKASWzmw. Voice steps checked against Xiaomi, Samsung and realme support pages (Oct 2026); vivo/OPPO paths vary, so the guide tells parents to search "text-to-speech" in Settings.
 - 2026-10-09: game feedback reworked for all games: big praise + confetti then next question at once, big X on wrong, 5 hearts per level (0 → back to level list). Lengkapi Kata now says the word (+🔊 button).
 - 2026-10-09: break reminder fixed: 2-minute countdown uses real time (finishes while the screen is off), screen-off time no longer counts as screen time. Default reminder 15 → 30 min; saved 15 moved to 30 once (`SET.brkMig` marks it done).
 - 2026-10-09: CSS/JS links versioned with `?v=2026-10-09` so parents get matching new files without a hard refresh (GitHub Pages cache is ~10 min).

@@ -36,7 +36,7 @@ function moneyRow(list){const r=h('div','rprow');[...list].sort((a,b)=>b.v-a.v).
 const fracW=(a,b)=>a===1&&b===2?'setengah':a===1?'se'+(b===3?'pertiga':b===4?'perempat':'per'+numW(b)):`${numW(a)} per${numW(b)}`;
 const fracHtml=(a,b)=>`<span class="frac"><i>${a}</i><i>${b}</i></span>`;
 // a round cake cut in b equal parts, a of them coloured; or a bar in b parts
-function fracEl(a,b,bar,col='#FF9A62'){const s=svgEl('svg',{viewBox:'0 0 100 100',class:'fracpic'+(bar?' bar':'')});
+function fracEl(a,b,bar,col='#F2703A'){const s=svgEl('svg',{viewBox:'0 0 100 100',class:'fracpic'+(bar?' bar':'')});
   if(bar){s.setAttribute('viewBox','0 0 100 34');for(let i=0;i<b;i++)s.append(svgEl('rect',{x:2+i*96/b,y:2,width:96/b,height:30,class:'fpart'+(i<a?' on':''),style:i<a?`fill:${col}`:''}));}
   else if(b===1)s.append(svgEl('circle',{cx:50,cy:50,r:46,class:'fpart'+(a?' on':''),style:a?`fill:${col}`:''}));
   else for(let i=0;i<b;i++){const a0=i*2*Math.PI/b-Math.PI/2,a1=(i+1)*2*Math.PI/b-Math.PI/2,large=b===1?1:0;
@@ -151,7 +151,7 @@ MATH_GAMES.push(
    const a=h('div','a');a.append(optsEl(opts,rpFmt,(x,b)=>{if(x===tot){b.classList.add('right');api.ok();}else{TTS.say([rpSay(x)]);api.bad(b);}},'',x=>x===tot));
    api.ans([rpSay(tot)]);st.append(q,a);return say;}},
  {id:'mpecahan',title:'Pecahan',c:'rose',ins:'Ayo kenali pecahan.',art:'<span class="em">🍕</span>'+BR+chips(['½']),
-  fn(st,api,D){const L=D.L,dens=L<=20?[2,4]:L<=50?[2,3,4]:[2,3,4,6,8];const b=pick(dens),a=L<=20?1:rint(1,b-1),col=pick(['#FF9A62','#4FB3FF','#2EC4A6','#A47CFF']);
+  fn(st,api,D){const L=D.L,dens=L<=20?[2,4]:L<=50?[2,3,4]:[2,3,4,6,8];const b=pick(dens),a=L<=20?1:rint(1,b-1),col=pick(['#F2703A','#2F80ED','#12A08C','#7B5CF0']);
    const q=h('div','q');let say,list,ans,render,cls='';
    if(L<=20){// which picture shows this fraction?
      say=[`Mana yang ${fracW(a,b)}?`];q.append(h('div','chipw',fracHtml(a,b)));ans=`${a}/${b}`;

@@ -1,15 +1,15 @@
 /* ============ Jaga Diri: rule badge, big phone numbers, parent inputs ============ */
 .jdbadge{display:inline-flex;align-items:center;gap:8px;font-family:var(--ui);font-weight:700;font-size:clamp(20px,4.6vmin,34px);color:#fff;border-radius:999px;padding:2px 18px 2px 12px}
 .jdbadge svg,.jdbadge .emo{width:1em;height:1em}
-.jdbadge.jdok{background:var(--mint);box-shadow:0 4px 0 #1A9F86}
-.jdbadge.jdno{background:#FF7A6B;box-shadow:0 4px 0 #E2513F}
-.jdbadge.jdtip{background:var(--sun);box-shadow:0 4px 0 #E09E00}
-.jdnum{display:flex;flex-direction:column;align-items:center;background:var(--card);border-radius:24px;box-shadow:0 6px 0 var(--bg2);padding:6px clamp(16px,4vmin,34px);transition:transform .2s}
+.jdbadge.jdok{background:var(--mint);box-shadow:var(--press),var(--sh)}
+.jdbadge.jdno{background:#EF5A47;box-shadow:var(--press),var(--sh)}
+.jdbadge.jdtip{background:var(--sun);box-shadow:var(--press),var(--sh)}
+.jdnum{display:flex;flex-direction:column;align-items:center;background:var(--card);border-radius:24px;box-shadow:var(--sh);padding:6px clamp(16px,4vmin,34px);transition:transform .2s}
 .jdn{font-family:var(--read);font-weight:700;font-size:clamp(54px,15vmin,120px);line-height:1.05;color:var(--pink);letter-spacing:.04em;white-space:nowrap}
 .jdname{font-family:var(--ui);font-weight:700;font-size:clamp(18px,4vmin,30px);color:var(--ink2)}
 .jdn.long{font-size:clamp(32px,7.4vmin,70px);white-space:normal;text-align:center}
 .jdnum.hi{transform:scale(1.06)}
 .jdaddr{font-family:var(--read);font-weight:700;font-size:clamp(22px,5vmin,40px);line-height:1.25;max-width:min(760px,92vw);color:var(--ink);overflow-wrap:anywhere;transition:color .2s}
 .jdaddr.hi{color:var(--pink)}
-.tin{font:inherit;font-size:18px;font-weight:500;flex:1 1 220px;min-width:0;padding:8px 12px;border-radius:12px;border:2px solid var(--bg2);background:var(--bg);color:var(--ink);user-select:text;-webkit-user-select:text}
+.tin{font:inherit;font-size:17px;font-weight:500;flex:1 1 220px;min-width:0;padding:9px 12px;border-radius:12px;border:2px solid var(--line);background:var(--sf2);color:var(--ink);user-select:text;-webkit-user-select:text}
 @media (orientation:portrait){.jdn{font-size:clamp(44px,15vw,110px)}.jdn.long{font-size:clamp(26px,8vw,60px)}}

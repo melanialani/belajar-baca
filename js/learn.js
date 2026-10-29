@@ -2,10 +2,10 @@
 let L=null,G=null;
 function show(id){
   TTS.stop();if(L){L.auto=false;L.tok++;}if(G)G.tok++;rnd=Math.random;
-  onScreen(id);['endov','gridov','parentov','practov'].forEach(o=>$('#'+o).classList.remove('on'));
+  onScreen(id);hideFb();['endov','gridov','parentov','practov','voiceov','profov'].forEach(o=>$('#'+o).classList.remove('on'));
   if(id==='belajar')buildLearnCards();if(id==='bermain')buildGameCards();if(id==='stiker')buildStickers();if(id==='belhitung')buildMathLearnCards();if(id==='mainhitung')buildMathGameCards();if(id==='belsains')buildSciLearnCards();if(id==='mainsains')buildSciGameCards();if(id==='sciGroup')buildGroupCards();if(id==='beleksp')buildExpCards();if(id==='jagadiri')buildJdCards();if(id==='sikecil')buildKecilCards();if(id==='belen'){buildEnLearnCards();$('#enNote').hidden=!TTS.ok||!!TTS.voiceEn;}if(id==='mainen')buildEnGameCards();if(id==='home')updateDaily();
   updateStars();}
-document.querySelectorAll('.back').forEach(b=>b.innerHTML=IC.back);
+document.querySelectorAll('.back').forEach(b=>b.innerHTML=IC.back);document.querySelectorAll('.gear').forEach(b=>b.innerHTML=IC.gear);
 // any [data-go] button opens that screen; data-say speaks its name (home and the Belajar / Main hubs)
 document.addEventListener('click',e=>{const b=e.target.closest('[data-go]');if(b){sfx.tap();show(b.dataset.go);if(b.dataset.say)TTS.say([b.dataset.say]);}});
 $('#goStk').onclick=()=>{sfx.tap();show('stiker');TTS.say(['Stiker']);};
@@ -55,7 +55,7 @@ function renderItem(it,c){c.innerHTML='';if(it.render)return it.render(c);const 
     it.s.forEach((x,i)=>{const sp=h('span','',casePart(x,i));sp.style.color=COL[i%6];s.append(sp);hl.push(sp);});c.append(s);}
   else if(it.k==='pic'){if(it.hex){const sw=h('div','swatch');sw.style.background=it.hex;c.append(sw);}else addPic(it.e);
     const s=h('div','syls tight'+(it.w.length>=9?' long':''));let n=0;
-    it.s.forEach(x=>{if(x==='_'){s.append(h('span','gap'));return;}const sp=h('span','',casePart(x,n));sp.style.color=n%2?'#7CC62A':'#FF9A62';n++;s.append(sp);hl.push(sp);});c.append(s);}
+    it.s.forEach(x=>{if(x==='_'){s.append(h('span','gap'));return;}const sp=h('span','',casePart(x,n));sp.style.color=n%2?'#7CC62A':'#F2703A';n++;s.append(sp);hl.push(sp);});c.append(s);}
   return hl;}
 // every page is one card: the arrows sit next to the speaker and the card can also be swiped
 function renderLearn(speak,dir){TTS.stop();const it=L.items[L.i],c=$('#lcontent');L.hl=renderItem(it,c);

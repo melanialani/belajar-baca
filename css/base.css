@@ -1,58 +1,88 @@
 /* ============ design tokens, page, screens, top bar, shared panels and animations ============ */
+/* light theme by default; dark follows the device (theme "auto") or the parent setting (data-theme on <html>) */
 :root{
-  --bg:#FFF2F8; --bg2:#FFE0EE; --ink:#4A2B5C; --ink2:#8A6A9A; --card:#FFFFFF;
-  --pink:#FF5FA2; --rose:#FF7EB6; --lilac:#A47CFF; --mint:#2EC4A6; --sun:#FFBE1A; --peach:#FF9A62; --sky:#4FB3FF;
+  --bg:#F3F5FF; --bg2:#E3E7F6; --card:#FFFFFF; --sf2:#EEF1FB; --line:#E1E5F5;
+  --ink:#1D2142; --ink2:#565E86;
+  --pri:#5B4BF5; --pri-d:#4434D6; --on-pri:#FFFFFF;
+  --pink:#E8467C; --rose:#EC5A9B; --lilac:#7B5CF0; --mint:#12A08C; --sun:#F2A200; --peach:#F2703A; --sky:#2F80ED; --coral:#EF5A47;
+  --on-sun:#3D2A00; --gold:#FFC93C;
+  --hl:#FFF0B3; --hl-ink:#5C3D00;
+  --sh:0 4px 14px rgba(29,33,66,.08),0 1px 2px rgba(29,33,66,.06);
+  --sh2:0 14px 40px rgba(29,33,66,.18);
+  --press:inset 0 -5px 0 rgba(0,0,0,.14);
+  --scrim:rgba(17,19,48,.5);
+  --tint:17%;
   --ui:'Fredoka','Trebuchet MS',system-ui,sans-serif;
   --read:'Andika','Fredoka','Comic Sans MS',system-ui,sans-serif;
   --tap:clamp(76px,15vmin,120px);
+  --bw:clamp(52px,11vmin,72px);
+  color-scheme:light;
   box-sizing:border-box;
   padding-top:env(safe-area-inset-top,0px);
   padding-bottom:env(safe-area-inset-bottom,0px);
 }
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#2A1838;--bg2:#3A2250;--ink:#FFE9F4;--ink2:#D9B8E8;--card:#43295A;}}
-:root[data-theme="dark"]{--bg:#2A1838;--bg2:#3A2250;--ink:#FFE9F4;--ink2:#D9B8E8;--card:#43295A;}
-html{scroll-padding-top:env(safe-area-inset-top,0px);height:100%}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#111330;--bg2:#2A2E5C;--card:#1C1F45;--sf2:#262A57;--line:#2F3466;--ink:#F3F4FF;--ink2:#AEB3DA;
+  --pri:#6E61FF;--pri-d:#5446E0;--hl:#4A3D0E;--hl-ink:#FFE9A8;
+  --sh:0 4px 14px rgba(0,0,0,.35),0 1px 2px rgba(0,0,0,.3);--sh2:0 14px 40px rgba(0,0,0,.5);--scrim:rgba(5,6,20,.65);--tint:24%;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#111330;--bg2:#2A2E5C;--card:#1C1F45;--sf2:#262A57;--line:#2F3466;--ink:#F3F4FF;--ink2:#AEB3DA;
+  --pri:#6E61FF;--pri-d:#5446E0;--hl:#4A3D0E;--hl-ink:#FFE9A8;
+  --sh:0 4px 14px rgba(0,0,0,.35),0 1px 2px rgba(0,0,0,.3);--sh2:0 14px 40px rgba(0,0,0,.5);--scrim:rgba(5,6,20,.65);--tint:24%;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px);height:100%;background:var(--bg)}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 [hidden]{display:none!important}
 img.emo{width:1em;height:1em;display:inline-block;vertical-align:-.12em;pointer-events:none;-webkit-user-drag:none}
 body{height:100%;margin:0;overflow:hidden;color:var(--ink);font-family:var(--ui);background-color:var(--bg);
-  background-image:radial-gradient(circle at 8% 14%,var(--bg2) 0 70px,transparent 71px),radial-gradient(circle at 92% 86%,var(--bg2) 0 110px,transparent 111px),
-  radial-gradient(circle at 74% 8%,var(--bg2) 0 26px,transparent 27px),radial-gradient(circle at 22% 92%,var(--bg2) 0 34px,transparent 35px);
+  background-image:radial-gradient(var(--bg2) 1.2px,transparent 1.6px);background-size:26px 26px;
   user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
 button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;touch-action:manipulation;padding:0}
-button:focus-visible{outline:5px solid var(--sky);outline-offset:3px}
-button:active{transform:translateY(3px)}
+button:focus-visible{outline:4px solid var(--sky);outline-offset:3px}
+button:active{transform:translateY(2px)}
 #app{position:relative;height:100%}
 .screen{position:absolute;inset:0;display:none;flex-direction:column}
 .screen.on{display:flex}
-.top{display:flex;align-items:center;gap:clamp(10px,2.4vmin,18px);padding:clamp(6px,1.8vmin,12px) max(14px,env(safe-area-inset-right)) 4px max(14px,env(safe-area-inset-left))}
-.back{width:clamp(64px,13vmin,88px);aspect-ratio:1;border-radius:50%;background:var(--sky);display:grid;place-items:center;box-shadow:0 5px 0 #2B90DE;flex:none}
-.back svg{width:56%;height:56%}
-.title{background:var(--lilac);color:#fff;font-weight:700;font-size:clamp(26px,5.6vmin,38px);padding:4px 22px;border-radius:24px;box-shadow:0 5px 0 #8257E6;line-height:1.15;text-align:center;min-width:0}
-.title.pink{background:var(--pink);box-shadow:0 5px 0 #E0407F}
+/* top bar: back button, title, star count */
+.top{display:flex;align-items:center;gap:clamp(10px,2.4vmin,18px);padding:clamp(8px,2vmin,14px) max(14px,env(safe-area-inset-right)) 4px max(14px,env(safe-area-inset-left));min-height:calc(var(--bw) + 12px)}
+.back,.gear{width:var(--bw);aspect-ratio:1;border-radius:30%;background:var(--card);color:var(--ink);display:grid;place-items:center;box-shadow:var(--sh);flex:none}
+.back svg,.gear svg{width:46%;height:46%}
+.tsp{width:var(--bw);flex:none}
+.title{color:var(--ink);font-weight:700;font-size:clamp(24px,5.2vmin,36px);padding:0 4px;line-height:1.1;text-align:center;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .spacer{flex:1}
-.starpill{background:var(--card);border-radius:999px;padding:6px 18px;font-weight:700;font-size:clamp(24px,5vmin,32px);box-shadow:inset 0 0 0 3px var(--bg2);white-space:nowrap}
+.starpill{background:var(--card);border-radius:999px;padding:6px 16px;font-weight:700;font-size:clamp(20px,4.4vmin,28px);box-shadow:var(--sh);white-space:nowrap;flex:none}
 @keyframes drop{from{transform:translateY(-70vh)}to{transform:none}}
-.overlay{position:fixed;inset:0;background:rgba(74,43,92,.55);display:none;align-items:center;justify-content:center;z-index:40;padding:max(12px,env(safe-area-inset-top)) 12px max(12px,env(safe-area-inset-bottom))}
+.overlay{position:fixed;inset:0;background:var(--scrim);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);display:none;align-items:center;justify-content:center;z-index:40;padding:max(12px,env(safe-area-inset-top)) 12px max(12px,env(safe-area-inset-bottom))}
 .overlay.on{display:flex}
-.panel{background:var(--card);border-radius:30px;max-width:900px;width:100%;max-height:100%;display:flex;flex-direction:column;overflow:hidden}
-.panel .ph{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;font-weight:700;font-size:26px;flex:none}
+.panel{background:var(--card);border-radius:28px;max-width:900px;width:100%;max-height:100%;display:flex;flex-direction:column;overflow:hidden;box-shadow:var(--sh2);animation:panelin .22s ease-out}
+@keyframes panelin{from{transform:translateY(16px) scale(.98);opacity:0}}
+.panel .ph{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px 10px 20px;font-weight:700;font-size:24px;flex:none}
 .panel .grid{overflow:auto;padding:4px 16px 18px;display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:12px}
-.grid button{background:var(--bg);border-radius:18px;padding:8px 6px;font-family:var(--read);font-weight:700;font-size:26px;min-height:96px;line-height:1.1;box-shadow:0 4px 0 var(--bg2)}
+.grid button{background:var(--sf2);border-radius:18px;padding:8px 6px;font-family:var(--read);font-weight:700;font-size:26px;min-height:96px;line-height:1.1}
 .grid button .ge{display:block;font-size:40px;line-height:1.1}
-.grid button.cur{background:var(--pink);color:#fff}
-.x{width:60px;height:60px;border-radius:50%;background:var(--bg2);font-size:26px;font-weight:700;flex:none}
+.grid button.cur{background:var(--pri);color:var(--on-pri)}
+.x{width:52px;height:52px;border-radius:16px;background:var(--sf2);color:var(--ink);font-size:22px;font-weight:700;flex:none}
 @keyframes pop{50%{transform:scale(1.2)}}
 @keyframes shake{20%,60%{transform:translateX(-10px)}40%,80%{transform:translateX(10px)}}
 .confetti{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:60}
 .confetti span{position:absolute;top:62%;animation:burst 1.6s ease-out forwards}
 @keyframes burst{0%{transform:translate(0,0) scale(.4);opacity:1}40%{transform:translate(calc(var(--dx)*.6),-45vh) scale(1)}100%{transform:translate(var(--dx),12vh) rotate(220deg);opacity:0}}
-.toast{position:fixed;left:50%;bottom:max(18px,env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:14px;font-size:18px;z-index:95;max-width:90vw;text-align:center}
+.toast{position:fixed;left:50%;bottom:max(18px,env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:14px;font-size:18px;z-index:95;max-width:90vw;text-align:center;box-shadow:var(--sh2)}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 @media (orientation:portrait) and (max-height:640px){:root{--tap:clamp(60px,12vh,76px)}}
-/* phone landscape: logo left of the buttons, slightly smaller tap targets so questions fit without scrolling */
-@media (orientation:landscape) and (max-height:500px){:root{--tap:clamp(60px,17vmin,76px)}}
+/* phone landscape: slightly smaller tap targets so questions fit without scrolling */
+@media (orientation:landscape) and (max-height:500px){:root{--tap:clamp(60px,17vmin,76px);--bw:clamp(46px,12vmin,60px)}.top{padding-top:6px;min-height:0}}
 @keyframes fbin{0%{transform:scale(.3);opacity:0}70%{transform:scale(1.1);opacity:1}100%{transform:scale(1)}}
 @keyframes hop{40%{transform:translateY(-30%)}}
-@keyframes pulse{50%{box-shadow:0 6px 0 #E2513F,0 0 0 18px rgba(255,122,107,.3)}}
+@keyframes pulse{50%{box-shadow:var(--press),0 0 0 18px rgba(239,90,71,.3)}}
 @keyframes float{50%{translate:0 -8px}}
+/* subtitles: what the app is saying, for parents when the sound is off or there is no Indonesian voice;
+   the screens leave room for the bar so it never covers answers */
+body.subs .screen{bottom:var(--subh)}
+:root{--subh:clamp(54px,9vmin,68px)}
+#subt{position:fixed;left:0;right:0;bottom:0;height:calc(var(--subh) + env(safe-area-inset-bottom,0px));padding:6px max(14px,env(safe-area-inset-right)) calc(6px + env(safe-area-inset-bottom,0px)) max(14px,env(safe-area-inset-left));display:none;align-items:center;justify-content:center;z-index:30;pointer-events:none}
+body.subs #subt{display:flex}
+#subt .sb{display:flex;align-items:center;gap:10px;max-width:min(900px,100%);min-height:100%;background:var(--ink);color:var(--bg);border-radius:16px;padding:6px 16px;font-weight:600;font-size:clamp(15px,3.4vmin,20px);line-height:1.25;opacity:0;transition:opacity .2s}
+#subt .sb.on{opacity:1}
+#subt .sb svg{flex:none;width:1.4em;height:1.4em;opacity:.7}
+#subt .sb span{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+#subt .sb.hid{pointer-events:auto;cursor:pointer}

@@ -29,7 +29,7 @@ function redoDone(gid,key){const m=REDO[gid];if(!m||!m[key])return;if(--m[key].n
 
 // a new game keeps counting tokens, so a timer left from the previous game can never match
 const nextTok=()=>(G&&G.tok||0)+1;
-function openLevels(g){G={g,tok:nextTok()};onScreen('levels');$('#lvtitle').textContent=g.title;buildLevelGrid();TTS.say([g.title]);}
+function openLevels(g){G={g,tok:nextTok()};onScreen('levels');$('#lvtitle').textContent=g.title;$('#lvins').textContent=g.ins||'';buildLevelGrid();TTS.say([g.title]);}
 // stars of the last try per level (lvl:) are shown; totals and stickers use the best try (lv:), so nothing earned is lost
 const lastStars=id=>store.get('lvl:'+id,[]);
 const maxLevel=()=>SET.tod?PAGEL:MAXL;
@@ -45,7 +45,7 @@ function buildLevelGrid(page){const g=G.g,best=levelStars(g.id),last=lastStars(g
     b.setAttribute('aria-label','Level '+L);b.onclick=()=>{sfx.tap();startLevel(L);};box.append(b);}
   box.scrollTop=0;}
 function startLevel(L){rnd=G.g.daily?Math.random:mulberry32(hashStr(G.g.id)+L*7919);Object.assign(G,{L,q:0,err:0,hearts:HEARTS,D:Object.assign(makeD(L),{gid:G.g.id}),stars0:totalStars()});
-  onScreen('game');$('#endov').classList.remove('on');$('#gtitle').textContent=G.g.daily?'Latihan':'Level '+L;drawHearts();nextQ();}
+  onScreen('game');$('#endov').classList.remove('on');$('#gtitle').textContent=G.g.daily?'Latihan':'Level '+L;gameInfo();drawHearts();nextQ();}
 function drawHearts(lost){$('#ghearts').hidden=!!SET.tod||!!G.g.test;$('#ghearts').innerHTML=Array.from({length:HEARTS},(_,i)=>`<span class="${i<G.hearts?'':'lost'}${i===lost?' pop':''}">${ico('❤️')}</span>`).join('');}
 // big feedback layer over the game; it also blocks taps while shown
 function showFb(kind,text){const f=$('#gfb');f.className='gfb on '+kind;f.querySelector('.fbx').innerHTML=kind==='no'||kind==='out'?IC.bigx:'';f.querySelector('.fbt').textContent=text;}
@@ -66,14 +66,14 @@ function nextQ(){
     ans(say,show){G.ansSay=say==null?null:[].concat(say);G.reveal=show||null;},
     // multi-step games give a way to solve the question (used by the automated checks only)
     solve(fn){G.solve=fn;},
-    ok(){if(G.done||tok!==G.tok)return;G.done=true;if(G.g.test)G.g.answer(true);
+    ok(){if(G.done||tok!==G.tok)return;G.done=true;if(G.g.test)G.g.answer(true);else todayAdd('ok');
       if(!G.qerr){let ch=false;G.D.cur.forEach(w=>{if(MISS[w]){MISS[w]--;if(MISS[w]<=0)delete MISS[w];ch=true;}});if(ch)saveMiss();if(G.D.rkey!=null)redoDone(G.D.gid,G.D.rkey);}
       sfx.ok();confetti();const t0=Date.now(),txt=pickM(PRAISE);showFb('ok',txt);
       TTS.say([txt],{keep:true,onEnd:()=>setTimeout(()=>{if(tok===G.tok){G.q++;nextQ();}},Math.max(150,1000-(Date.now()-t0)))});},
     bad(el,word){if(G.done||tok!==G.tok)return;
       // Tes Awal: a wrong answer just moves on (no heart, no answer shown)
       if(G.g.test){G.done=true;G.g.answer(false);sfx.tap();showFb('skip','Tidak apa-apa');setTimeout(()=>{if(tok===G.tok){G.q++;nextQ();}},900);return;}
-      G.err++;G.qerr++;sfx.no();
+      G.err++;G.qerr++;sfx.no();todayAdd('bad');
       const w=word||G.D.cur[0];if(w&&BYW[w]){MISS[w]=Math.min(5,(MISS[w]||0)+1);saveMiss();}
       else if(word!=null||G.D.key!=null)redoAdd(G.D.gid,String(word!=null?word:G.D.key),G.D.L);
       if(el){el.classList.remove('shake');void el.offsetWidth;el.classList.add('shake');}
@@ -100,7 +100,7 @@ function endLevel(){
   $('#endov').classList.add('on');sfx.win();confetti();TTS.say(sp);}
 $('#eAgain').onclick=()=>{sfx.tap();startLevel(G.L);};
 $('#eNext').onclick=()=>{sfx.tap();startLevel(Math.min(maxLevel(),G.L+1));};
-const toLevels=()=>{onScreen('levels');$('#lvtitle').textContent=G.g.title;buildLevelGrid(Math.floor((G.L-1)/PAGEL));};
+const toLevels=()=>{onScreen('levels');$('#lvtitle').textContent=G.g.title;$('#lvins').textContent=G.g.ins||'';buildLevelGrid(Math.floor((G.L-1)/PAGEL));};
 $('#eMap').onclick=()=>{sfx.tap();if(G.g.daily)return show('home');$('#endov').classList.remove('on');toLevels();};
 function leaveGame(){TTS.stop();G.tok++;hideFb();rnd=Math.random;if(G.g.daily)return show('home');toLevels();}
 $('#gback').onclick=()=>{sfx.tap();leaveGame();};
@@ -120,7 +120,7 @@ function arrange(st,api,{word,target,pieces,prefill=0,pic=true,unit='l',upper=fa
       else{TTS.say([spoken]);api.bad(b);}};tiles.append(b);});
   a.append(tiles);st.append(q,a);}
 function matchGame(st,api,words,leftRender,onLeft,leftCls=''){
-  const Lc=h('div','col'),Rc=h('div','col');let sel=null,done=0;const pal=['#FF5FA2','#A47CFF','#2EC4A6','#FF9A62'];
+  const Lc=h('div','col'),Rc=h('div','col');let sel=null,done=0;const pal=['#E8467C','#7B5CF0','#12A08C','#F2703A'];
   shuffle(words).forEach(w=>{const b=h('button','mt '+leftCls,leftRender(w));b._w=w;
     b.onclick=()=>{if(b.classList.contains('ok')||G.done)return;[...Lc.children].forEach(x=>x.classList.remove('sel'));b.classList.add('sel');sel={w,b};sfx.tap();onLeft&&onLeft(w);};Lc.append(b);});
   shuffle(words).forEach(w=>{const b=h('button','mt'+(w.w.length>7?' long':''),caseWord(w.w));b._w=w;

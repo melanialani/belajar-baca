@@ -18,7 +18,7 @@ function memoryGame(st,api,keys,front,back,say){G.D.keep=true;
 const MEMN=[2,2,3,3,4],memN=D=>bv(D,MEMN,[4,4,5,5,6]);
 
 GAMES.push(
- {id:'memori',title:'Kartu Memori',c:'grape',ins:'Buka dua kartu. Cari gambar dan katanya yang sama.',art:'<span class="chip" style="color:#8E6CF0">?</span>'+ems(['🐱'])+'<span class="br"></span>'+chips(['kucing','?']),
+ {id:'memori',title:'Kartu Memori',c:'grape',ins:'Buka dua kartu. Cari gambar dan katanya yang sama.',art:'<span class="chip" style="color:#8B5CF6">?</span>'+ems(['🐱'])+'<span class="br"></span>'+chips(['kucing','?']),
   fn(st,api,D){const ws=pickDistinct(D,memN(D),x=>HASE(x)&&x.w.length<=8);memoryGame(st,api,ws,w=>`<span class="mcw">${caseWord(w.w)}</span>`,w=>ico(w.e),w=>w.w);}});
 
 MATH_GAMES.push(
