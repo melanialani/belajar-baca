@@ -2,7 +2,7 @@
 const MISS=store.get('miss',{});
 const saveMiss=()=>store.set('miss',MISS);
 longPress($('#lock'),3000,openParent,()=>toast('Tekan tahan 3 detik untuk Mode Orang Tua'));
-function openParent(){sfx.ok();$('#parentov .pbody').scrollTop=0;$('#tExtra').classList.toggle('on',SET.extra);$('#tSlow').classList.toggle('on',SET.slow);$('#tReset').textContent='Hapus';
+function openParent(){sfx.ok();storyCredits();$('#parentov .pbody').scrollTop=0;$('#tExtra').classList.toggle('on',SET.extra);$('#tSlow').classList.toggle('on',SET.slow);$('#tReset').textContent='Hapus';
   const seg=$('#tBreak');seg.innerHTML='';[0,10,15,20,30].forEach(m=>{const b=h('button',SET.brk===m?'on':'',m?String(m):'Mati');
     b.onclick=()=>{SET.brk=m;saveSet();usedMs=0;[...seg.children].forEach(x=>x.classList.toggle('on',x===b));};seg.append(b);});
   const cs=$('#tCase');cs.innerHTML='';[['lower','abc'],['cap','Abc'],['upper','ABC']].forEach(([v,t])=>{const b=h('button',SET.case===v?'on':'',t);

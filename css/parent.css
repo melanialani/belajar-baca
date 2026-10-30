@@ -84,3 +84,7 @@
 .vfaq summary svg{width:18px;height:18px;flex:none;transition:transform .2s}
 .vfaq details[open] summary svg{transform:rotate(90deg)}
 .vfaq p{margin:0;padding:0 16px 14px;font-size:14px;line-height:1.45;color:var(--ink2)}
+.credits summary{cursor:pointer;font-weight:600;color:var(--ink)}
+.credits p{margin:6px 0;font-size:13px;line-height:1.35}
+.credits a{color:var(--pri)}
+.setrow.credits{display:block}

@@ -20,9 +20,9 @@ const sayTitle=(id,enT)=>slang()==='en'&&enT?{t:enT,en:true}:id;
 const STORY_LEVEL=[0,1,13,26,46,71];
 const STORY_PAL=['peach','sun','mint','sky','lilac','rose','pink','coral'];
 // cover page of a story or tale: picture, title, where it comes from
-function coverItem(e,ti,te,src,img){const en=slang()==='en'&&!!te,t=en?te:ti;
+function coverItem(e,ti,te,src,img,credit){const en=slang()==='en'&&!!te,t=en?te:ti;
   return {k:'story',e,label:`<span class="ge">${ico(e)}</span>${caseUnit(t)}`,say:[sayTitle(ti,te)],
-    render(c){const el=h('div','stitle',caseUnit(t));c.append(img?storyArt([e],img):h('div','scover',ico(e)),el);if(src)c.append(h('div','ssrc',src));return [el];}};}
+    render(c){const el=h('div','stitle',caseUnit(t));c.append(img?storyArt([e],img):h('div','scover',ico(e)),el);if(src)c.append(h('div','ssrc',src));if(credit)c.append(h('div','scred',esc(credit)));return [el];}};}
 const storyStage=(s,i,home='sciGroup')=>({id:s.id,get title(){return slang()==='en'&&s.te?s.te:s.title;},get say(){return sayTitle(s.title,s.te);},bi:true,
   c:STORY_PAL[i%STORY_PAL.length],home,art:ems([s.e])+BR+chips(['★'.repeat(s.lv)]),
   play:[['bcerita',STORY_LEVEL[s.lv]]],items:()=>[coverItem(s.e,s.title,s.te),...s.pages.map((pg,j)=>storyPage(s,pg,j))]});
@@ -31,9 +31,13 @@ STAGES.push({id:'cerita',title:'Buku Cerita',c:'coral',home:'belajar',art:ems(['
 /* --- Buku Cerita menu (home): princess tales, world tales, Indonesian folk tales, short stories; Indonesian or English --- */
 const TALE_GRP=[['putri','Putri','👑','Princesses'],['dunia','Cerita Dunia','🌍','World Tales'],['nusantara','Cerita Rakyat','🏝️','Indonesian Tales'],['pendek','Cerita Pendek','📖','Short Stories']];
 const TALE_PAL={putri:['rose','lilac','pink','grape'],dunia:['sky','mint','sun','peach'],nusantara:['coral','sun','mint','berry'],pendek:STORY_PAL};
+// pictures saved from Wikimedia Commons (js/data/gambar-cerita.js): cover and some pages
+const taleImg=(t,j)=>{const m=STORY_IMG[t.id]||{};return j==null?t.img||m.c:(m.p||{})[j+1];};
+// short credit under the cover: who made the pictures and their licence
+const taleCredit=t=>{const c=STORY_CREDITS.filter(x=>x[3].includes(t.id));return c.length?'Gambar: '+c.map(x=>`${x[0]} (${x[1]})`).join('; '):'';};
 const taleStage=(t,i)=>({id:t.id,get title(){return t.t[slang()==='en'?1:0];},get say(){return sayTitle(t.t[0],t.t[1]);},bi:true,c:TALE_PAL[t.grp][i%4],home:'cerita',
-  art:t.img?`<img class="spimg" src="assets/stories/${t.img}" alt="" loading="lazy" onerror="this.replaceWith(document.createRange().createContextualFragment(ico('${t.e}')))">`:`<span class="em xl">${ico(t.e)}</span>`,
-  play:[],items:()=>[coverItem(t.e,t.t[0],t.t[1],t.src,t.img),...t.pages.map((pg,j)=>storyPage(t,pg,j))]});
+  art:taleImg(t)?`<img class="spimg" src="assets/stories/${taleImg(t)}" alt="" loading="lazy" onerror="this.replaceWith(document.createRange().createContextualFragment(ico('${t.e}')))">`:`<span class="em xl">${ico(t.e)}</span>`,
+  play:[],items:()=>[coverItem(t.e,t.t[0],t.t[1],t.src,taleImg(t),taleCredit(t)),...t.pages.map((pg,j)=>storyPage(t,pg[3]?pg:[pg[0],pg[1],pg[2],taleImg(t,j)],j))]});
 const TALE_STAGES=TALES.map((t,i)=>taleStage(t,TALES.filter(x=>x.grp===t.grp).indexOf(t)));
 const SHORT_STAGES=STORIES.map((s,i)=>storyStage(s,i,'cerita'));
 function buildTales(){const g=store.get('stab','putri'),tabs=$('#stabs'),en=slang()==='en';tabs.innerHTML='';
@@ -71,3 +75,6 @@ GAMES.push(
    // the story is read aloud the first time it appears (early levels), later the child reads alone and may tap 📖
    const first=!D.told;D.told=true;return first&&D.L<=25?[story.title,...text,qs]:[qs];}}
 );
+// Pengaturan › Lainnya: every story picture with author, licence and source page
+function storyCredits(){const box=$('#tCreditList');$('#tCredits').hidden=!STORY_CREDITS.length;
+  box.innerHTML=STORY_CREDITS.map(([a,l,u,ids])=>`<p>${esc(ids.map(id=>(TALES.find(t=>t.id===id)||{t:[id]}).t[0]).join(', '))}: ${esc(a)}, ${esc(l)}, <a href="${esc(u)}" target="_blank" rel="noopener">Wikimedia Commons</a></p>`).join('');}
