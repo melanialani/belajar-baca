@@ -1,14 +1,52 @@
 {
-  "d-aladdin": {"cover": "Aladdin_and_the_wonderful_lamp,_by_Elizabeth_Tyler,_published_by_the_National_Child_Welfare_Association,_c._1918-1920,_from_the_Digital_Commonwealth_-_commonwealth_xd07mb91b.jpg", "pages": {}},
-  "d-maui-island": {"cover": "Canoe_hokulea_under_sail_profile.jpg", "pages": {}},
-  "d-maui-sun": {"cover": "Haleakala_sunrise_3_(25604461890).jpg", "pages": {}},
-  "d-pinocchio": {"cover": "Pinocchio_visto_da_Enrico_Mazzanti_(1883).jpg", "pages": {}},
-  "d-peterpan": {"cover": "Peter_and_Wendy_(1911),_frontispiece.jpg", "pages": {}},
-  "d-mowgli": {"cover": "Jessie_Willcox_Smith,_Rudyard_Kipling's_Mowgli,.jpg", "pages": {}},
-  "d-alice": {"cover": "Alice-wonderland-illustrated-by-blanche-mcmanus00001_02.jpg", "pages": {}},
-  "d-redhood": {"cover": "Little_Red_Riding_Hood_-_J._W._Smith.jpg", "pages": {"2": "Little_Red_Riding_Hood_Otto_Kubel.jpg"}},
-  "d-threepigs": {"cover": "Three_little_pigs_-_third_pig_builds_a_house_-_Project_Gutenberg_eText_15661.jpg", "pages": {}},
-  "d-goldilocks": {"cover": "Jessie_Willcox_Smith_-_'Goldilocks_and_the_Three_Bears',_Swift's_Premium_Soap_Products_calendar_illustration.jpg", "pages": {}},
-  "d-hansel": {"cover": "Hansel_and_Gretel_Kubel.jpg", "pages": {"3": "Hey_Märchen_012.jpg"}},
-  "d-jack": {"cover": "A_Child's_Book_of_Stories_Jack_and_the_Bean-stalk.jpg", "pages": {"8": "Jack_and_the_bean-stalk,_by_Elizabeth_Tyler,_published_by_the_National_Child_Welfare_Association,_c._1918-1920,_from_the_Digital_Commonwealth_-_commonwealth_xd07mb970_(cropped).jpg"}}
+ "d-aladdin": {
+  "cover": "Aladdin_and_the_wonderful_lamp,_by_Elizabeth_Tyler,_published_by_the_National_Child_Welfare_Association,_c._1918-1920,_from_the_Digital_Commonwealth_-_commonwealth_xd07mb91b.jpg",
+  "pages": {}
+ },
+ "d-maui-island": {
+  "cover": "Canoe_hokulea_under_sail_profile.jpg",
+  "pages": {}
+ },
+ "d-maui-sun": {
+  "cover": "Haleakala_sunrise_3_(25604461890).jpg",
+  "pages": {}
+ },
+ "d-pinocchio": {
+  "cover": "Pinocchio_visto_da_Enrico_Mazzanti_(1883).jpg",
+  "pages": {}
+ },
+ "d-mowgli": {
+  "cover": "Jessie_Willcox_Smith,_Rudyard_Kipling's_Mowgli,.jpg",
+  "pages": {}
+ },
+ "d-alice": {
+  "cover": "Alice-wonderland-illustrated-by-blanche-mcmanus00001_02.jpg",
+  "pages": {}
+ },
+ "d-redhood": {
+  "cover": "Little_Red_Riding_Hood_-_J._W._Smith.jpg",
+  "pages": {
+   "2": "Little_Red_Riding_Hood_Otto_Kubel.jpg"
+  }
+ },
+ "d-threepigs": {
+  "cover": "Three_little_pigs_-_third_pig_builds_a_house_-_Project_Gutenberg_eText_15661.jpg",
+  "pages": {}
+ },
+ "d-goldilocks": {
+  "cover": "Jessie_Willcox_Smith_-_'Goldilocks_and_the_Three_Bears',_Swift's_Premium_Soap_Products_calendar_illustration.jpg",
+  "pages": {}
+ },
+ "d-hansel": {
+  "cover": "Hansel_and_Gretel_Kubel.jpg",
+  "pages": {
+   "3": "Hey_Märchen_012.jpg"
+  }
+ },
+ "d-jack": {
+  "cover": "A_Child's_Book_of_Stories_Jack_and_the_Bean-stalk.jpg",
+  "pages": {
+   "8": "Jack_and_the_bean-stalk,_by_Elizabeth_Tyler,_published_by_the_National_Child_Welfare_Association,_c._1918-1920,_from_the_Digital_Commonwealth_-_commonwealth_xd07mb970_(cropped).jpg"
+  }
+ }
 }

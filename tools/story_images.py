@@ -85,7 +85,7 @@ def image(name, width=960):
 
 def save(im, path, maxw):
     if im.width > maxw: im = im.resize((maxw, round(im.height * maxw / im.width)), Image.LANCZOS)
-    im.save(path, 'WEBP', quality=74, method=6)
+    im.save(path, 'WEBP', quality=70, method=6)
 
 # licence details are kept next to each list (<group>.meta.json), so several lists can be fetched at the same time
 def fetch(listfile):
@@ -103,7 +103,7 @@ def fetch(listfile):
             if not inf['free']: print('NOT FREE', tid, key, f, inf['license']); continue
             im = image(f)
             if not im: print('NO IMAGE', tid, key, f); continue
-            save(im, out, 900); meta[f] = inf
+            save(im, out, 720); meta[f] = inf
             print('ok', tid, key, f, '|', inf['license'], '|', inf['author'][:40])
             json.dump(meta, open(META, 'w'), ensure_ascii=False, indent=1, sort_keys=True)
 
