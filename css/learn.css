@@ -57,3 +57,7 @@
 .lrec.has{box-shadow:var(--sh),0 0 0 4px var(--mint)}
 .lrec.on{background:var(--coral);animation:pop .8s infinite}
 #lgrid{background:var(--card);color:var(--ink);box-shadow:var(--sh)}
+/* story language: Indonesian / English */
+.ibtn.lang{background:var(--card);color:var(--ink2);box-shadow:var(--sh);gap:2px;padding:0 6px;font-size:clamp(15px,3.2vmin,20px)}
+.ibtn.lang span{padding:6px 8px;border-radius:999px}
+.ibtn.lang span.on{background:var(--pri);color:var(--on-pri)}

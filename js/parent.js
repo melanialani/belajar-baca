@@ -10,7 +10,7 @@ function openParent(){sfx.ok();$('#parentov .pbody').scrollTop=0;$('#tExtra').cl
   $('#tPhone').value=SET.ph;$('#tAddr').value=SET.addr;
   voiceCheck();buildReport();parentExtras();$('#parentov').classList.add('on');}
 function buildReport(){
-  const r=$('#report');const st=[...STAGES,...MATH_STAGES,...SCI_STAGES,...EXP_STAGES,...JD_STAGES,...EN_STAGES].flatMap(s=>s.sub||[s]).map(s=>{const tot=s.items().length,got=Math.min(tot,store.get('lp:'+s.id,0));
+  const r=$('#report');const st=[...STAGES,...MATH_STAGES,...SCI_STAGES,...EXP_STAGES,...JD_STAGES,...EN_STAGES,...TALE_STAGES].flatMap(s=>s.sub||[s]).map(s=>{const tot=s.items().length,got=Math.min(tot,store.get('lp:'+s.id,0));
     return `<div class="rrow"><span>${s.title}</span><div class="bar"><i style="width:${Math.round(got/tot*100)}%"></i></div><span>${got}/${tot}</span></div>`;}).join('');
   const gm=ALLGAMES.map(g=>{const s=gameStars(g.id),lv=levelStars(g.id).filter(Boolean).length;
     return `<div class="rrow"><span>${g.title}</span><div class="bar"><i style="width:${Math.round(s/(maxLevel()*3)*100)}%"></i></div><span>⭐${s} · ${lv} lv</span></div>`;}).join('');

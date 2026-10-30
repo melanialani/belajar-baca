@@ -42,3 +42,9 @@
 .opt.txt{font-size:clamp(20px,4.4vmin,32px);padding:8px 16px;min-height:56px;display:inline-flex;align-items:center;gap:8px;max-width:min(420px,90vw)}
 .opt.txt .aem{font-size:1.4em;line-height:1}
 @media (orientation:landscape) and (max-height:500px){.sbox{max-height:30vh}.srow p{font-size:18px}.opt.txt{min-height:44px;font-size:18px}}
+/* ============ Buku Cerita menu: tabs, language switch, tale pages with pictures ============ */
+.langseg button{min-width:0;padding:7px 12px;font-size:clamp(14px,3vmin,17px)}
+.spimg{display:block;max-width:min(560px,100%);max-height:min(40vh,360px);width:auto;height:auto;border-radius:20px;object-fit:contain;box-shadow:var(--sh);background:var(--card)}
+.ssrc{font-family:var(--ui);font-weight:600;font-size:clamp(14px,3vmin,18px);color:var(--ink2);text-align:center}
+.stxt.long{font-size:clamp(22px,4.6vmin,38px)}
+.card .art .spimg{max-height:100%;max-width:100%;border-radius:14px;box-shadow:none}

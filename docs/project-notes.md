@@ -52,6 +52,7 @@ js/ui.js            ← theme (auto/light/dark), Mode Didampingi, subtitles (TTS
 js/data/tulis.js    ← stroke paths of a–z, A–Z, 0–9 for tracing
 js/writing.js       ← tracePad() (finger tracing), Menulis learn cards, Tulis Huruf + Dikte games
 js/data/cerita.js   ← 40 picture stories (5 levels) with questions
+js/data/dongeng-putri.js, dongeng-dunia.js, dongeng-dunia2.js, dongeng-nusantara.js ← bilingual tales (Indonesian + English) for the Buku Cerita menu
 js/stories.js       ← Buku Cerita (read-along, word highlight) + Baca Cerita game
 js/math-sd.js       ← SD counting: Perkalian, Pembagian, Ratusan & Ribuan, Jam, Uang, Pecahan (learn + games)
 js/english.js       ← English words (learn cards) + 4 games, English voice

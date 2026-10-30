@@ -72,6 +72,7 @@ Ilustrasi benda khas Indonesia: dibuat khusus untuk Ayo Baca.
       <div class="homebtns">
         <button class="hb big" style="--c:#EF5A47" id="goBelajar" data-go="hubLearn" data-say="Belajar"><b>📚</b>Belajar</button>
         <button class="hb big" style="--c:#2F80ED" id="goMain" data-go="hubPlay" data-say="Main"><b>🎮</b>Main</button>
+        <button class="hb mid" style="--c:#F2A200" id="goCerita" data-go="cerita" data-say="Buku cerita"><b>📖</b>Buku Cerita</button>
         <button class="hb" style="--c:#7B5CF0" id="goJaga" data-go="jagadiri" data-say="Jaga diri"><b>🛡️</b>Jaga Diri</button>
         <button class="hb" style="--c:#E8467C" id="goStk"><b>🦄</b>Stiker</button>
       </div>
@@ -84,6 +85,17 @@ Ilustrasi benda khas Indonesia: dibuat khusus untuk Ayo Baca.
       </div>
     </div>
     <button class="note" id="voiceNote" hidden></button>
+  </section>
+
+  <section class="screen" id="cerita">
+    <div class="top">
+      <button class="back" data-go="home" aria-label="Kembali"></button>
+      <div class="title">Buku Cerita</div><div class="spacer"></div>
+      <div class="seg langseg" id="slang" role="group" aria-label="Bahasa cerita"></div>
+      <button class="gear" aria-label="Pengaturan"></button>
+    </div>
+    <div class="lvtabs" id="stabs"></div>
+    <div class="cards" id="taleCards"></div>
   </section>
 
   <section class="screen" id="hubLearn">
@@ -232,6 +244,7 @@ Ilustrasi benda khas Indonesia: dibuat khusus untuk Ayo Baca.
       <div class="prog"><i id="progbar"></i></div>
       <div class="progtxt" id="progtxt">1/10</div>
       <button class="ibtn" id="lgrid" aria-label="Pilih kata"></button>
+      <button class="ibtn lang" id="llang" hidden aria-label="Ganti bahasa cerita"></button>
       <button class="ibtn auto" id="lauto" hidden>AUTO</button>
       <button class="gear" aria-label="Pengaturan"></button>
     </div>
@@ -412,6 +425,10 @@ Ilustrasi benda khas Indonesia: dibuat khusus untuk Ayo Baca.
 <script src="js/data/tulis.js?v=2026-10-29"></script>
 <script src="js/writing.js?v=2026-10-29"></script>
 <script src="js/data/cerita.js?v=2026-10-29"></script>
+<script src="js/data/dongeng-putri.js?v=2026-10-29"></script>
+<script src="js/data/dongeng-dunia.js?v=2026-10-29"></script>
+<script src="js/data/dongeng-dunia2.js?v=2026-10-29"></script>
+<script src="js/data/dongeng-nusantara.js?v=2026-10-29"></script>
 <script src="js/stories.js?v=2026-10-29"></script>
 <script src="js/math-sd.js?v=2026-10-29"></script>
 <script src="js/english.js?v=2026-10-29"></script>

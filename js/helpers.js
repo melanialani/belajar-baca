@@ -52,7 +52,7 @@ const SET0=store.get('set',{});
 // one-time move of the old default break (15 min) to the new default (30 min); brkMig marks it as done
 if(!SET0.brkMig&&SET0.brk===15)SET0.brk=30;
 // letter case and Mode Balita belong to each child ('pset'); the first child takes the case chosen before profiles existed
-const SET=Object.assign({extra:false,slow:false,brk:30,case:'lower',tod:false,rec:false,ph:'',addr:'',theme:'auto',sub:'auto',comp:false},SET0,PROF===1?{}:{case:'lower'},store.get('pset',{}),{brkMig:true});
+const SET=Object.assign({extra:false,slow:false,brk:30,case:'lower',tod:false,rec:false,ph:'',addr:'',theme:'auto',sub:'auto',comp:false,slang:'id'},SET0,PROF===1?{}:{case:'lower'},store.get('pset',{}),{brkMig:true});
 function saveSet(){store.set('set',SET);store.set('pset',{case:SET.case,tod:SET.tod});}
 if(!SET0.brkMig)saveSet();
 if(PROF===1&&!store.get('pset'))store.set('pset',{case:SET.case,tod:SET.tod});
