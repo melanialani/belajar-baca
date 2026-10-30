@@ -32,13 +32,13 @@ STAGES.push({id:'cerita',title:'Buku Cerita',c:'coral',home:'belajar',art:ems(['
 const TALE_GRP=[['putri','Putri','👑','Princesses'],['dunia','Cerita Dunia','🌍','World Tales'],['nusantara','Cerita Rakyat','🏝️','Indonesian Tales'],['pendek','Cerita Pendek','📖','Short Stories']];
 const TALE_PAL={putri:['rose','lilac','pink','grape'],dunia:['sky','mint','sun','peach'],nusantara:['coral','sun','mint','berry'],pendek:STORY_PAL};
 const taleStage=(t,i)=>({id:t.id,get title(){return t.t[slang()==='en'?1:0];},get say(){return sayTitle(t.t[0],t.t[1]);},bi:true,c:TALE_PAL[t.grp][i%4],home:'cerita',
-  art:t.img?`<img class="spimg" src="assets/stories/${t.img}" alt="" loading="lazy" onerror="this.replaceWith(document.createRange().createContextualFragment(ico('${t.e}')))">`:ems([t.e]),
+  art:t.img?`<img class="spimg" src="assets/stories/${t.img}" alt="" loading="lazy" onerror="this.replaceWith(document.createRange().createContextualFragment(ico('${t.e}')))">`:`<span class="em xl">${ico(t.e)}</span>`,
   play:[],items:()=>[coverItem(t.e,t.t[0],t.t[1],t.src,t.img),...t.pages.map((pg,j)=>storyPage(t,pg,j))]});
 const TALE_STAGES=TALES.map((t,i)=>taleStage(t,TALES.filter(x=>x.grp===t.grp).indexOf(t)));
 const SHORT_STAGES=STORIES.map((s,i)=>storyStage(s,i,'cerita'));
 function buildTales(){const g=store.get('stab','putri'),tabs=$('#stabs'),en=slang()==='en';tabs.innerHTML='';
   TALE_GRP.forEach(([id,ti,e,te])=>{const b=h('button',id===g?'on':'',`${ico(e)} ${en?te:ti}`);b.onclick=()=>{sfx.tap();store.set('stab',id);buildTales();$('#taleCards').scrollTo(0,0);TTS.say([en?{t:te,en:true}:ti]);};tabs.append(b);});
-  segRow($('#slang'),[['id','Indonesia'],['en','English']],slang(),v=>{SET.slang=v;saveSet();buildTales();TTS.say([v==='en'?{t:'English',en:true}:'Bahasa Indonesia']);});
+  segRow($('#slang'),[['id','ID'],['en','EN']],slang(),v=>{SET.slang=v;saveSet();buildTales();TTS.say([v==='en'?{t:'English',en:true}:'Bahasa Indonesia']);});
   const list=g==='pendek'?SHORT_STAGES:TALE_STAGES.filter((s,i)=>TALES[i].grp===g);
   buildLearnCards($('#taleCards'),list);}
 

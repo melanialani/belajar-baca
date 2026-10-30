@@ -38,7 +38,7 @@ document.addEventListener('visibilitychange',()=>{todayTick=Date.now();});
 /* --- settings: one tap in Mode Didampingi, long press on the lock otherwise --- */
 document.querySelectorAll('.gear').forEach(b=>b.addEventListener('click',()=>{sfx.tap();openParent();}));
 function segRow(el,opts,cur,onPick){el.innerHTML='';opts.forEach(([v,t])=>{const b=h('button',cur===v?'on':'',t);
-  b.onclick=()=>{onPick(v);[...el.children].forEach(x=>x.classList.toggle('on',x===b));};el.append(b);});}
+  b.onclick=()=>{[...el.children].forEach(x=>x.classList.toggle('on',x===b));onPick(v);};el.append(b);});}
 // called by openParent (via parentExtras)
 function uiParent(){
   segRow($('#tTheme'),[['auto','Otomatis'],['light','Terang'],['dark','Gelap']],SET.theme,v=>{SET.theme=v;saveSet();applyTheme();});

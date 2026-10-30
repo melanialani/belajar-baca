@@ -1,6 +1,6 @@
 /* ============ service worker: the app keeps working without internet ============ */
 // bump VER with the ?v= of index.html on every release; old caches are removed when the new worker starts
-const VER='2026-10-29',CACHE='ayobaca-'+VER,EMOJI='ayobaca-emoji',FONTS='ayobaca-fonts';
+const VER='2026-10-30',CACHE='ayobaca-'+VER,EMOJI='ayobaca-emoji',FONTS='ayobaca-fonts';
 const local=u=>!/^(https?:)?\/\//.test(u)&&!u.startsWith('#')&&!u.startsWith('data:');
 // install: the page and every file index.html links to (css, js, data, icons)
 self.addEventListener('install',e=>e.waitUntil((async()=>{
