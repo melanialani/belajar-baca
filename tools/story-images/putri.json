@@ -1,3 +1,13 @@
 {
- "d-cinderella": {"cover": "Cinderella_and_the_Fairy_Godmother.jpg", "pages": {"6": "WalterCrane,_Cinderella-15-notext.jpg", "11": "WalterCrane,_Cinderella-23-notext.jpg", "13": "Trying_on_the_slipper_-_Sarah_Noble_Ives.jpg"}}
+ "d-cinderella": {"cover": "Cinderella_and_the_Fairy_Godmother.jpg", "pages": {"6": "WalterCrane,_Cinderella-15-notext.jpg", "11": "WalterCrane,_Cinderella-23-notext.jpg", "13": "Trying_on_the_slipper_-_Sarah_Noble_Ives.jpg"}},
+ "d-snowwhite": {"cover": "Snowdrop-Rackham-022.jpg", "pages": {"2": "Snowdrop-Rackham-020.jpg"}},
+ "d-sleeping": {"cover": "Prince_Florimund_finds_the_Sleeping_Beauty_-_Project_Gutenberg_etext_19993.jpg", "pages": {"7": "Sleeping_Beauty_-_53076410954_-_Jack_Zipes_Historic_Fairy_Tale_Postcard_Collection_-_Dornröschen_-_Kubel,_Otto_(German_1868-1951).jpg"}},
+ "d-rapunzel": {"cover": "Rapunzel,_Let_Down_Your_Hair_-_Anne_Anderson.jpg"},
+ "d-beauty": {"cover": "WalterCrane,_Beautybeast03.jpg", "pages": {"12": "Crane_beauty5.jpg"}},
+ "d-snowqueen": {"cover": "Milo_Winter_-_Hans_Andersen's_Fairy_Tales_(p._124,_cropped).jpg", "pages": {"8": "Stories_from_Hans_Andersen_-_Edmund_Dulac_color_plate_at_page_063.jpg"}},
+ "d-pea": {"cover": "Edmund_Dulac_-_Princess_and_pea.jpg", "pages": {"10": "Page_190_illustration_b_in_fairy_tales_of_Andersen_(Stratton).png"}},
+ "d-frog": {"cover": "The_Frog_Prince_-_Anne_Anderson.jpg", "pages": {"9": "The_Frog_Prince_-_Anne_Anderson_2.jpg"}},
+ "d-thumbelina": {"cover": "Page_facing_64_of_Andersen's_fairy_tales_(Robinson).jpg", "pages": {"13": "Plate_facing_page_064_of_Fairy_tales_from_Hans_Christian_Andersen_(Walker).jpg"}},
+ "d-dancing": {"cover": "Elenore_Abbott_-_The_Shoes_that_Were_Danced_to_Pieces_-_1920.jpg", "pages": {"10": "12_dancing_princess_par_Anne_Anderson.jpg"}},
+ "d-mulan": {"cover": "Mulan,_18th_century,_ink_and_colors_on_silk.jpg"}
 }
