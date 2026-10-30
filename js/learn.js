@@ -5,7 +5,7 @@ function show(id){
   onScreen(id);hideFb();['endov','gridov','parentov','practov','voiceov','profov'].forEach(o=>$('#'+o).classList.remove('on'));
   if(id==='belajar')buildLearnCards();if(id==='bermain')buildGameCards();if(id==='stiker')buildStickers();if(id==='belhitung')buildMathLearnCards();if(id==='mainhitung')buildMathGameCards();if(id==='belsains')buildSciLearnCards();if(id==='mainsains')buildSciGameCards();if(id==='sciGroup')buildGroupCards();if(id==='beleksp')buildExpCards();if(id==='jagadiri')buildJdCards();if(id==='sikecil')buildKecilCards();if(id==='belen'){buildEnLearnCards();$('#enNote').hidden=!TTS.ok||!!TTS.voiceEn;}if(id==='mainen')buildEnGameCards();if(id==='cerita')buildTales();if(id==='home')updateDaily();
   updateStars();}
-document.querySelectorAll('.back').forEach(b=>b.innerHTML=IC.back);document.querySelectorAll('.gear').forEach(b=>b.innerHTML=IC.gear);
+document.querySelectorAll('.back').forEach(b=>b.innerHTML=IC.back);document.querySelectorAll('.gear').forEach(b=>b.innerHTML=IC.gear);$('#lock .lic').innerHTML=IC.gear;
 // any [data-go] button opens that screen; data-say speaks its name (home and the Belajar / Main hubs)
 document.addEventListener('click',e=>{const b=e.target.closest('[data-go]');if(b){sfx.tap();show(b.dataset.go);if(b.dataset.say)TTS.say([b.dataset.say]);}});
 $('#goStk').onclick=()=>{sfx.tap();show('stiker');TTS.say(['Stiker']);};

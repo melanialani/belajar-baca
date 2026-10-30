@@ -8,8 +8,10 @@ function sentWords(txt,en){const box=h('div','stxt'+(txt.length>70?' long':'')),
 const storyPics=p=>h('div','spics',emoList(p).map(e=>`<span>${ico(e)}</span>`).join(''));
 // story language (Buku Cerita): 'id' or 'en', shared setting; every story has both
 const slang=()=>SET.slang==='en'?'en':'id';
-// a page picture: the saved illustration (assets/stories/) when there is one, the emoji otherwise or when it fails to load
-function storyArt(p,img){if(!img)return storyPics(p);const w=h('div','spicw');const im=h('img','spimg');im.alt='';im.loading='lazy';im.src='assets/stories/'+img;
+// saved illustrations (assets/stories/) are switched off: some looked scary to small children, emoji are shown instead
+const STORY_PICS=false;
+// a page picture: the saved illustration when there is one (and STORY_PICS is on), the emoji otherwise or when it fails to load
+function storyArt(p,img){if(!img||!STORY_PICS)return storyPics(p);const w=h('div','spicw');const im=h('img','spimg');im.alt='';im.loading='lazy';im.src='assets/stories/'+img;
   im.onerror=()=>w.replaceWith(storyPics(p));w.append(im);return w;}
 // page = [pictures, Indonesian, English, optional image file]
 function storyPage(st,pg,i){const [p,id,enT,img]=pg,en=slang()==='en'&&!!enT,txt=en?enT:id;
@@ -32,9 +34,9 @@ STAGES.push({id:'cerita',title:'Buku Cerita',c:'coral',home:'belajar',art:ems(['
 const TALE_GRP=[['putri','Putri','👑','Princesses'],['dunia','Cerita Dunia','🌍','World Tales'],['nusantara','Cerita Rakyat','🏝️','Indonesian Tales'],['pendek','Cerita Pendek','📖','Short Stories']];
 const TALE_PAL={putri:['rose','lilac','pink','grape'],dunia:['sky','mint','sun','peach'],nusantara:['coral','sun','mint','berry'],pendek:STORY_PAL};
 // pictures saved from Wikimedia Commons (js/data/gambar-cerita.js): cover and some pages
-const taleImg=(t,j)=>{const m=STORY_IMG[t.id]||{};return j==null?t.img||m.c:(m.p||{})[j+1];};
+const taleImg=(t,j)=>{if(!STORY_PICS)return;const m=STORY_IMG[t.id]||{};return j==null?t.img||m.c:(m.p||{})[j+1];};
 // short credit under the cover: who made the pictures and their licence
-const taleCredit=t=>{const c=STORY_CREDITS.filter(x=>x[3].includes(t.id));return c.length?'Gambar: '+c.map(x=>`${x[0]} (${x[1]})`).join('; '):'';};
+const taleCredit=t=>{if(!STORY_PICS)return '';const c=STORY_CREDITS.filter(x=>x[3].includes(t.id));return c.length?'Gambar: '+c.map(x=>`${x[0]} (${x[1]})`).join('; '):'';};
 const taleStage=(t,i)=>({id:t.id,get title(){return t.t[slang()==='en'?1:0];},get say(){return sayTitle(t.t[0],t.t[1]);},bi:true,c:TALE_PAL[t.grp][i%4],home:'cerita',
   art:taleImg(t)?`<img class="spimg" src="assets/stories/${taleImg(t)}" alt="" loading="lazy" onerror="this.replaceWith(document.createRange().createContextualFragment(ico('${t.e}')))">`:`<span class="em xl">${ico(t.e)}</span>`,
   play:[],items:()=>[coverItem(t.e,t.t[0],t.t[1],t.src,taleImg(t),taleCredit(t)),...t.pages.map((pg,j)=>storyPage(t,pg[3]?pg:[pg[0],pg[1],pg[2],taleImg(t,j)],j))]});
@@ -76,5 +78,5 @@ GAMES.push(
    const first=!D.told;D.told=true;return first&&D.L<=25?[story.title,...text,qs]:[qs];}}
 );
 // Pengaturan › Lainnya: every story picture with author, licence and source page
-function storyCredits(){const box=$('#tCreditList');$('#tCredits').hidden=!STORY_CREDITS.length;
+function storyCredits(){const box=$('#tCreditList');$('#tCredits').hidden=!STORY_PICS||!STORY_CREDITS.length;
   box.innerHTML=STORY_CREDITS.map(([a,l,u,ids])=>`<p>${esc(ids.map(id=>(TALES.find(t=>t.id===id)||{t:[id]}).t[0]).join(', '))}: ${esc(a)}, ${esc(l)}, <a href="${esc(u)}" target="_blank" rel="noopener">Wikimedia Commons</a></p>`).join('');}

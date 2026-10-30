@@ -1,6 +1,11 @@
 /* ============ settings (Mode Orang Tua), report, break reminder, voice guide ============ */
 .setp{max-width:640px;background:var(--bg)}
 .setp .ph{background:var(--bg)}
+/* settings is a full page, not a pop-up: back arrow on the left, content centred */
+#parentov{background:var(--bg);-webkit-backdrop-filter:none;backdrop-filter:none;padding:0}
+#parentov .setp{max-width:none;height:100%;border-radius:0;box-shadow:none;animation:none}
+#parentov .ph{justify-content:flex-start;gap:clamp(10px,2.4vmin,18px);padding:max(clamp(8px,2vmin,14px),env(safe-area-inset-top)) max(14px,env(safe-area-inset-right)) 8px max(14px,env(safe-area-inset-left));font-size:clamp(24px,5.2vmin,36px)}
+#parentov .pbody{width:100%;max-width:720px;margin:0 auto;padding-bottom:max(18px,env(safe-area-inset-bottom))}
 .pbody{overflow-y:auto;padding:0 14px 18px;-webkit-overflow-scrolling:touch}
 .gh{margin:16px 6px 6px;font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink2)}
 .grp{background:var(--card);border-radius:20px;box-shadow:var(--sh);overflow:hidden}

@@ -44,6 +44,7 @@ body.comp .hb .hd{display:block}
 .kecil b{font-size:1.5em;line-height:1}
 .kecil.tod{box-shadow:0 0 0 3px var(--gold),var(--sh)}
 .lock{position:relative;width:clamp(54px,8vh,68px);min-height:clamp(54px,8vh,68px);border-radius:20px;background:var(--card);box-shadow:var(--sh);font-size:26px;display:grid;place-items:center;overflow:hidden;flex:none}
+.lock .lic{display:grid;width:46%;aspect-ratio:1;color:var(--ink)}.lock .lic svg{width:100%;height:100%}
 .lock i{position:absolute;inset:0;background:conic-gradient(var(--pri) var(--p,0%),transparent 0);opacity:.35;pointer-events:none}
 body.comp #home .lock{display:none}
 /* Mode Didampingi: today at a glance for the parent */

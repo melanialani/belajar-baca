@@ -35,7 +35,7 @@ setInterval(()=>{const now=Date.now(),d=Math.min(now-todayTick,10000);todayTick=
   else if($('#home').classList.contains('on'))updateToday();},5000);
 document.addEventListener('visibilitychange',()=>{todayTick=Date.now();});
 
-/* --- settings: one tap in Mode Didampingi, long press on the lock otherwise --- */
+/* --- settings: one tap in Mode Didampingi, long press on the home gear (#lock) otherwise --- */
 document.querySelectorAll('.gear').forEach(b=>b.addEventListener('click',()=>{sfx.tap();openParent();}));
 function segRow(el,opts,cur,onPick){el.innerHTML='';opts.forEach(([v,t])=>{const b=h('button',cur===v?'on':'',t);
   b.onclick=()=>{[...el.children].forEach(x=>x.classList.toggle('on',x===b));onPick(v);};el.append(b);});}
