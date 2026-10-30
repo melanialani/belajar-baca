@@ -8,7 +8,7 @@
 .shpi{font-size:.8em}
 .pat{display:flex;flex-wrap:wrap;justify-content:center;gap:clamp(4px,1.2vmin,10px);max-width:96vw;--pz:clamp(28px,min(7.4vw,8vmin),60px)}
 .content .pat{--pz:clamp(34px,min(8.6vw,10vmin),80px)}
-.pi{display:grid;place-items:center;min-width:calc(var(--pz)*1.3);height:calc(var(--pz)*1.3);padding:0 4px;border-radius:16px;background:var(--card);box-shadow:0 4px 0 var(--bg2);font-size:var(--pz);line-height:1;transition:transform .2s}
+.pi{display:grid;place-items:center;min-width:calc(var(--pz)*1.3);height:calc(var(--pz)*1.3);padding:0 4px;border-radius:16px;background:var(--card);box-shadow:var(--sh);font-size:var(--pz);line-height:1;transition:transform .2s}
 .pi.num{font-family:var(--read);font-weight:700;font-size:calc(var(--pz)*.9)}
 @media (orientation:portrait){.pat{--pz:clamp(22px,6.4vw,60px);gap:4px}.pi{border-radius:12px}}
 .pi.miss{box-shadow:inset 0 0 0 4px var(--lilac);color:var(--lilac);font-family:var(--read);font-weight:700}
@@ -21,17 +21,17 @@
 .sciar{font-family:var(--read);font-weight:700;font-size:.5em;color:var(--lilac)}
 .scilines{display:flex;flex-direction:column;gap:clamp(2px,.8vmin,6px);max-width:min(720px,92vw)}
 .scil{margin:0;font-weight:600;font-size:clamp(16px,3.8vmin,28px);line-height:1.25;color:var(--ink2);border-radius:12px;padding:2px 10px;transition:background .2s,color .2s}
-.scil.hi{background:var(--card);color:var(--ink);box-shadow:0 3px 0 var(--bg2)}
+.scil.hi{background:var(--card);color:var(--ink);box-shadow:var(--sh)}
 .sciq.hi{transform:scale(1.04)}
 .q .sciq{font-size:clamp(24px,5.4vmin,42px)}
 .opt.tf{display:inline-flex;align-items:center;gap:8px;padding:4px 22px}
 .opt.tf svg{width:.9em;height:.9em}
-.opts>.opt.tf:first-child{--oc:#2EC4A6}
-.opts>.opt.tf:last-child{--oc:#FF7A6B}
+.opts>.opt.tf:first-child{--oc:#12A08C}
+.opts>.opt.tf:last-child{--oc:#EF5A47}
 @media (orientation:portrait){.scipics{font-size:clamp(34px,10vw,80px)}.scil{font-size:clamp(15px,4.4vw,26px);padding:2px 6px}.sciq{font-size:clamp(20px,5.8vw,40px)}}
 @media (orientation:landscape) and (max-height:500px){.scipics{font-size:clamp(30px,9vmin,90px)}.scil{font-size:clamp(14px,3.6vmin,28px);padding:1px 8px}.sciq{font-size:clamp(20px,5vmin,46px)}}
 /* Tahukah Kamu? facts */
-.factq{font-family:var(--ui);font-weight:700;font-size:clamp(20px,4.6vmin,34px);color:#fff;background:var(--sun);box-shadow:0 4px 0 #E09E00;border-radius:999px;padding:2px 18px;transition:transform .2s}
+.factq{font-family:var(--ui);font-weight:700;font-size:clamp(20px,4.6vmin,34px);color:#fff;background:var(--sun);box-shadow:var(--press),var(--sh);border-radius:999px;padding:2px 18px;transition:transform .2s}
 .factpics{font-size:clamp(56px,17vmin,140px)}
 .facttxt{font-family:var(--read);font-weight:700;font-size:clamp(22px,5.2vmin,44px);line-height:1.25;max-width:min(760px,92vw);color:var(--ink);transition:color .2s}
 .factq.hi{transform:scale(1.08)}.facttxt.hi{color:var(--pink)}

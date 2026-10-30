@@ -10,6 +10,7 @@ function emoFail(img){const m=img.getAttribute('src').match(/([0-9a-f-]+)\.svg$/
 function preloadEmo(...ks){ks.forEach(k=>{if(k&&EMO.has(nk(k)))new Image().src=emoUrl(nk(k));});}
 const EMRE=/(\p{Extended_Pictographic}|[0-9]\uFE0F?\u20E3)(\uFE0F|\u20E3|\u200D\p{Extended_Pictographic}\uFE0F?)*/gu;
 function emojify(sel){document.querySelectorAll(sel).forEach(el=>{el.innerHTML=el.innerHTML.replace(EMRE,m=>ico(m));});}
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const h=(tag,cls,html)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e;};
 let rnd=Math.random;
 function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
@@ -31,24 +32,27 @@ const dropProfile=id=>{try{Object.keys(localStorage).filter(k=>k.startsWith(BASE
 const store={get:(k,d)=>rawGet(pkey(k),d),set:(k,v)=>rawSet(pkey(k),v),
   // removes the data of the active child only
   clear(){try{Object.keys(localStorage).filter(k=>k.startsWith(BASEP)&&ownKey(k.slice(BASEP.length))).forEach(k=>localStorage.removeItem(k));}catch(e){}}};
-const COL=['#FF5FA2','#2EC4A6','#FF9A62','#A47CFF','#4FB3FF','#FFBE1A'];
-const PAL={pink:['#FF5FA2','#E0407F'],lilac:['#A47CFF','#8257E6'],mint:['#2EC4A6','#1A9F86'],sun:['#FFBE1A','#E09E00'],
-  peach:['#FF9A62','#EC7436'],sky:['#4FB3FF','#2B90DE'],rose:['#FF7EB6','#E85A98'],berry:['#E0457B','#BC2C5E'],grape:['#8E6CF0','#6B4AD0'],coral:['#FF7A6B','#E2513F']};
+const COL=['#E8467C','#12A08C','#F2703A','#7B5CF0','#2F80ED','#D98E00'];
+const PAL={pink:['#E8467C','#C42F63'],lilac:['#7B5CF0','#5E40D6'],mint:['#12A08C','#0B8070'],sun:['#F2A200','#C98300'],
+  peach:['#F2703A','#D25620'],sky:['#2F80ED','#1F64C4'],rose:['#EC5A9B','#CC3E7E'],berry:['#D63B6E','#B02753'],grape:['#8B5CF6','#6D3FE0'],coral:['#EF5A47','#CF4030']};
 const BANDPAL=[PAL.mint,PAL.sky,PAL.lilac,PAL.pink,PAL.coral];
 const IC={
-  bigx:'<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="#fff" stroke="#E2513F" stroke-width="8"/><path d="M31 31l38 38M69 31L31 69" stroke="#E2513F" stroke-width="14" stroke-linecap="round"/></svg>',
-  back:'<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>',
-  next:'<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>',
+  bigx:'<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="#fff" stroke="#CF4030" stroke-width="8"/><path d="M31 31l38 38M69 31L31 69" stroke="#CF4030" stroke-width="14" stroke-linecap="round"/></svg>',
+  back:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>',
+  next:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>',
+  gear:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>',
+  cc:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M10 10.3a2 2 0 100 3.4M16.5 10.3a2 2 0 100 3.4"/></svg>',
+  chev:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>',
   spk:'<svg viewBox="0 0 24 24"><path d="M3.5 9h4l5-4v14l-5-4h-4z" fill="#fff"/><path d="M16 8.5a5 5 0 010 7M18.6 6a8.6 8.6 0 010 12" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round"/></svg>',
   ok:'<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg>',
   no:'<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>',
-  grid:'<svg viewBox="0 0 24 24" fill="#fff"><rect x="3" y="3" width="8" height="8" rx="2.5"/><rect x="13" y="3" width="8" height="8" rx="2.5"/><rect x="3" y="13" width="8" height="8" rx="2.5"/><rect x="13" y="13" width="8" height="8" rx="2.5"/></svg>'};
+  grid:'<svg viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="8" height="8" rx="2.5"/><rect x="13" y="3" width="8" height="8" rx="2.5"/><rect x="3" y="13" width="8" height="8" rx="2.5"/><rect x="13" y="13" width="8" height="8" rx="2.5"/></svg>'};
 function toast(msg,ms=3000){const t=h('div','toast',msg);document.body.append(t);setTimeout(()=>t.remove(),ms);}
 const SET0=store.get('set',{});
 // one-time move of the old default break (15 min) to the new default (30 min); brkMig marks it as done
 if(!SET0.brkMig&&SET0.brk===15)SET0.brk=30;
 // letter case and Mode Balita belong to each child ('pset'); the first child takes the case chosen before profiles existed
-const SET=Object.assign({extra:false,slow:false,brk:30,case:'lower',tod:false,rec:false,ph:'',addr:''},SET0,PROF===1?{}:{case:'lower'},store.get('pset',{}),{brkMig:true});
+const SET=Object.assign({extra:false,slow:false,brk:30,case:'lower',tod:false,rec:false,ph:'',addr:'',theme:'auto',sub:'auto',comp:false,slang:'id'},SET0,PROF===1?{}:{case:'lower'},store.get('pset',{}),{brkMig:true});
 function saveSet(){store.set('set',SET);store.set('pset',{case:SET.case,tod:SET.tod});}
 if(!SET0.brkMig)saveSet();
 if(PROF===1&&!store.get('pset'))store.set('pset',{case:SET.case,tod:SET.tod});

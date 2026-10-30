@@ -2,10 +2,10 @@
 let L=null,G=null;
 function show(id){
   TTS.stop();if(L){L.auto=false;L.tok++;}if(G)G.tok++;rnd=Math.random;
-  onScreen(id);['endov','gridov','parentov','practov'].forEach(o=>$('#'+o).classList.remove('on'));
-  if(id==='belajar')buildLearnCards();if(id==='bermain')buildGameCards();if(id==='stiker')buildStickers();if(id==='belhitung')buildMathLearnCards();if(id==='mainhitung')buildMathGameCards();if(id==='belsains')buildSciLearnCards();if(id==='mainsains')buildSciGameCards();if(id==='sciGroup')buildGroupCards();if(id==='beleksp')buildExpCards();if(id==='jagadiri')buildJdCards();if(id==='sikecil')buildKecilCards();if(id==='belen'){buildEnLearnCards();$('#enNote').hidden=!TTS.ok||!!TTS.voiceEn;}if(id==='mainen')buildEnGameCards();if(id==='home')updateDaily();
+  onScreen(id);hideFb();['endov','gridov','parentov','practov','voiceov','profov'].forEach(o=>$('#'+o).classList.remove('on'));
+  if(id==='belajar')buildLearnCards();if(id==='bermain')buildGameCards();if(id==='stiker')buildStickers();if(id==='belhitung')buildMathLearnCards();if(id==='mainhitung')buildMathGameCards();if(id==='belsains')buildSciLearnCards();if(id==='mainsains')buildSciGameCards();if(id==='sciGroup')buildGroupCards();if(id==='beleksp')buildExpCards();if(id==='jagadiri')buildJdCards();if(id==='sikecil')buildKecilCards();if(id==='belen'){buildEnLearnCards();$('#enNote').hidden=!TTS.ok||!!TTS.voiceEn;}if(id==='mainen')buildEnGameCards();if(id==='cerita')buildTales();if(id==='home')updateDaily();
   updateStars();}
-document.querySelectorAll('.back').forEach(b=>b.innerHTML=IC.back);
+document.querySelectorAll('.back').forEach(b=>b.innerHTML=IC.back);document.querySelectorAll('.gear').forEach(b=>b.innerHTML=IC.gear);document.querySelectorAll('.lock .lic').forEach(b=>b.innerHTML=IC.gear);
 // any [data-go] button opens that screen; data-say speaks its name (home and the Belajar / Main hubs)
 document.addEventListener('click',e=>{const b=e.target.closest('[data-go]');if(b){sfx.tap();show(b.dataset.go);if(b.dataset.say)TTS.say([b.dataset.say]);}});
 $('#goStk').onclick=()=>{sfx.tap();show('stiker');TTS.say(['Stiker']);};
@@ -41,7 +41,7 @@ function buildStickers(page){
 $('#lprev').innerHTML=IC.back;$('#lnext').innerHTML=IC.next;$('#lgrid').innerHTML=IC.grid;$('#lsay').innerHTML=IC.spk;
 function openStage(stage){const items=stage.items();
   L={stage,items,i:Math.min(store.get('li:'+stage.id,0),items.length-1),auto:false,tok:0,hl:[]};
-  onScreen('learn');$('#learn .back').dataset.go=stage.home||'belajar';$('#lauto').hidden=!SET.extra;$('#lauto').classList.remove('on');
+  onScreen('learn');$('#learn .back').dataset.go=stage.home||'belajar';$('#lauto').hidden=!SET.extra;$('#lauto').classList.remove('on');langBtn();
   renderLearn(false);TTS.say([stage.say||stage.title],{onEnd:()=>sayItem()});}
 function renderItem(it,c){c.innerHTML='';if(it.render)return it.render(c);const hl=[];
   const addPic=(e,small)=>{if(e)c.append(h('div',small?'pic sm':'pic',ico(e)));};
@@ -55,7 +55,7 @@ function renderItem(it,c){c.innerHTML='';if(it.render)return it.render(c);const 
     it.s.forEach((x,i)=>{const sp=h('span','',casePart(x,i));sp.style.color=COL[i%6];s.append(sp);hl.push(sp);});c.append(s);}
   else if(it.k==='pic'){if(it.hex){const sw=h('div','swatch');sw.style.background=it.hex;c.append(sw);}else addPic(it.e);
     const s=h('div','syls tight'+(it.w.length>=9?' long':''));let n=0;
-    it.s.forEach(x=>{if(x==='_'){s.append(h('span','gap'));return;}const sp=h('span','',casePart(x,n));sp.style.color=n%2?'#7CC62A':'#FF9A62';n++;s.append(sp);hl.push(sp);});c.append(s);}
+    it.s.forEach(x=>{if(x==='_'){s.append(h('span','gap'));return;}const sp=h('span','',casePart(x,n));sp.style.color=n%2?'#7CC62A':'#F2703A';n++;s.append(sp);hl.push(sp);});c.append(s);}
   return hl;}
 // every page is one card: the arrows sit next to the speaker and the card can also be swiped
 function renderLearn(speak,dir){TTS.stop();const it=L.items[L.i],c=$('#lcontent');L.hl=renderItem(it,c);
@@ -71,9 +71,9 @@ function sayItem(after){const it=L.items[L.i],hl=L.hl;
     onPart:i=>{hl.forEach(x=>x.classList.remove('hi'));if(i<hl.length&&it.say.length>1&&it.k!=='big'){hl[i].classList.add('hi');if(it.k==='exp')hl[i].scrollIntoView({block:'nearest',behavior:'smooth'});}else hl.forEach(x=>x.classList.add('hi'));},
     onEnd:()=>{hl.forEach(x=>x.classList.remove('hi'));after&&after();}});}
 // story pages: the word being read lights up; voices without word boundaries are followed by an estimate from the text length
-function sayKaraoke(it,words,after){let got=false,timer=null,tok0;const txt=it.say[0],rate=.72*(SET.slow?.82:1);
+function sayKaraoke(it,words,after){let got=false,timer=null,tok0;const s0=it.say[0],rate=.72*(SET.slow?.82:1);
   const mark=ci=>words.forEach(w=>w.classList.toggle('hi',+w.dataset.s<=ci&&ci<+w.dataset.e+1));
-  TTS.say([txt],{rate:.72,onPart:()=>{const t0=Date.now(),msc=72/rate;tok0=TTS.token;clearInterval(timer);timer=setInterval(()=>{if(got||TTS.token!==tok0)return clearInterval(timer);mark((Date.now()-t0)/msc);},100);},
+  TTS.say([s0],{rate:.72,onPart:()=>{const t0=Date.now(),msc=72/rate;tok0=TTS.token;clearInterval(timer);timer=setInterval(()=>{if(got||TTS.token!==tok0)return clearInterval(timer);mark((Date.now()-t0)/msc);},100);},
     onBound:(i,ci)=>{got=true;mark(ci);},onEnd:()=>{clearInterval(timer);words.forEach(w=>w.classList.remove('hi'));after&&after();}});}
 function go(i){const n=L.items.length;
   if(i<0)return;
@@ -84,6 +84,9 @@ $('#lprev').onclick=()=>{sfx.tap();go(L.i-1);};
 $('#lnext').onclick=()=>{sfx.tap();go(L.i+1);};
 $('#lsay').onclick=()=>{L.tok++;if(L.auto)autoStep();else sayItem();};
 $('#lcontent').onclick=()=>{if(swiped){swiped=false;return;}L.tok++;if(L.auto)autoStep();else sayItem();};
+// bilingual stories: switch Indonesian / English on the page being read
+function langBtn(){const b=$('#llang');b.hidden=!L.stage.bi;const en=SET.slang==='en';b.innerHTML=`<span class="${en?'':'on'}">ID</span><span class="${en?'on':''}">EN</span>`;}
+$('#llang').onclick=()=>{sfx.tap();SET.slang=SET.slang==='en'?'id':'en';saveSet();L.tok++;L.items=L.stage.items();L.i=Math.min(L.i,L.items.length-1);langBtn();renderLearn(true);};
 $('#lauto').onclick=()=>{L.auto=!L.auto;$('#lauto').classList.toggle('on',L.auto);L.tok++;if(L.auto)autoStep();else TTS.stop();};
 $('#lgrid').onclick=()=>{sfx.tap();TTS.stop();L.tok++;const box=$('#gridbox');box.innerHTML='';
   L.items.forEach((it,i)=>{const b=h('button',i===L.i?'cur':'',it.label);b.onclick=()=>{sfx.tap();$('#gridov').classList.remove('on');go(i);};box.append(b);});

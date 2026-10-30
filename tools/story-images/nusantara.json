@@ -1,0 +1,14 @@
+{
+ "d-malin": {"cover": "Pantai_Air_Manis.jpg"},
+ "d-bawang": {"cover": "Shallots-Whole.jpg"},
+ "d-timunmas": {"cover": "Mentimun.jpg"},
+ "d-kancil-timun": {"cover": "COLLECTIE_TROPENMUSEUM_Wajang_Kantjil_pop_dwerghert_TMnr_6189-5.jpg"},
+ "d-kancil-siput": {"cover": "Tragulus_kanchil_Juni_2023.jpg", "pages": {"1": "Lesser_Mouse_Deer_(Tragulus_Javanicus).jpg"}},
+ "d-toba": {"cover": "Lake_Toba_(Unsplash).jpg", "pages": {"13": "Danau_Toba_dan_Pulau_Samosir.jpg"}},
+ "d-sangkuriang": {"cover": "Tb_perahu.jpg", "pages": {"12": "Ayam_kampung_jantan.jpg", "14": "Tangkubanparahu.jpg"}},
+ "d-jonggrang": {"cover": "A_Good_Morning_in_Prambanan.jpg"},
+ "d-keongmas": {"cover": "Pomacea_diffusa.jpg"},
+ "d-lutung": {"cover": "Lutung_(Trachypithecus_Auratus).jpg", "pages": {"5": "Lutung_Jawa_hitam.jpg"}},
+ "d-cindelaras": {"cover": "AyamKampungJantan.jpg"},
+ "d-monyet-kura": {"cover": "A_Pair_of_Long-tailed_Macaques,_a_Protected_Species_in_the_Lake_Toba_Forest_Area,_Sibaganding,_North_Sumatra.jpg"}
+}

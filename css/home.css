@@ -1,78 +1,133 @@
 /* ============ home, Belajar / Main hubs, card lists, level grid, stickers ============ */
-#home{align-items:center;justify-content:center;gap:clamp(10px,3.4vmin,30px);padding:12px}
-.logowrap{display:flex;flex-direction:column;align-items:center;gap:clamp(6px,1.6vmin,12px)}
-.logo{display:flex;gap:clamp(4px,1.2vmin,10px);flex-wrap:nowrap;justify-content:center;align-items:center}
-@media (orientation:landscape) and (max-height:500px){.logo span{width:clamp(40px,10vmin,96px);font-size:clamp(28px,7.4vmin,70px)}.logo .bow{font-size:clamp(28px,7.4vmin,70px)}}
-.logo span{display:grid;place-items:center;width:clamp(44px,12vmin,104px);aspect-ratio:1;border-radius:24%;color:#fff;font-family:var(--read);font-weight:700;font-size:clamp(30px,9vmin,78px);box-shadow:0 6px 0 rgba(0,0,0,.16);animation:drop .8s cubic-bezier(.3,1.5,.5,1) both}
+/* home: top row (child, stars, settings), logo + greeting, four big tiles, daily practice */
+#home{padding:0 0 12px;overflow-y:auto}
+.htop{display:flex;align-items:center;gap:10px;padding:clamp(10px,2.4vmin,18px) max(16px,env(safe-area-inset-right)) 6px max(16px,env(safe-area-inset-left));flex:none}
+.profchip{display:flex;align-items:center;gap:8px;background:var(--card);border-radius:999px;padding:5px 16px 5px 5px;font-weight:700;font-size:clamp(17px,3.4vmin,22px);box-shadow:var(--sh);min-width:0;max-width:60vw}
+.profchip .emo{font-size:1.5em;background:var(--sf2);border-radius:50%;padding:.12em;width:1.6em;height:1.6em;flex:none}
+.profchip .pn{display:flex;flex-direction:column;align-items:flex-start;line-height:1.05;min-width:0}
+.profchip .pn span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.profchip small{font-size:.66em;font-weight:600;color:var(--ink2)}
+.gear{display:none}
+body.comp .gear{display:grid}
+.hmain{flex:1;display:grid;grid-template-columns:minmax(0,1fr);grid-template-areas:"head" "btns" "foot";align-content:safe center;gap:clamp(14px,2.6vh,24px);
+  width:100%;max-width:720px;margin:0 auto;padding:4px max(16px,env(safe-area-inset-right)) 8px max(16px,env(safe-area-inset-left))}
+.hhead{grid-area:head;display:flex;flex-direction:column;align-items:center;gap:clamp(4px,1vh,10px);min-width:0}
+.logo{display:flex;gap:clamp(3px,1vmin,8px);justify-content:center;align-items:center;flex-wrap:nowrap}
+.logo span{display:grid;place-items:center;width:clamp(34px,min(10.5vw,6.4vh),70px);aspect-ratio:1;border-radius:28%;background:var(--c);color:#fff;font-family:var(--read);font-weight:700;font-size:clamp(24px,min(7.4vw,4.5vh),48px);box-shadow:var(--press);animation:drop .8s cubic-bezier(.3,1.5,.5,1) both}
 .logo span:nth-child(odd){rotate:-6deg}
 .logo span:nth-child(even){rotate:5deg}
-.logo .bow{background:none!important;box-shadow:none;font-size:clamp(32px,9vmin,76px);width:auto!important;margin-right:calc(-1 * clamp(36px,9vmin,80px))}
-.homebtns{display:flex;gap:clamp(14px,4vmin,36px);flex-wrap:wrap;justify-content:center}
-.hb{width:clamp(130px,min(36vmin,20vw),270px);aspect-ratio:1.15;border-radius:34px;color:#fff;font-weight:700;font-size:clamp(22px,min(6.4vmin,3.3vw),46px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;background:var(--c);box-shadow:0 9px 0 var(--d)}
-.hb b{font-size:1.7em;line-height:1}
-.homefoot{display:flex;align-items:center;gap:14px}
-.lock{position:relative;width:60px;height:60px;border-radius:50%;background:var(--card);box-shadow:inset 0 0 0 3px var(--bg2);font-size:28px;display:grid;place-items:center;overflow:hidden;flex:none}
-.lock i{position:absolute;inset:0;background:conic-gradient(var(--pink) var(--p,0%),transparent 0);opacity:.4;pointer-events:none}
-.note{font-size:16px;color:var(--ink2);max-width:540px;text-align:center;margin:0}
-.cards{flex:1;min-height:0;display:grid;gap:clamp(14px,3vmin,24px);
-  padding:clamp(14px,2.6vmin,22px) max(20px,env(safe-area-inset-right)) clamp(18px,3vmin,26px) max(20px,env(safe-area-inset-left));
-  grid-auto-flow:column;grid-auto-columns:clamp(180px,38vmin,270px);overflow-x:auto;overflow-y:hidden;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch}
-@media (orientation:portrait){.cards{grid-auto-flow:row;grid-auto-columns:auto;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));grid-auto-rows:clamp(240px,62vw,330px);overflow-y:auto;overflow-x:hidden}}
-.card{position:relative;border-radius:30px;background:var(--c);box-shadow:0 0 0 5px var(--bg2),0 8px 0 5px var(--d);display:flex;flex-direction:column;overflow:hidden;scroll-snap-align:start;color:#fff;text-align:center;min-height:200px;max-height:440px}
-.card .art{flex:1;display:flex;flex-wrap:wrap;align-content:center;justify-content:center;gap:6px;padding:52px 10px 8px;font-family:var(--read);font-weight:700;font-size:clamp(32px,7.4vmin,54px);line-height:1.05}
+.logo span:nth-child(2){animation-delay:.05s}.logo span:nth-child(3){animation-delay:.1s}.logo span:nth-child(5){animation-delay:.15s}.logo span:nth-child(6){animation-delay:.2s}.logo span:nth-child(7){animation-delay:.25s}.logo span:nth-child(8){animation-delay:.3s}
+.logo .lgap{width:clamp(4px,2vmin,14px);background:none;box-shadow:none;animation:none}
+.hello{margin:0;font-size:clamp(16px,3.4vmin,22px);font-weight:600;color:var(--ink2);text-align:center}
+/* tiles: light tint of the subject colour, dark text, big picture */
+.hb{position:relative;border-radius:clamp(22px,4vmin,32px);color:var(--ink);font-weight:700;font-size:clamp(20px,4.6vmin,30px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(4px,1vh,10px);
+  background:var(--card);background:color-mix(in srgb,var(--c) var(--tint),var(--card));box-shadow:inset 0 -5px 0 color-mix(in srgb,var(--c) 22%,transparent),var(--sh);line-height:1.05;text-align:center;padding:10px}
+.hb b{font-size:2em;line-height:1}
+.hb .hd{display:none;font-size:clamp(12px,2.4vmin,15px);font-weight:500;color:var(--ink2);line-height:1.2;max-width:16em}
+body.comp .hb .hd{display:block}
+.homebtns{grid-area:btns;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(10px,2vmin,16px)}
+.homebtns .hb.big{min-height:clamp(120px,24vh,280px)}
+.homebtns .hb.big b{font-size:2.4em}
+.homebtns .hb:not(.big){flex-direction:row;min-height:clamp(64px,10vh,110px);font-size:clamp(18px,4.2vmin,26px)}
+.homebtns .hb.mid{grid-column:span 2;min-height:clamp(70px,11vh,130px);font-size:clamp(20px,4.8vmin,30px)}
+.homebtns .hb:not(.big) b{font-size:1.6em}
+.homefoot{grid-area:foot;display:flex;flex-direction:column;gap:clamp(10px,1.8vh,14px)}
+.daily{display:flex;align-items:center;gap:12px;background:var(--pri);color:var(--on-pri);border-radius:clamp(20px,3.6vmin,26px);padding:clamp(10px,1.8vh,16px) 18px;text-align:left;box-shadow:inset 0 -5px 0 rgba(0,0,0,.18),var(--sh)}
+.daily>b{font-size:clamp(30px,6vmin,44px);line-height:1;flex:none}
+.daily .dt{flex:1;display:flex;flex-direction:column;font-weight:700;font-size:clamp(18px,4vmin,24px);line-height:1.15;min-width:0}
+.daily .dt small{font-size:.66em;font-weight:500;opacity:.9}
+.daily #dailyst{background:rgba(255,255,255,.2);border-radius:12px;padding:4px 10px;font-weight:700;font-size:clamp(16px,3.4vmin,20px);white-space:nowrap}
+.daily #dailyst:empty{display:none}
+.daily.done{background:var(--mint)}
+.hrow{display:flex;gap:12px;align-items:stretch}
+.kecil{flex:1;display:flex;align-items:center;justify-content:center;gap:10px;background:var(--card);border-radius:20px;box-shadow:var(--sh);font-weight:700;font-size:clamp(17px,3.8vmin,22px);min-height:clamp(54px,8vh,68px)}
+.kecil b{font-size:1.5em;line-height:1}
+.kecil.tod{box-shadow:0 0 0 3px var(--gold),var(--sh)}
+.lock{position:relative;width:clamp(54px,8vh,68px);min-height:clamp(54px,8vh,68px);border-radius:20px;background:var(--card);box-shadow:var(--sh);font-size:26px;display:grid;place-items:center;overflow:hidden;flex:none}
+.lock .lic{display:grid;width:46%;aspect-ratio:1;color:var(--ink)}.lock .lic svg{width:100%;height:100%}
+.lock i{position:absolute;inset:0;background:conic-gradient(var(--pri) var(--p,0%),transparent 0);opacity:.35;pointer-events:none}
+body.comp #home .lock{display:none}
+/* Mode Didampingi: today at a glance for the parent */
+.today{display:flex;gap:6px;background:var(--card);border-radius:18px;box-shadow:var(--sh);padding:8px 6px;width:100%;max-width:520px;margin-top:4px}
+.today div{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;min-width:0}
+.today b{font-size:clamp(18px,3.8vmin,24px);line-height:1.1}
+.today span{font-size:clamp(12px,2.4vmin,14px);color:var(--ink2);font-weight:600;text-align:center}
+.note{display:block;margin:0 auto;font:inherit;font-size:15px;font-weight:600;color:var(--ink);background:var(--hl);border-radius:14px;padding:8px 14px;max-width:min(560px,calc(100% - 32px));text-align:center;flex:none}
+.note u{text-underline-offset:3px}
+/* tablet or phone held sideways: logo, greeting and daily practice left, tiles right */
+@media (orientation:landscape){
+  .hmain{max-width:1180px;grid-template-columns:minmax(260px,.85fr) 1.4fr;grid-template-areas:"head btns" "foot btns";align-items:center;column-gap:clamp(20px,4vw,48px)}
+  .hhead{align-items:flex-start;align-self:end}
+  .logo{justify-content:flex-start;flex-wrap:wrap;row-gap:6px;max-width:calc(4 * clamp(40px,8vmin,76px) + 30px)}
+  .logo span{width:clamp(40px,8vmin,76px);font-size:clamp(28px,5.6vmin,52px)}
+  .logo .lgap{flex-basis:100%;height:0;width:0}
+  .hello{text-align:left}
+  .homefoot{align-self:start}
+  .homebtns{grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));height:min(100%,560px);min-height:clamp(220px,58vh,560px)}
+  .homebtns .hb.big,.homebtns .hb.mid{grid-row:span 2;grid-column:auto;min-height:0;font-size:clamp(20px,4.2vmin,34px)}
+  .homebtns .hb.mid{flex-direction:column}
+  .homebtns .hb.mid b{font-size:2.4em}
+  .homebtns .hb:not(.big){flex-direction:column;min-height:0}
+}
+/* phone sideways: everything smaller so it fits the short height */
+@media (orientation:landscape) and (max-height:500px){
+  .htop{padding-top:6px;padding-bottom:0}
+  .hmain{gap:8px;padding-top:0}
+  .logo span{width:clamp(30px,9vh,46px);font-size:clamp(20px,6vh,32px)}
+  .logo{max-width:calc(4 * clamp(30px,9vh,46px) + 30px)}
+  .hello{font-size:15px}
+  .homebtns{min-height:0;height:calc(100vh - 96px);height:calc(100dvh - 96px);gap:10px}
+  .homebtns .hb{font-size:clamp(16px,5vh,22px);padding:6px}
+  .homebtns .hb b{font-size:1.6em}
+  .daily{padding:8px 12px}.daily>b{font-size:28px}.daily .dt{font-size:16px}
+  .kecil,.lock{min-height:46px}.lock{width:46px}
+  .today{padding:4px}.today b{font-size:16px}
+  #home .note{position:absolute;left:50%;bottom:6px;transform:translateX(-50%);z-index:2}
+}
+/* Belajar / Main hubs: one tile per subject */
+.hub{flex:1;min-height:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(170px,40vw),1fr));grid-auto-rows:minmax(clamp(120px,22vmin,200px),auto);align-content:safe center;gap:clamp(12px,2.6vmin,22px);
+  width:100%;max-width:1100px;margin:0 auto;padding:12px max(16px,env(safe-area-inset-right)) 20px max(16px,env(safe-area-inset-left));overflow-y:auto}
+.hub .hb{font-size:clamp(20px,4.4vmin,30px)}
+@media (orientation:portrait){.hub{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:minmax(clamp(130px,23vh,240px),auto);max-width:720px}.hub .hb{font-size:clamp(20px,5.4vw,32px)}.hub .hb:last-child:nth-child(odd){grid-column:span 2}}
+@media (orientation:landscape){.hub{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);grid-auto-rows:minmax(clamp(150px,40vh,320px),auto)}.hub .hb b{font-size:2.4em}}
+@media (orientation:landscape) and (max-height:500px){.hub{grid-auto-rows:minmax(100px,auto);gap:10px;padding-top:4px}.hub .hb b{font-size:1.6em}}
+/* card lists */
+.cards{flex:1;min-height:0;display:grid;gap:clamp(14px,2.6vmin,22px);
+  padding:clamp(12px,2.4vmin,20px) max(20px,env(safe-area-inset-right)) clamp(18px,3vmin,26px) max(20px,env(safe-area-inset-left));
+  grid-auto-flow:column;grid-auto-columns:clamp(180px,36vmin,260px);overflow-x:auto;overflow-y:hidden;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch}
+@media (orientation:portrait){.cards{grid-auto-flow:row;grid-auto-columns:auto;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));grid-auto-rows:clamp(210px,56vw,310px);overflow-y:auto;overflow-x:hidden}}
+.card{position:relative;border-radius:26px;background:var(--card);box-shadow:var(--sh);display:flex;flex-direction:column;overflow:hidden;scroll-snap-align:start;color:var(--ink);text-align:center;min-height:200px;max-height:440px;padding:8px}
+.card .art{flex:1;display:flex;flex-wrap:wrap;align-content:center;justify-content:center;gap:6px;padding:40px 8px 8px;border-radius:20px;background:var(--sf2);background:color-mix(in srgb,var(--c) var(--tint),var(--card));font-family:var(--read);font-weight:700;font-size:clamp(30px,6.8vmin,50px);line-height:1.05}
 .card .art .em{font-size:1.15em;line-height:1}
-.card .art .chip{font-size:.62em;background:#fff;border-radius:12px;padding:.12em .45em;box-shadow:0 3px 0 rgba(0,0,0,.15)}
+.card .art .chip{font-size:.62em;background:var(--card);border-radius:12px;padding:.12em .45em;box-shadow:0 2px 6px rgba(0,0,0,.08)}
 .card .art .br{flex-basis:100%;height:0}
-.card .lbl{background:var(--d);padding:8px 6px;font-size:clamp(26px,5vmin,34px);font-weight:600;min-height:2.6em;display:grid;place-items:center;line-height:1.05}
-.card .num{position:absolute;top:10px;left:10px;width:50px;height:50px;border-radius:50%;background:#fff;color:var(--d);font-weight:700;font-size:28px;display:grid;place-items:center}
-.card .badge{position:absolute;top:12px;right:10px;background:#fff;color:#E0407F;border-radius:999px;padding:3px 10px;font-size:22px;font-weight:700}
-.levels{flex:1;min-height:0;overflow-y:auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(clamp(88px,16vmin,124px),1fr));gap:clamp(12px,2.6vmin,20px);align-content:start;
-  padding:clamp(12px,2.6vmin,20px) max(20px,env(safe-area-inset-right)) 24px max(20px,env(safe-area-inset-left))}
-.lv{aspect-ratio:1;border-radius:50%;background:var(--c);box-shadow:0 7px 0 var(--d);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:700;font-size:clamp(32px,7vmin,48px);line-height:1}
-.lv small{font-size:clamp(16px,3.2vmin,20px);letter-spacing:1px;margin-top:4px;min-height:1em}
-.lv.done{box-shadow:0 7px 0 var(--d),0 0 0 5px #FFD84D}
-/* level pages 1–25 … 76–100 */
-.lvtabs{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;padding:6px max(16px,env(safe-area-inset-right)) 2px max(16px,env(safe-area-inset-left))}
+.card .lbl{padding:10px 4px 4px;font-size:clamp(18px,3.8vmin,24px);font-weight:700;min-height:2.7em;display:grid;place-items:center;line-height:1.1}
+.card .num{position:absolute;top:16px;left:16px;width:36px;height:36px;border-radius:12px;background:var(--c);color:#fff;font-weight:700;font-size:20px;display:grid;place-items:center}
+.card .badge{position:absolute;top:16px;right:16px;background:var(--card);color:var(--ink);border-radius:999px;padding:3px 10px;font-size:16px;font-weight:700;box-shadow:0 2px 6px rgba(0,0,0,.1)}
+/* card suggested by Tes Awal */
+.card .start{position:absolute;bottom:calc(2.7em + 18px);left:50%;transform:translateX(-50%);background:var(--gold);color:var(--on-sun);border-radius:999px;padding:3px 12px;font-size:16px;font-weight:700;white-space:nowrap;box-shadow:0 2px 6px rgba(0,0,0,.15)}
+/* level grid: a level not played yet is a light tile, a played one is filled in */
+.levels{flex:1;min-height:0;overflow-y:auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(clamp(76px,14vmin,112px),1fr));gap:clamp(10px,2.2vmin,18px);align-content:start;
+  padding:clamp(12px,2.4vmin,20px) max(20px,env(safe-area-inset-right)) 24px max(20px,env(safe-area-inset-left))}
+.lv{aspect-ratio:1;border-radius:28%;background:var(--card);background:color-mix(in srgb,var(--c) var(--tint),var(--card));color:var(--ink);box-shadow:var(--sh);display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:700;font-size:clamp(28px,6vmin,42px);line-height:1}
+.lv small{font-size:clamp(13px,2.8vmin,18px);letter-spacing:1px;margin-top:4px;min-height:1em}
+.lv.done{background:var(--c);color:#fff;box-shadow:var(--press),var(--sh)}
+/* level pages 1–25 … 76–100, sticker albums */
+.lvtabs{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;padding:6px max(16px,env(safe-area-inset-right)) 2px max(16px,env(safe-area-inset-left))}
 .lvtabs[hidden]{display:none}
-.lvtabs button{position:relative;background:var(--card);color:var(--ink);border-radius:999px;padding:8px 18px;font-weight:700;font-size:clamp(18px,3.6vmin,24px);box-shadow:0 4px 0 var(--bg2)}
-.lvtabs button.on{background:#FF5FA2;color:#fff;box-shadow:0 4px 0 #E0407F}
-.lvtabs small{position:absolute;top:-8px;right:-6px;background:#FFD84D;color:#7A5200;border-radius:999px;font-size:13px;padding:1px 6px}
-.stkhead{display:flex;align-items:center;gap:14px;padding:4px max(20px,env(safe-area-inset-right)) 0 max(20px,env(safe-area-inset-left));font-weight:700;font-size:clamp(22px,4.6vmin,28px)}
-.stkgrid{flex:1;min-height:0;overflow-y:auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(clamp(76px,15vmin,110px),1fr));gap:12px;align-content:start;
+.lvtabs button{position:relative;background:var(--card);color:var(--ink2);border-radius:999px;padding:8px 16px;font-weight:700;font-size:clamp(16px,3.4vmin,22px);box-shadow:var(--sh)}
+.lvtabs button.on{background:var(--ink);color:var(--bg)}
+.lvtabs small{position:absolute;top:-8px;right:-6px;background:var(--gold);color:var(--on-sun);border-radius:999px;font-size:13px;padding:1px 6px}
+.stkhead{display:flex;align-items:center;gap:14px;padding:4px max(20px,env(safe-area-inset-right)) 0 max(20px,env(safe-area-inset-left));font-weight:700;font-size:clamp(20px,4.2vmin,26px)}
+.stkgrid{flex:1;min-height:0;overflow-y:auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(clamp(72px,14vmin,104px),1fr));gap:12px;align-content:start;
   padding:12px max(20px,env(safe-area-inset-right)) 24px max(20px,env(safe-area-inset-left))}
-.stk{aspect-ratio:1;border-radius:24px;background:var(--card);box-shadow:0 5px 0 var(--bg2);display:grid;place-items:center;font-size:clamp(44px,10vmin,70px)}
-.stk.locked{font-size:clamp(28px,6vmin,40px);color:var(--ink2);opacity:.5}
+.stk{aspect-ratio:1;border-radius:24px;background:var(--card);box-shadow:var(--sh);display:grid;place-items:center;font-size:clamp(42px,9vmin,66px)}
+.stk.locked{font-size:clamp(26px,5.6vmin,38px);color:var(--ink2);background:var(--sf2);box-shadow:none}
 .stk.wiggle{animation:pop .5s}
-/* phone portrait: home sizes follow height too, so logo + 2 rows of buttons fit short screens */
-@media (orientation:portrait){.logo span{width:clamp(48px,min(17vw,9vh),110px);font-size:clamp(34px,min(12vw,6.4vh),84px)}.logo .bow{font-size:clamp(34px,min(12vw,6.4vh),84px);margin-right:calc(-1 * clamp(38px,min(13vw,7vh),90px))}.hb{width:clamp(110px,min(40vw,24vh),270px)}}
-@media (orientation:landscape) and (max-height:500px){#home.on{display:grid;grid-template-columns:auto auto;grid-template-areas:"logo btns" "logo foot" "note note";align-content:center;justify-content:center;column-gap:clamp(16px,4vw,48px);row-gap:clamp(8px,3vh,20px)}.logowrap{grid-area:logo}.homebtns{grid-area:btns;flex-wrap:nowrap}.homefoot{grid-area:foot;justify-self:center}.note{grid-area:note;justify-self:center}.hb{width:clamp(110px,19vw,200px)}}
-/* tall content scrolls instead of being cut off at the top */
-#home{overflow-y:auto;justify-content:safe center}
-@media (orientation:landscape) and (max-height:500px){.homebtns .hb{width:clamp(96px,15vw,180px)}}
-@media (orientation:portrait){.hb{font-size:clamp(22px,6.4vmin,46px)}}
-/* daily practice button on home */
-.daily{display:inline-flex;align-items:center;gap:8px;background:var(--pink);color:#fff;border-radius:999px;padding:6px 18px;font-weight:700;font-size:clamp(20px,4.4vmin,28px);box-shadow:0 5px 0 #E0407F;white-space:nowrap}
-.daily b{font-size:1.2em;line-height:1}
-.daily span:empty{display:none}
-.daily span{background:rgba(255,255,255,.25);border-radius:999px;padding:0 10px}
-.daily.done{background:var(--mint);box-shadow:0 5px 0 #1A9F86}
-.homefoot{flex-wrap:wrap;justify-content:center}
-/* home: Belajar, Main, Stiker; the Belajar / Main hubs each show Baca, Hitung, Sains */
-.homebtns{display:grid;grid-template-columns:repeat(4,auto);grid-template-areas:"b m jd st";gap:clamp(12px,3vmin,28px)}
-#goBelajar{grid-area:b}
-#goMain{grid-area:m}
-#goStk{grid-area:st}#goJaga{grid-area:jd}
-.homebtns .hb,.hub .hb{width:clamp(120px,min(30vmin,19vw),240px);line-height:1.05;text-align:center}
-.hub .hb{width:clamp(120px,min(30vmin,19vw),240px)}
-.hub{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:clamp(14px,4vmin,36px);padding:12px;overflow-y:auto}
-@media (orientation:portrait){.homebtns{grid-template-columns:repeat(2,1fr);grid-template-areas:"b m" "jd st"}.homebtns .hb{justify-self:center;width:clamp(120px,min(40vw,22vh),270px)}.daily{font-size:clamp(17px,4.4vw,24px);padding:6px 14px}.homefoot{gap:10px}.homebtns :is(#goStk,#goJaga){width:auto;justify-self:stretch;aspect-ratio:auto;flex-direction:row;gap:10px;padding:8px}.hub{flex-direction:column;flex-wrap:nowrap}.hub .hb{width:clamp(140px,min(56vw,22vh),280px)}}
-@media (orientation:landscape) and (max-height:500px){.homebtns .hb{width:clamp(90px,min(30vmin,15vw),160px);font-size:clamp(18px,4.6vmin,28px)}}
-@media (orientation:landscape) and (max-height:500px){.hub .hb{width:clamp(110px,min(40vmin,22vw),180px);font-size:clamp(20px,5vmin,30px)}}
 /* English words */
-.qword.enw{color:#E85A98}
+.qword.enw{color:var(--sky)}
 .enid{font-size:clamp(24px,5vmin,36px);font-weight:700;color:var(--ink2)}
 .ennum{font-family:var(--read);font-weight:700;font-size:1.2em;color:var(--ink)}
-/* five subjects: two columns on a phone held upright */
-@media (orientation:portrait){.hub{flex-direction:row;flex-wrap:wrap;align-content:center}.hub .hb{width:clamp(120px,40vw,220px)}}
-/* card suggested by Tes Awal */
-.card .start{position:absolute;bottom:calc(2.6em + 22px);left:50%;transform:translateX(-50%);background:#FFD84D;color:#7A5200;border-radius:999px;padding:3px 12px;font-size:18px;font-weight:700;white-space:nowrap;box-shadow:0 3px 0 rgba(0,0,0,.15)}
+/* Mode Didampingi: what the game practises, above the level grid */
+.lvins{display:none;margin:2px max(20px,env(safe-area-inset-right)) 0 max(20px,env(safe-area-inset-left));font-size:clamp(14px,3vmin,18px);font-weight:600;color:var(--ink2);text-align:center}
+body.comp .lvins:not(:empty){display:block}

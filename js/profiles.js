@@ -6,13 +6,19 @@ const profName=(p,i)=>p.name||'Anak '+(i+1);
 const saveProfiles=()=>rawSet('profiles',PROFILES);
 // switching child reloads the page so every module reads that child's data
 function useProfile(id){if(id===PROF)return;rawSet('prof',id);location.reload();}
-// home chip: only when there is more than one child
+// home chip: who is playing and how (alone / with a parent); opens "Siapa yang main?"
 function updateProfChip(){const c=$('#profchip'),i=PROFILES.findIndex(p=>p.id===PROF),p=PROFILES[i];
-  c.hidden=PROFILES.length<2;if(c.hidden)return;c.innerHTML=`${ico(p.av)}<span>${profName(p,i)}</span>`;}
+  c.innerHTML=`${ico(p.av)}<span class="pn"><span>${esc(profName(p,i))}</span><small>${SET.comp?'didampingi':'main sendiri'}</small></span>`;}
+function modeMarks(){$('#mSolo').classList.toggle('on',!SET.comp);$('#mComp').classList.toggle('on',!!SET.comp);}
+function setComp(on){SET.comp=on;saveSet();modeMarks();applyMode();}
 $('#profchip').onclick=()=>{sfx.tap();const box=$('#profpick');box.innerHTML='';
-  PROFILES.forEach((p,i)=>{const b=h('button','pp'+(p.id===PROF?' on':''),`<b>${ico(p.av)}</b>${profName(p,i)}`);b.onclick=()=>{sfx.tap();if(p.id===PROF)$('#profov').classList.remove('on');else useProfile(p.id);};box.append(b);});
-  $('#profov').classList.add('on');TTS.say(['Siapa yang main?']);};
+  PROFILES.forEach((p,i)=>{const b=h('button','pp'+(p.id===PROF?' on':''),`<b>${ico(p.av)}</b>${esc(profName(p,i))}`);b.onclick=()=>{sfx.tap();if(p.id===PROF)$('#profov').classList.remove('on');else useProfile(p.id);};box.append(b);});
+  modeMarks();$('#profov').classList.add('on');TTS.say(['Siapa yang main?']);};
 $('#profx').onclick=()=>$('#profov').classList.remove('on');
+// alone: one tap; with a parent: hold 2 seconds, so a child does not open the settings by accident
+$('#mSolo').onclick=()=>{sfx.tap();setComp(false);};
+longPress($('#mComp'),2000,()=>{sfx.ok();setComp(true);TTS.say(['Mode didampingi']);},()=>{if(!SET.comp)toast('Tekan tahan 2 detik');});
+emojify('.mode .mi');
 
 // parent mode: list of children (avatar, name, use, delete) + add
 function buildProfList(){const box=$('#tProfs');box.innerHTML='';
@@ -34,7 +40,7 @@ function buildProfList(){const box=$('#tProfs');box.innerHTML='';
 
 $('#tTod').onclick=()=>{SET.tod=!SET.tod;saveSet();$('#tTod').classList.toggle('on',SET.tod);updateKecil();};
 // called by openParent (parent.js)
-function parentExtras(){$('#tTod').classList.toggle('on',!!SET.tod);buildProfList();voiceParent();placeParent();}
+function parentExtras(){$('#tTod').classList.toggle('on',!!SET.tod);buildProfList();voiceParent();placeParent();uiParent();}
 // Si Kecil button: always there, highlighted in Mode Balita
 function updateKecil(){$('#goKecil').classList.toggle('tod',!!SET.tod);}
 updateProfChip();updateKecil();

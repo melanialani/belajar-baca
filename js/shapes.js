@@ -19,7 +19,7 @@ const shapeRot=(s,on)=>on&&(s.id==='segitiga'||s.id==='persegi panjang')?pick([0
 const PAT_FRUIT=[['apel','🍎'],['pisang','🍌'],['jeruk','🍊'],['anggur','🍇'],['stroberi','🍓'],['semangka','🍉']].map(([say,e])=>({say,e,html:ico(e)}));
 const PAT_ANIMAL=[['kucing','🐱'],['anjing','🐶'],['kelinci','🐰'],['ayam','🐔'],['ikan','🐟'],['bebek','🦆']].map(([say,e])=>({say,e,html:ico(e)}));
 const PAT_COLOR=[['merah','#FF5F5F'],['biru','#4FB3FF'],['kuning','#FFBE1A'],['hijau','#2EC4A6'],['ungu','#A47CFF']].map(([say,c])=>({say,html:shapeEl(SHAPES[0],c)}));
-const PAT_SHAPE=[0,1,2,6,7].map(i=>({say:SHAPES[i].id,html:shapeEl(SHAPES[i],'#FF5FA2')}));
+const PAT_SHAPE=[0,1,2,6,7].map(i=>({say:SHAPES[i].id,html:shapeEl(SHAPES[i],'#E8467C')}));
 const patSeq=(els,unit,n)=>range(0,n-1).map(i=>els[unit.charCodeAt(i%unit.length)-97]);
 const patRow=cells=>{const r=h('div','pat');cells.forEach(c=>r.append(c));return r;};
 const patCell=(html,cls='')=>h('div','pi'+(cls?' '+cls:''),html);
@@ -73,7 +73,7 @@ SCI_GAMES.push(
    const items=shuffle([...Array(n).fill(t),...range(1,bv(D,[2,3,4,5,6],[6,7,8,9,10])).map(()=>pick(others))]);
    const mix=h('div','shmix');items.forEach(s=>mix.append(h('span','',shapeEl(s,pick(COL),shapeRot(s,D.b>=3)))));
    const say=[`Ada berapa ${t.id}?`];
-   const q=h('div','q');q.append(mrow(h('div','chipw',`<span class="shpi">${shapeEl(t,'#8A6A9A')}</span> ${caseWord(t.id)}`),spkBtn(()=>TTS.say(say))),mix);
+   const q=h('div','q');q.append(mrow(h('div','chipw',`<span class="shpi">${shapeEl(t,'#6B7299')}</span> ${caseWord(t.id)}`),spkBtn(()=>TTS.say(say))),mix);
    numBtns(st,api,q,n,numOpts(n,optN(D),1,Math.max(4,n+2),D.b>=2));return say;}},
  {id:'mpola',title:'Lanjutkan Pola',c:'sun',ins:'Lihat polanya. Apa yang hilang?',art:ems(['🍎','🍌','🍎'])+BR+ems(['🍌','❓']),
   fn(st,api,D){if((D.b===4||D.x)&&D.q%2===1)return numPattern(st,api,D);

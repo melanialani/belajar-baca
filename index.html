@@ -30,7 +30,8 @@ Ilustrasi benda khas Indonesia: dibuat khusus untuk Ayo Baca.
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Ayo Baca! – Belajar Membaca untuk Anak TK</title>
-<meta name="theme-color" content="#FF5FA2">
+<meta name="theme-color" content="#F3F5FF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#111330" media="(prefers-color-scheme: dark)">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/png" href="assets/icons/icon-192.png">
 <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
@@ -39,76 +40,98 @@ Ilustrasi benda khas Indonesia: dibuat khusus untuk Ayo Baca.
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Andika:wght@400;700&family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/base.css?v=2026-10-21a">
-<link rel="stylesheet" href="css/home.css?v=2026-10-21a">
-<link rel="stylesheet" href="css/learn.css?v=2026-10-21a">
-<link rel="stylesheet" href="css/game.css?v=2026-10-21a">
-<link rel="stylesheet" href="css/parent.css?v=2026-10-21a">
-<link rel="stylesheet" href="css/reading-games.css?v=2026-10-21a">
-<link rel="stylesheet" href="css/writing.css?v=2026-10-21a">
-<link rel="stylesheet" href="css/math.css?v=2026-10-21a">
-<link rel="stylesheet" href="css/science.css?v=2026-10-21a">
-<link rel="stylesheet" href="css/experiments.css?v=2026-10-21a">
-<link rel="stylesheet" href="css/safety.css?v=2026-10-21a">
-<link rel="stylesheet" href="css/toddler.css?v=2026-10-21a">
+<script>try{var t=(JSON.parse(localStorage.getItem('ayobaca2:set'))||{}).theme;if(t==='light'||t==='dark')document.documentElement.dataset.theme=t;}catch(e){}</script>
+<link rel="stylesheet" href="css/base.css?v=2026-10-30d">
+<link rel="stylesheet" href="css/home.css?v=2026-10-30d">
+<link rel="stylesheet" href="css/learn.css?v=2026-10-30d">
+<link rel="stylesheet" href="css/game.css?v=2026-10-30d">
+<link rel="stylesheet" href="css/parent.css?v=2026-10-30d">
+<link rel="stylesheet" href="css/reading-games.css?v=2026-10-30d">
+<link rel="stylesheet" href="css/writing.css?v=2026-10-30d">
+<link rel="stylesheet" href="css/math.css?v=2026-10-30d">
+<link rel="stylesheet" href="css/science.css?v=2026-10-30d">
+<link rel="stylesheet" href="css/experiments.css?v=2026-10-30d">
+<link rel="stylesheet" href="css/safety.css?v=2026-10-30d">
+<link rel="stylesheet" href="css/toddler.css?v=2026-10-30d">
 </head>
 <body>
 <div id="app">
   <section class="screen on" id="home">
-    <button class="profchip" id="profchip" hidden></button>
-    <div class="logowrap" aria-label="Ayo Baca">
-      <div class="logo"><span style="background:#FF5FA2">A</span><span style="background:#A47CFF">y</span><span style="background:#FF9A62">o</span><span class="bow">🎀</span></div>
-      <div class="logo"><span style="background:#2EC4A6">B</span><span style="background:#4FB3FF">a</span><span style="background:#FFBE1A">c</span><span style="background:#FF7EB6">a</span></div>
-    </div>
-    <div class="homebtns">
-      <button class="hb" style="--c:#A47CFF;--d:#8257E6" id="goBelajar" data-go="hubLearn" data-say="Belajar"><b>📚</b>Belajar</button>
-      <button class="hb" style="--c:#FF5FA2;--d:#E0407F" id="goMain" data-go="hubPlay" data-say="Main"><b>🎮</b>Main</button>
-      <button class="hb" style="--c:#2EC4A6;--d:#1A9F86" id="goJaga" data-go="jagadiri" data-say="Jaga diri"><b>🛡️</b>Jaga Diri</button>
-      <button class="hb" style="--c:#FFBE1A;--d:#E09E00" id="goStk"><b>🦄</b>Stiker</button>
-    </div>
-    <div class="homefoot">
-      <button class="daily" id="goDaily"><b>⭐</b>Latihan Hari Ini<span id="dailyst"></span></button>
-      <button class="daily kecil" id="goKecil" data-go="sikecil" data-say="Si kecil"><b>🧸</b>Si Kecil</button>
+    <div class="htop">
+      <button class="profchip" id="profchip" aria-label="Ganti anak atau mode"></button>
+      <div class="spacer"></div>
       <div class="starpill js-stars">⭐ 0</div>
-      <button class="lock" id="lock" aria-label="Mode orang tua, tekan tahan 3 detik"><i></i>🔒</button>
+      <button class="gear" id="hgear" aria-label="Pengaturan"></button>
     </div>
-    <p class="note" id="voiceNote" hidden></p>
+    <div class="hmain">
+      <div class="hhead">
+        <div class="logo" aria-label="Ayo Baca"><span style="--c:#EF5A47">A</span><span style="--c:#7B5CF0">y</span><span style="--c:#12A08C">o</span><span class="lgap"></span><span style="--c:#2F80ED">B</span><span style="--c:#F2A200">a</span><span style="--c:#E8467C">c</span><span style="--c:#5B4BF5">a</span></div>
+        <p class="hello" id="hello">Mau main apa hari ini?</p>
+        <div class="today" id="today" hidden></div>
+      </div>
+      <div class="homebtns">
+        <button class="hb big" style="--c:#EF5A47" id="goBelajar" data-go="hubLearn" data-say="Belajar"><b>📚</b>Belajar</button>
+        <button class="hb big" style="--c:#2F80ED" id="goMain" data-go="hubPlay" data-say="Main"><b>🎮</b>Main</button>
+        <button class="hb mid" style="--c:#F2A200" id="goCerita" data-go="cerita" data-say="Buku cerita"><b>📖</b>Buku Cerita</button>
+        <button class="hb" style="--c:#7B5CF0" id="goJaga" data-go="jagadiri" data-say="Jaga diri"><b>🛡️</b>Jaga Diri</button>
+        <button class="hb" style="--c:#E8467C" id="goStk"><b>🦄</b>Stiker</button>
+      </div>
+      <div class="homefoot">
+        <button class="daily" id="goDaily"><b>⭐</b><span class="dt">Latihan Hari Ini<small id="dailysub">10 soal campuran</small></span><span id="dailyst"></span></button>
+        <div class="hrow">
+          <button class="kecil" id="goKecil" data-go="sikecil" data-say="Si kecil"><b>🧸</b>Si Kecil</button>
+          <button class="lock" id="lock" aria-label="Pengaturan, tekan tahan 3 detik"><i></i><span class="lic"></span></button>
+        </div>
+      </div>
+    </div>
+    <button class="note" id="voiceNote" hidden></button>
+  </section>
+
+  <section class="screen" id="cerita">
+    <div class="top">
+      <button class="back" data-go="home" aria-label="Kembali"></button>
+      <div class="title">Buku Cerita</div><div class="spacer"></div>
+      <div class="seg langseg" id="slang" role="group" aria-label="Bahasa cerita"></div>
+      <button class="gear" aria-label="Pengaturan"></button>
+    </div>
+    <div class="lvtabs" id="stabs"></div>
+    <div class="cards" id="taleCards"></div>
   </section>
 
   <section class="screen" id="hubLearn">
     <div class="top">
       <button class="back" data-go="home" aria-label="Kembali"></button>
-      <div class="spacer"></div><div class="title">Belajar</div><div class="spacer"></div>
-      <div style="width:clamp(64px,13vmin,88px)"></div>
+      <div class="title">Belajar</div><div class="spacer"></div>
+      <div class="tsp"></div>
     </div>
     <div class="hub">
-      <button class="hb" style="--c:#A47CFF;--d:#8257E6" data-go="belajar" data-say="Belajar baca"><b>📚</b>Baca</button>
-      <button class="hb" style="--c:#2EC4A6;--d:#1A9F86" data-go="belhitung" data-say="Belajar hitung"><b>🧮</b>Hitung</button>
-      <button class="hb" style="--c:#FF9A62;--d:#EC7436" data-go="belsains" data-say="Belajar sains"><b>🌍</b>Sains</button>
-      <button class="hb" style="--c:#4FB3FF;--d:#2B90DE" data-go="beleksp" data-say="Eksperimen"><b>🧪</b>Eksperimen</button>
-      <button class="hb" style="--c:#FF7EB6;--d:#E85A98" data-go="belen" data-say="Bahasa Inggris"><b>💬</b>English</button>
+      <button class="hb" style="--c:#EF5A47" data-go="belajar" data-say="Belajar baca"><b>📚</b>Baca<small class="hd">Huruf, suku kata, kata, cerita</small></button>
+      <button class="hb" style="--c:#12A08C" data-go="belhitung" data-say="Belajar hitung"><b>🧮</b>Hitung<small class="hd">Angka, tambah, kurang, jam, uang</small></button>
+      <button class="hb" style="--c:#F2A200" data-go="belsains" data-say="Belajar sains"><b>🌍</b>Sains<small class="hd">Warna, bentuk, hewan, alam</small></button>
+      <button class="hb" style="--c:#F2703A" data-go="beleksp" data-say="Eksperimen"><b>🧪</b>Eksperimen<small class="hd">Percobaan aman di rumah</small></button>
+      <button class="hb" style="--c:#2F80ED" data-go="belen" data-say="Bahasa Inggris"><b>💬</b>English<small class="hd">Kata-kata bahasa Inggris</small></button>
     </div>
   </section>
 
   <section class="screen" id="hubPlay">
     <div class="top">
       <button class="back" data-go="home" aria-label="Kembali"></button>
-      <div class="spacer"></div><div class="title" style="background:#FF5FA2;box-shadow:0 5px 0 #E0407F">Main</div><div class="spacer"></div>
+      <div class="title">Main</div><div class="spacer"></div>
       <div class="starpill js-stars">⭐ 0</div>
     </div>
     <div class="hub">
-      <button class="hb" style="--c:#FF5FA2;--d:#E0407F" data-go="bermain" data-say="Game baca"><b>🧩</b>Baca</button>
-      <button class="hb" style="--c:#4FB3FF;--d:#2B90DE" data-go="mainhitung" data-say="Game hitung"><b>🎲</b>Hitung</button>
-      <button class="hb" style="--c:#FF7A6B;--d:#E2513F" data-go="mainsains" data-say="Game sains"><b>🌈</b>Sains</button>
-      <button class="hb" style="--c:#FF7EB6;--d:#E85A98" data-go="mainen" data-say="Game bahasa Inggris"><b>💬</b>English</button>
+      <button class="hb" style="--c:#EF5A47" data-go="bermain" data-say="Game baca"><b>🧩</b>Baca<small class="hd">Game huruf, suku kata, kata</small></button>
+      <button class="hb" style="--c:#12A08C" data-go="mainhitung" data-say="Game hitung"><b>🎲</b>Hitung<small class="hd">Game angka dan berhitung</small></button>
+      <button class="hb" style="--c:#F2A200" data-go="mainsains" data-say="Game sains"><b>🌈</b>Sains<small class="hd">Kuis bentuk, pola, sains</small></button>
+      <button class="hb" style="--c:#2F80ED" data-go="mainen" data-say="Game bahasa Inggris"><b>💬</b>English<small class="hd">Game kata bahasa Inggris</small></button>
     </div>
   </section>
 
   <section class="screen" id="belsains">
     <div class="top">
       <button class="back" data-go="hubLearn" aria-label="Kembali"></button>
-      <div class="spacer"></div><div class="title" style="background:#FF9A62;box-shadow:0 5px 0 #EC7436">Belajar Sains</div><div class="spacer"></div>
-      <div style="width:clamp(64px,13vmin,88px)"></div>
+      <div class="title">Belajar Sains</div><div class="spacer"></div>
+      <div class="tsp"></div>
     </div>
     <div class="cards" id="sciLearnCards"></div>
   </section>
@@ -116,7 +139,7 @@ Ilustrasi benda khas Indonesia: dibuat khusus untuk Ayo Baca.
   <section class="screen" id="jagadiri">
     <div class="top">
       <button class="back" data-go="home" aria-label="Kembali"></button>
-      <div class="spacer"></div><div class="title" style="background:#2EC4A6;box-shadow:0 5px 0 #1A9F86">Jaga Diri</div><div class="spacer"></div>
+      <div class="title">Jaga Diri</div><div class="spacer"></div>
       <div class="starpill js-stars">⭐ 0</div>
     </div>
     <div class="cards" id="jdCards"></div>
@@ -125,8 +148,8 @@ Ilustrasi benda khas Indonesia: dibuat khusus untuk Ayo Baca.
   <section class="screen" id="belen">
     <div class="top">
       <button class="back" data-go="hubLearn" aria-label="Kembali"></button>
-      <div class="spacer"></div><div class="title" style="background:#FF7EB6;box-shadow:0 5px 0 #E85A98">English</div><div class="spacer"></div>
-      <div style="width:clamp(64px,13vmin,88px)"></div>
+      <div class="title">English</div><div class="spacer"></div>
+      <div class="tsp"></div>
     </div>
     <p class="note" id="enNote" hidden>Suara bahasa Inggris belum terpasang di perangkat ini, jadi pengucapannya bisa kurang tepat.</p>
     <div class="cards" id="enLearnCards"></div>
@@ -135,7 +158,7 @@ Ilustrasi benda khas Indonesia: dibuat khusus untuk Ayo Baca.
   <section class="screen" id="mainen">
     <div class="top">
       <button class="back" data-go="hubPlay" aria-label="Kembali"></button>
-      <div class="spacer"></div><div class="title" style="background:#FF7EB6;box-shadow:0 5px 0 #E85A98">Game English</div><div class="spacer"></div>
+      <div class="title">Game English</div><div class="spacer"></div>
       <div class="starpill js-stars">⭐ 0</div>
     </div>
     <div class="cards" id="enGameCards"></div>
@@ -144,8 +167,8 @@ Ilustrasi benda khas Indonesia: dibuat khusus untuk Ayo Baca.
   <section class="screen" id="sciGroup">
     <div class="top">
       <button class="back" data-go="belsains" aria-label="Kembali"></button>
-      <div class="spacer"></div><div class="title" id="grpTitle" style="background:#FF9A62;box-shadow:0 5px 0 #EC7436">Sains</div><div class="spacer"></div>
-      <div style="width:clamp(64px,13vmin,88px)"></div>
+      <div class="title" id="grpTitle">Sains</div><div class="spacer"></div>
+      <div class="tsp"></div>
     </div>
     <div class="cards" id="grpCards"></div>
   </section>
@@ -153,8 +176,8 @@ Ilustrasi benda khas Indonesia: dibuat khusus untuk Ayo Baca.
   <section class="screen" id="beleksp">
     <div class="top">
       <button class="back" data-go="hubLearn" aria-label="Kembali"></button>
-      <div class="spacer"></div><div class="title" style="background:#4FB3FF;box-shadow:0 5px 0 #2B90DE">Eksperimen</div><div class="spacer"></div>
-      <div style="width:clamp(64px,13vmin,88px)"></div>
+      <div class="title">Eksperimen</div><div class="spacer"></div>
+      <div class="tsp"></div>
     </div>
     <div class="cards" id="expCards"></div>
   </section>
@@ -162,7 +185,7 @@ Ilustrasi benda khas Indonesia: dibuat khusus untuk Ayo Baca.
   <section class="screen" id="mainsains">
     <div class="top">
       <button class="back" data-go="hubPlay" aria-label="Kembali"></button>
-      <div class="spacer"></div><div class="title" style="background:#FF7A6B;box-shadow:0 5px 0 #E2513F">Game Sains</div><div class="spacer"></div>
+      <div class="title">Game Sains</div><div class="spacer"></div>
       <div class="starpill js-stars">⭐ 0</div>
     </div>
     <div class="cards" id="sciGameCards"></div>
@@ -171,8 +194,8 @@ Ilustrasi benda khas Indonesia: dibuat khusus untuk Ayo Baca.
   <section class="screen" id="belajar">
     <div class="top">
       <button class="back" data-go="hubLearn" aria-label="Kembali"></button>
-      <div class="spacer"></div><div class="title">Belajar Baca</div><div class="spacer"></div>
-      <div style="width:clamp(64px,13vmin,88px)"></div>
+      <div class="title">Belajar Baca</div><div class="spacer"></div>
+      <div class="tsp"></div>
     </div>
     <div class="cards" id="learnCards"></div>
   </section>
@@ -180,7 +203,7 @@ Ilustrasi benda khas Indonesia: dibuat khusus untuk Ayo Baca.
   <section class="screen" id="bermain">
     <div class="top">
       <button class="back" data-go="hubPlay" aria-label="Kembali"></button>
-      <div class="spacer"></div><div class="title pink">Game Baca</div><div class="spacer"></div>
+      <div class="title">Game Baca</div><div class="spacer"></div>
       <div class="starpill js-stars">⭐ 0</div>
     </div>
     <div class="cards" id="gameCards"></div>
@@ -189,8 +212,8 @@ Ilustrasi benda khas Indonesia: dibuat khusus untuk Ayo Baca.
   <section class="screen" id="belhitung">
     <div class="top">
       <button class="back" data-go="hubLearn" aria-label="Kembali"></button>
-      <div class="spacer"></div><div class="title" style="background:#2EC4A6;box-shadow:0 5px 0 #1A9F86">Belajar Hitung</div><div class="spacer"></div>
-      <div style="width:clamp(64px,13vmin,88px)"></div>
+      <div class="title">Belajar Hitung</div><div class="spacer"></div>
+      <div class="tsp"></div>
     </div>
     <div class="cards" id="mathLearnCards"></div>
   </section>
@@ -198,7 +221,7 @@ Ilustrasi benda khas Indonesia: dibuat khusus untuk Ayo Baca.
   <section class="screen" id="mainhitung">
     <div class="top">
       <button class="back" data-go="hubPlay" aria-label="Kembali"></button>
-      <div class="spacer"></div><div class="title" style="background:#4FB3FF;box-shadow:0 5px 0 #2B90DE">Game Hitung</div><div class="spacer"></div>
+      <div class="title">Game Hitung</div><div class="spacer"></div>
       <div class="starpill js-stars">⭐ 0</div>
     </div>
     <div class="cards" id="mathGameCards"></div>
@@ -207,7 +230,7 @@ Ilustrasi benda khas Indonesia: dibuat khusus untuk Ayo Baca.
   <section class="screen" id="stiker">
     <div class="top">
       <button class="back" data-go="home" aria-label="Kembali"></button>
-      <div class="spacer"></div><div class="title" style="background:#FFBE1A;box-shadow:0 5px 0 #E09E00">Stiker</div><div class="spacer"></div>
+      <div class="title">Stiker</div><div class="spacer"></div>
       <div class="starpill" id="stkcount">0/300</div>
     </div>
     <div class="lvtabs" id="stktabs"></div>
@@ -221,7 +244,9 @@ Ilustrasi benda khas Indonesia: dibuat khusus untuk Ayo Baca.
       <div class="prog"><i id="progbar"></i></div>
       <div class="progtxt" id="progtxt">1/10</div>
       <button class="ibtn" id="lgrid" aria-label="Pilih kata"></button>
+      <button class="ibtn lang" id="llang" hidden aria-label="Ganti bahasa cerita"></button>
       <button class="ibtn auto" id="lauto" hidden>AUTO</button>
+      <button class="gear" aria-label="Pengaturan"></button>
     </div>
     <div class="viewer">
       <div class="content" id="lcontent"></div>
@@ -232,8 +257,8 @@ Ilustrasi benda khas Indonesia: dibuat khusus untuk Ayo Baca.
   <section class="screen" id="sikecil">
     <div class="top">
       <button class="back" data-go="home" aria-label="Kembali"></button>
-      <div class="spacer"></div><div class="title" style="background:#FF9A62;box-shadow:0 5px 0 #EC7436">Si Kecil</div><div class="spacer"></div>
-      <div style="width:clamp(64px,13vmin,88px)"></div>
+      <div class="title">Si Kecil</div><div class="spacer"></div>
+      <div class="tsp"></div>
     </div>
     <div class="cards" id="kecilCards"></div>
   </section>
@@ -241,8 +266,8 @@ Ilustrasi benda khas Indonesia: dibuat khusus untuk Ayo Baca.
   <section class="screen" id="kecil">
     <div class="top">
       <button class="back" data-go="sikecil" aria-label="Kembali"></button>
-      <div class="spacer"></div><div class="title" id="kecilTitle" style="background:#FF9A62;box-shadow:0 5px 0 #EC7436">Si Kecil</div><div class="spacer"></div>
-      <div style="width:clamp(64px,13vmin,88px)"></div>
+      <div class="title" id="kecilTitle">Si Kecil</div><div class="spacer"></div>
+      <div class="tsp"></div>
     </div>
     <div class="kstage" id="kstage"></div>
   </section>
@@ -250,10 +275,12 @@ Ilustrasi benda khas Indonesia: dibuat khusus untuk Ayo Baca.
   <section class="screen" id="levels">
     <div class="top">
       <button class="back" data-go="bermain" aria-label="Kembali"></button>
-      <div class="title pink" id="lvtitle">Game</div>
+      <div class="title" id="lvtitle">Game</div>
       <div class="spacer"></div>
       <div class="starpill" id="lvstars">⭐ 0/300</div>
+      <button class="gear" aria-label="Pengaturan"></button>
     </div>
+    <p class="lvins" id="lvins"></p>
     <div class="lvtabs" id="lvtabs"></div>
     <div class="levels" id="lvgrid"></div>
   </section>
@@ -262,7 +289,8 @@ Ilustrasi benda khas Indonesia: dibuat khusus untuk Ayo Baca.
     <div class="top">
       <button class="back" id="gback" aria-label="Kembali"></button>
       <div class="gtwrap">
-        <div class="title pink" id="gtitle">Level 1</div>
+        <div class="gname" id="gname"></div>
+        <div class="title" id="gtitle">Level 1</div>
         <div class="revpill" id="grev" hidden>🔁</div>
       </div>
       <div class="spacer"></div>
@@ -270,7 +298,9 @@ Ilustrasi benda khas Indonesia: dibuat khusus untuk Ayo Baca.
         <div class="dots" id="gdots"></div>
         <div class="hearts" id="ghearts"></div>
       </div>
+      <button class="gear" aria-label="Pengaturan"></button>
     </div>
+    <div class="ginst" id="ginst"><span class="gi">?</span><span class="gt" id="ginstT"></span><button class="gs" id="ginstS" aria-label="Dengarkan instruksi"></button></div>
     <div class="stage" id="stage"></div>
   </section>
 </div>
@@ -279,6 +309,8 @@ Ilustrasi benda khas Indonesia: dibuat khusus untuk Ayo Baca.
   <div class="ph"><span>Pilih</span><button class="x" id="gridx" aria-label="Tutup">✕</button></div>
   <div class="grid" id="gridbox"></div></div></div>
 
+<div id="subt" aria-live="polite"><div class="sb"></div></div>
+
 <div class="gfb" id="gfb"><div class="fbx"></div><div class="fbt"></div></div>
 
 <div class="overlay" id="endov"><div class="panel endp">
@@ -286,39 +318,83 @@ Ilustrasi benda khas Indonesia: dibuat khusus untuk Ayo Baca.
   <h2 id="endmsg">Hebat!</h2>
   <div class="newstk" id="endstk" hidden></div>
   <div class="endrow">
-    <button class="eb" style="--c:#4FB3FF;--d:#2B90DE" id="eAgain"><b>🔁</b>Ulangi</button>
-    <button class="eb" style="--c:#2EC4A6;--d:#1A9F86" id="eNext"><b>▶️</b>Lanjut</button>
-    <button class="eb" style="--c:#A47CFF;--d:#8257E6" id="eMap"><b>🗺️</b>Level</button>
+    <button class="eb" style="--c:#2F80ED;--d:#1F64C4" id="eAgain"><b>🔁</b>Ulangi</button>
+    <button class="eb" style="--c:#12A08C;--d:#0B8070" id="eNext"><b>▶️</b>Lanjut</button>
+    <button class="eb" style="--c:#7B5CF0;--d:#5E40D6" id="eMap"><b>🗺️</b>Level</button>
   </div></div></div>
 
 <div class="overlay" id="practov"><div class="panel endp">
   <div style="display:flex;width:100%;align-items:center"><h2 id="practmsg" style="flex:1">Ayo latihan!</h2><button class="x" id="practx" aria-label="Tutup">✕</button></div>
   <div class="endrow" id="practrow"></div></div></div>
 
-<div class="overlay" id="parentov"><div class="panel" style="max-width:600px">
-  <div class="ph"><span>🔓 Mode Orang Tua</span><button class="x" id="parentx" aria-label="Tutup">✕</button></div>
+<div class="overlay" id="parentov"><div class="panel setp">
+  <div class="ph"><button class="back" id="parentx" aria-label="Kembali"></button><span>Pengaturan</span></div>
   <div class="pbody">
-    <div class="setrow"><span>Tombol AUTO di Belajar</span><button class="tog" id="tExtra" aria-label="Tombol tambahan"></button></div>
-    <div class="setrow"><span>Suara lebih pelan</span><button class="tog" id="tSlow" aria-label="Suara pelan"></button></div>
-    <div class="setrow"><span>Pengingat istirahat (menit)</span><div class="seg" id="tBreak"></div></div>
-    <div class="setrow"><span>Bentuk huruf</span><div class="seg" id="tCase"></div></div>
-    <div class="setrow"><span>Mode Balita<small class="sub">Tanpa hati, tanpa kalah, level 1–25, pilihan jawaban lebih sedikit</small></span><button class="tog" id="tTod" aria-label="Mode Balita"></button></div>
-    <div class="setrow"><span>Rekam suara ayah/ibu<small class="sub">Tombol 🎙️ di halaman Belajar: rekam kata itu dengan suara sendiri (<b id="tRecN">0</b> rekaman)</small></span><span style="display:flex;gap:8px;align-items:center"><button class="danger" id="tRecDel">Hapus</button><button class="tog" id="tRec" aria-label="Rekam suara"></button></span></div>
-    <div class="setrow"><span>Tes Awal<small class="sub" id="tPlaceRes"></small><small class="sub">Dua belas soal baca dan hitung untuk mencari level yang pas. Hasilnya ditandai "Mulai di sini".</small></span><button class="puse" id="tPlace">Mulai tes</button></div>
-    <div class="setrow profrow"><span>Anak<small class="sub">Setiap anak punya bintang, stiker dan progres sendiri</small></span><div class="proflist" id="tProfs"></div></div>
-    <div class="setrow"><span>Nomor HP orang tua (untuk latihan di Jaga Diri)</span><input class="tin" id="tPhone" type="tel" inputmode="tel" autocomplete="off" placeholder="mis. 0812 3456 7890"></div>
-    <div class="setrow"><span>Alamat rumah (untuk latihan di Jaga Diri)</span><input class="tin" id="tAddr" type="text" autocomplete="off" placeholder="mis. Jalan Melati nomor lima, Surabaya"></div>
-    <div class="setrow"><span>Lembar kerja untuk dicetak<small class="sub">Dibuat dari level dan kesalahan anak ini: menebalkan huruf, suku kata, hitung, berhitung</small></span><button class="puse" id="tSheet">Buat lembar kerja</button></div>
-    <div class="rep" id="report"></div>
-    <div class="setrow"><span>Hapus semua bintang, stiker &amp; progres</span><button class="danger" id="tReset">Hapus</button></div>
-    <div class="setrow" style="font-size:15px;color:var(--ink2);font-weight:500">Gambar: Microsoft Fluent Emoji (lisensi MIT, © Microsoft Corporation) + ilustrasi khusus Ayo Baca.</div>
-    <div class="setrow" style="font-size:15px;color:var(--ink2);font-weight:500">Progres tersimpan di browser perangkat ini saja. Menghapus data browser akan menghapus progres.</div>
-    <div class="setrow" style="font-size:15px;color:var(--ink2);font-weight:500">Bisa dipakai tanpa internet setelah dibuka sekali dengan internet. Di HP: menu browser › "Tambahkan ke layar utama" supaya muncul seperti aplikasi.</div>
+    <h3 class="gh">Tampilan</h3>
+    <div class="grp">
+      <div class="setrow"><span>Tema<small class="sub">Otomatis mengikuti HP (terang atau gelap)</small></span><div class="seg" id="tTheme"></div></div>
+      <div class="setrow"><span>Subtitle<small class="sub">Tulisan dari setiap suara di bawah layar. Otomatis: menyala saat Mode Didampingi atau suara Indonesia belum ada</small></span><div class="seg" id="tSub"></div></div>
+      <div class="setrow"><span>Bentuk huruf</span><div class="seg" id="tCase"></div></div>
+    </div>
+    <h3 class="gh">Suara</h3>
+    <div class="grp">
+      <div class="setrow"><span>Suara Bahasa Indonesia<small class="sub" id="tVoiceRes"></small></span><span class="btns"><button class="puse" id="tVoiceTest">Tes suara</button><button class="puse alt" id="tGuide">Panduan</button></span></div>
+      <div class="setrow"><span>Suara lebih pelan</span><button class="tog" id="tSlow" aria-label="Suara pelan"></button></div>
+      <div class="setrow"><span>Rekam suara ayah/ibu<small class="sub">Tombol 🎙️ di halaman Belajar: rekam kata itu dengan suara sendiri (<b id="tRecN">0</b> rekaman)</small></span><span class="btns"><button class="danger" id="tRecDel">Hapus</button><button class="tog" id="tRec" aria-label="Rekam suara"></button></span></div>
+    </div>
+    <h3 class="gh">Anak &amp; mode</h3>
+    <div class="grp">
+      <div class="setrow"><span>Mode Didampingi<small class="sub">Untuk belajar bersama ayah/ibu: tombol pengaturan selalu ada, instruksi game tertulis, subtitle, ringkasan hari ini</small></span><button class="tog" id="tComp" aria-label="Mode Didampingi"></button></div>
+      <div class="setrow"><span>Mode Balita<small class="sub">Tanpa hati, tanpa kalah, level 1–25, pilihan jawaban lebih sedikit</small></span><button class="tog" id="tTod" aria-label="Mode Balita"></button></div>
+      <div class="setrow profrow"><span>Anak<small class="sub">Setiap anak punya bintang, stiker dan progres sendiri</small></span><div class="proflist" id="tProfs"></div></div>
+    </div>
+    <h3 class="gh">Belajar</h3>
+    <div class="grp">
+      <div class="setrow"><span>Pengingat istirahat (menit)</span><div class="seg" id="tBreak"></div></div>
+      <div class="setrow"><span>Tombol AUTO di Belajar<small class="sub">Halaman Belajar berpindah dan dibacakan sendiri</small></span><button class="tog" id="tExtra" aria-label="Tombol tambahan"></button></div>
+      <div class="setrow"><span>Tes Awal<small class="sub" id="tPlaceRes"></small><small class="sub">Dua belas soal baca dan hitung untuk mencari level yang pas. Hasilnya ditandai "Mulai di sini".</small></span><button class="puse" id="tPlace">Mulai tes</button></div>
+      <div class="setrow"><span>Lembar kerja untuk dicetak<small class="sub">Dibuat dari level dan kesalahan anak ini: menebalkan huruf, suku kata, hitung, berhitung</small></span><button class="puse" id="tSheet">Buat lembar kerja</button></div>
+    </div>
+    <h3 class="gh">Jaga Diri</h3>
+    <div class="grp">
+      <div class="setrow"><span>Nomor HP orang tua<small class="sub">Untuk latihan menghafal nomor</small></span><input class="tin" id="tPhone" type="tel" inputmode="tel" autocomplete="off" placeholder="mis. 0812 3456 7890"></div>
+      <div class="setrow"><span>Alamat rumah<small class="sub">Untuk latihan menghafal alamat</small></span><input class="tin" id="tAddr" type="text" autocomplete="off" placeholder="mis. Jalan Melati nomor lima, Surabaya"></div>
+    </div>
+    <h3 class="gh">Laporan</h3>
+    <div class="grp"><div class="rep" id="report"></div></div>
+    <h3 class="gh">Lainnya</h3>
+    <div class="grp">
+      <div class="setrow"><span>Hapus semua bintang, stiker &amp; progres anak ini</span><button class="danger" id="tReset">Hapus</button></div>
+      <div class="setrow info">Progres tersimpan di browser perangkat ini saja. Menghapus data browser akan menghapus progres.</div>
+      <div class="setrow info">Bisa dipakai tanpa internet setelah dibuka sekali dengan internet. Di HP: menu browser › "Tambahkan ke layar utama" supaya muncul seperti aplikasi.</div>
+      <div class="setrow info">Gambar: Microsoft Fluent Emoji (lisensi MIT, © Microsoft Corporation) + ilustrasi khusus Ayo Baca.</div>
+      <details class="setrow info credits" id="tCredits"><summary>Sumber gambar Buku Cerita</summary><div id="tCreditList"></div></details>
+    </div>
+  </div></div></div>
+
+<div class="overlay" id="voiceov"><div class="panel setp">
+  <div class="ph"><span>Panduan Suara</span><button class="x" id="voicex" aria-label="Tutup">✕</button></div>
+  <div class="pbody">
+    <div class="vstat" id="vstat"></div>
+    <div class="vbtns"><button class="puse" id="vTest">Tes suara</button><button class="puse alt" id="vRecheck">Cek ulang</button></div>
+    <p class="vnote">Aplikasi ini memakai suara (text-to-speech) yang sudah ada di perangkat. Unduh suaranya saat ada internet; sesudah itu bisa dipakai tanpa internet. Setelah memasang, tutup browser sampai benar-benar keluar, lalu buka lagi.</p>
+    <h3 class="gh">Pilih perangkat</h3>
+    <div class="vtabs" id="vtabs"></div>
+    <div class="grp vsteps" id="vsteps"></div>
+    <h3 class="gh">Masih bermasalah?</h3>
+    <div class="grp vfaq" id="vfaq"></div>
   </div></div></div>
 
 <div class="overlay" id="profov"><div class="panel profpanel">
   <div class="ph"><span>Siapa yang main?</span><button class="x" id="profx" aria-label="Tutup">✕</button></div>
-  <div class="profpick" id="profpick"></div>
+  <div class="pbody">
+    <div class="profpick" id="profpick"></div>
+    <h3 class="gh">Main bersama siapa?</h3>
+    <div class="modes">
+      <button class="mode" id="mSolo"><span class="mi">🧒</span><span class="mtx"><b>Main sendiri</b><small>Tampilan sederhana untuk anak. Pengaturan dikunci.</small></span><span class="rad"></span></button>
+      <button class="mode" id="mComp"><i></i><span class="mi">🤝</span><span class="mtx"><b>Didampingi ayah/ibu</b><small>Tekan tahan 2 detik. Tombol pengaturan selalu ada, instruksi game tertulis, subtitle menyala.</small></span><span class="rad"></span></button>
+    </div>
+  </div>
 </div></div>
 
 <div class="overlay" id="breakov"><div class="panel brk">
@@ -326,57 +402,63 @@ Ilustrasi benda khas Indonesia: dibuat khusus untuk Ayo Baca.
   <h2>Waktunya istirahat!</h2>
   <p>Istirahatkan mata, minum, dan bergerak sebentar ya.</p>
   <p id="brkcount"></p>
-  <button class="eb wide" style="--c:#2EC4A6;--d:#1A9F86" id="brkgo" hidden><b>▶️</b>Lanjut</button>
-  <button class="lock" id="brklock" aria-label="Orang tua: tekan tahan 3 detik untuk lanjut"><i></i>🔒</button>
+  <button class="eb wide" style="--c:#12A08C;--d:#0B8070" id="brkgo" hidden><b>▶️</b>Lanjut</button>
+  <button class="lock" id="brklock" aria-label="Orang tua: tekan tahan 3 detik untuk lanjut"><i></i><span class="lic"></span></button>
 </div></div>
 
-<script src="js/emoji-index.js?v=2026-10-21a"></script>
-<script src="js/helpers.js?v=2026-10-21a"></script>
-<script src="js/tts.js?v=2026-10-21a"></script>
-<script src="js/words.js?v=2026-10-21a"></script>
-<script src="js/learn.js?v=2026-10-21a"></script>
-<script src="js/parent.js?v=2026-10-21a"></script>
-<script src="js/profiles.js?v=2026-10-21a"></script>
-<script src="js/engine.js?v=2026-10-21a"></script>
-<script src="js/reading-games.js?v=2026-10-21a"></script>
-<script src="js/math.js?v=2026-10-21a"></script>
-<script src="js/math-learn.js?v=2026-10-21a"></script>
-<script src="js/parade.js?v=2026-10-21a"></script>
-<script src="js/phonics.js?v=2026-10-21a"></script>
-<script src="js/count-games.js?v=2026-10-21a"></script>
-<script src="js/memory.js?v=2026-10-21a"></script>
-<script src="js/number-games.js?v=2026-10-21a"></script>
-<script src="js/data/tulis.js?v=2026-10-21a"></script>
-<script src="js/writing.js?v=2026-10-21a"></script>
-<script src="js/data/cerita.js?v=2026-10-21a"></script>
-<script src="js/stories.js?v=2026-10-21a"></script>
-<script src="js/math-sd.js?v=2026-10-21a"></script>
-<script src="js/english.js?v=2026-10-21a"></script>
-<script src="js/voice.js?v=2026-10-21a"></script>
-<script src="js/placement.js?v=2026-10-21a"></script>
-<script src="js/worksheet.js?v=2026-10-21a"></script>
-<script src="js/science-data.js?v=2026-10-21a"></script>
-<script src="js/data/sains-hewan.js?v=2026-10-21a"></script>
-<script src="js/data/sains-tubuh.js?v=2026-10-21a"></script>
-<script src="js/data/sains-tumbuhan.js?v=2026-10-21a"></script>
-<script src="js/data/sains-benda.js?v=2026-10-21a"></script>
-<script src="js/data/sains-alam.js?v=2026-10-21a"></script>
-<script src="js/data/sains-langit.js?v=2026-10-21a"></script>
-<script src="js/science.js?v=2026-10-21a"></script>
-<script src="js/data/fakta-1.js?v=2026-10-21a"></script>
-<script src="js/data/fakta-2.js?v=2026-10-21a"></script>
-<script src="js/facts.js?v=2026-10-21a"></script>
-<script src="js/shapes.js?v=2026-10-21a"></script>
-<script src="js/data/eksperimen.js?v=2026-10-21a"></script>
-<script src="js/data/eksperimen-2.js?v=2026-10-21a"></script>
-<script src="js/data/eksperimen-3.js?v=2026-10-21a"></script>
-<script src="js/experiments.js?v=2026-10-21a"></script>
-<script src="js/data/jaga-diri.js?v=2026-10-21a"></script>
-<script src="js/data/perasaan.js?v=2026-10-21a"></script>
-<script src="js/data/kuis-tambahan.js?v=2026-10-21a"></script>
-<script src="js/safety.js?v=2026-10-21a"></script>
-<script src="js/daily.js?v=2026-10-21a"></script>
-<script src="js/toddler.js?v=2026-10-21a"></script>
-<script src="js/main.js?v=2026-10-21a"></script>
+<script src="js/emoji-index.js?v=2026-10-30d"></script>
+<script src="js/helpers.js?v=2026-10-30d"></script>
+<script src="js/tts.js?v=2026-10-30d"></script>
+<script src="js/words.js?v=2026-10-30d"></script>
+<script src="js/learn.js?v=2026-10-30d"></script>
+<script src="js/parent.js?v=2026-10-30d"></script>
+<script src="js/profiles.js?v=2026-10-30d"></script>
+<script src="js/ui.js?v=2026-10-30d"></script>
+<script src="js/engine.js?v=2026-10-30d"></script>
+<script src="js/reading-games.js?v=2026-10-30d"></script>
+<script src="js/math.js?v=2026-10-30d"></script>
+<script src="js/math-learn.js?v=2026-10-30d"></script>
+<script src="js/parade.js?v=2026-10-30d"></script>
+<script src="js/phonics.js?v=2026-10-30d"></script>
+<script src="js/count-games.js?v=2026-10-30d"></script>
+<script src="js/memory.js?v=2026-10-30d"></script>
+<script src="js/number-games.js?v=2026-10-30d"></script>
+<script src="js/data/tulis.js?v=2026-10-30d"></script>
+<script src="js/writing.js?v=2026-10-30d"></script>
+<script src="js/data/cerita.js?v=2026-10-30d"></script>
+<script src="js/data/dongeng-putri.js?v=2026-10-30d"></script>
+<script src="js/data/dongeng-dunia.js?v=2026-10-30d"></script>
+<script src="js/data/dongeng-dunia2.js?v=2026-10-30d"></script>
+<script src="js/data/dongeng-nusantara.js?v=2026-10-30d"></script>
+<script src="js/data/gambar-cerita.js?v=2026-10-30d"></script>
+<script src="js/stories.js?v=2026-10-30d"></script>
+<script src="js/math-sd.js?v=2026-10-30d"></script>
+<script src="js/english.js?v=2026-10-30d"></script>
+<script src="js/voice.js?v=2026-10-30d"></script>
+<script src="js/placement.js?v=2026-10-30d"></script>
+<script src="js/worksheet.js?v=2026-10-30d"></script>
+<script src="js/science-data.js?v=2026-10-30d"></script>
+<script src="js/data/sains-hewan.js?v=2026-10-30d"></script>
+<script src="js/data/sains-tubuh.js?v=2026-10-30d"></script>
+<script src="js/data/sains-tumbuhan.js?v=2026-10-30d"></script>
+<script src="js/data/sains-benda.js?v=2026-10-30d"></script>
+<script src="js/data/sains-alam.js?v=2026-10-30d"></script>
+<script src="js/data/sains-langit.js?v=2026-10-30d"></script>
+<script src="js/science.js?v=2026-10-30d"></script>
+<script src="js/data/fakta-1.js?v=2026-10-30d"></script>
+<script src="js/data/fakta-2.js?v=2026-10-30d"></script>
+<script src="js/facts.js?v=2026-10-30d"></script>
+<script src="js/shapes.js?v=2026-10-30d"></script>
+<script src="js/data/eksperimen.js?v=2026-10-30d"></script>
+<script src="js/data/eksperimen-2.js?v=2026-10-30d"></script>
+<script src="js/data/eksperimen-3.js?v=2026-10-30d"></script>
+<script src="js/experiments.js?v=2026-10-30d"></script>
+<script src="js/data/jaga-diri.js?v=2026-10-30d"></script>
+<script src="js/data/perasaan.js?v=2026-10-30d"></script>
+<script src="js/data/kuis-tambahan.js?v=2026-10-30d"></script>
+<script src="js/safety.js?v=2026-10-30d"></script>
+<script src="js/daily.js?v=2026-10-30d"></script>
+<script src="js/toddler.js?v=2026-10-30d"></script>
+<script src="js/main.js?v=2026-10-30d"></script>
 </body>
 </html>

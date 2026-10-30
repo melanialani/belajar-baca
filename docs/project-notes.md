@@ -47,10 +47,12 @@ tools/emoji_tool.py ← exports Fluent Emoji SVGs by code point (see its header)
 js/science.js       ← Sains: Warna/Hewan/Buah/Sayur stages, science category stages, Kuis Sains, Benar atau Salah (+ shapes/patterns pushed in by shapes.js)
 js/shapes.js        ← Bentuk & Pola: learn stages + Tebak Bentuk, Hitung Bentuk, Lanjutkan Pola
 js/daily.js         ← Latihan Hari Ini (10 mixed questions, streak)
-js/profiles.js      ← child profiles (switch, add, rename, delete) + Mode Balita switch
+js/profiles.js      ← child profiles (switch, add, rename, delete), "Siapa yang main?" (child + Main sendiri / Didampingi) + Mode Balita switch
+js/ui.js            ← theme (auto/light/dark), Mode Didampingi, subtitles (TTS.onCap), today summary, Panduan Suara (steps per phone brand + troubleshooting)
 js/data/tulis.js    ← stroke paths of a–z, A–Z, 0–9 for tracing
 js/writing.js       ← tracePad() (finger tracing), Menulis learn cards, Tulis Huruf + Dikte games
 js/data/cerita.js   ← 40 picture stories (5 levels) with questions
+js/data/dongeng-putri.js, dongeng-dunia.js, dongeng-dunia2.js, dongeng-nusantara.js ← bilingual tales (Indonesian + English) for the Buku Cerita menu
 js/stories.js       ← Buku Cerita (read-along, word highlight) + Baca Cerita game
 js/math-sd.js       ← SD counting: Perkalian, Pembagian, Ratusan & Ribuan, Jam, Uang, Pecahan (learn + games)
 js/english.js       ← English words (learn cards) + 4 games, English voice
@@ -77,6 +79,9 @@ assets/emoji/*.svg  ← 488 Fluent Emoji SVGs, one file each (name = hex code po
 - 2026-10-08: parent setting "Bentuk huruf" (abc / Abc / ABC) added on branch `feature/letter-case-setting`; default stays lowercase.
 - 2026-10-09: split index.html into css/js/assets files (branch `claude`, includes the letter-case setting); behavior verified identical against the single-file version.
 - 2026-10-09: emoji moved from one JSON to one SVG file per emoji, loaded on demand.
+- 2026-10-29: redesign (branch `claude-2njqzj`): new palette and design tokens, light/dark theme, soft shadows instead of 3D blocks, new home (child chip, greeting, tiles, daily banner), tinted cards and level tiles, grouped settings, Mode Didampingi, subtitles, Panduan Suara. Mockup: https://claude.ai/artifact/8bxYrwb9MkHjEGWKASWzmw. Voice steps checked against Xiaomi, Samsung and realme support pages (Oct 2026); vivo/OPPO paths vary, so the guide tells parents to search "text-to-speech" in Settings.
+- 2026-10-30: Buku Cerita on home (`#cerita`): 50 bilingual tales (12 Putri, 24 Cerita Dunia incl. two Maui legends behind Moana, 14 Cerita Rakyat) + the 40 short stories now also in English; ID/EN switch (`SET.slang`). Disney films and pictures are not copied (copyright); the public-domain source tales are told in our own words, softened for small children. 53 more Fluent emoji exported. Story pictures from the internet are not added yet: this environment blocks commons.wikimedia.org / upload.wikimedia.org; `storyArt()` already shows `assets/stories/<file>` when a page or tale has an image (4th page element / `img`), with the emoji as fallback.
+- 2026-10-30: story pictures added after Wikimedia was allowed: 68 pictures for 44 of the 50 tales (classic public-domain illustrations: Walter Crane, Arthur Rackham, Anne Anderson, Jessie Willcox Smith, Milo Winter, Edmund Dulac …; free photos of real places/animals for the Indonesian tales and the Maui legends). Every picture checked for small children (no nudity, nothing scary, no caricatures, no Disney). `tools/story_images.py` (Commons HTML pages, 2 s between requests; the API is rate limited here) keeps the lists `tools/story-images/<group>.json` + licence details `<group>.meta.json`; `build` writes `js/data/gambar-cerita.js` (STORY_IMG, STORY_CREDITS). Credits: short line on each tale cover, full list in Pengaturan › Lainnya. No picture yet: Putri Duyung (all old illustrations show nudity), Peter Pan, Anak Gembala dan Serigala, Musisi Kota Bremen, Ande-Ande Lumut, Batu Menangis.
 - 2026-10-09: game feedback reworked for all games: big praise + confetti then next question at once, big X on wrong, 5 hearts per level (0 → back to level list). Lengkapi Kata now says the word (+🔊 button).
 - 2026-10-09: break reminder fixed: 2-minute countdown uses real time (finishes while the screen is off), screen-off time no longer counts as screen time. Default reminder 15 → 30 min; saved 15 moved to 30 once (`SET.brkMig` marks it done).
 - 2026-10-09: CSS/JS links versioned with `?v=2026-10-09` so parents get matching new files without a hard refresh (GitHub Pages cache is ~10 min).

@@ -23,7 +23,7 @@ MATH_GAMES.push(
    api.solve(()=>{reset();foods.slice(0,n).forEach(f=>f.click());ok.click();});
    api.ans([numW(n)+' '+fname],()=>{reset();for(let i=0;i<n;i++){foods[i].classList.add('eat');tummy.append(h('span','',ico(fe)));}});
    const a=h('div','a');a.append(pile,ok);st.append(q,a);return say;}},
- {id:'mkilat',title:'Kilat Titik',c:'lilac',ins:'Lihat titiknya sebentar. Ada berapa?',art:'<span class="chip" style="color:#A47CFF">● ●<br>● ●</span><span class="br"></span>'+chips(['4']),
+ {id:'mkilat',title:'Kilat Titik',c:'lilac',ins:'Lihat titiknya sebentar. Ada berapa?',art:'<span class="chip" style="color:#7B5CF0">● ●<br>● ●</span><span class="br"></span>'+chips(['4']),
   fn(st,api,D){const max=bv(D,[5,6,8,10,10],[10,10,12,12,14,14,16]),n=takeNum(D,D.x?4:1,max),ms=bv(D,[2500,2000,1600,1300,1000],[1000,950,900,850,800,750,700])*(SET.slow?1.4:1);
    const box=dotsBox(n,D.x?4:D.b),q=h('div','q');let t=null;
    const flash=()=>{clearTimeout(t);box.classList.remove('hide');t=setTimeout(()=>{if(box.isConnected&&!G.done)box.classList.add('hide');},ms);};
