@@ -1,0 +1,12 @@
+{
+ "d-duckling": {"cover": "The_Ugly_Duckling_cropped.jpg", "pages": {"11": "Andersen_-_Canard_2.jpg"}},
+ "d-gingerbread": {"cover": "The_Gingerbread_Man.jpg", "pages": {"5": "For_the_children's_hour_p.68.png"}},
+ "d-tortoise": {"cover": "The_Tortoise_and_the_Hare_-_Project_Gutenberg_etext_19994.jpg"},
+ "d-lion-mouse": {"cover": "Frontispiece,_An_Argosy_of_Fables.jpg", "pages": {"10": "The_Lion_and_the_Mouse_-_Project_Gutenberg_etext_19994.jpg"}},
+ "d-ant": {"cover": "The_Ant_and_the_Grasshopper_-_Project_Gutenberg_etext_19994.jpg"},
+ "d-puss": {"cover": "Otto_Kubel_Der_gestiefelte_Kater_(cropped).jpg", "pages": {"2": "Walter_Crane-Cat02.jpg"}},
+ "d-elves": {"cover": "Otto_Ubbelohde_-_Die_Wichtelmänner.jpg"},
+ "d-emperor": {"cover": "Hey_Märchen_042.jpg", "pages": {"5": "Stories_from_Hans_Andersen_-_Edmund_Dulac_color_plate_at_page_209.jpg"}},
+ "d-fox-crow": {"cover": "For_the_children's_hour_p.103.png"},
+ "d-stonesoup": {"cover": "Stonesoup.png", "pages": {"9": "Cauldron_of_stone_soup.jpg"}}
+}
